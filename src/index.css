@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&display=swap');
+
+/* Motion Tokens & Smooth Transitions Scale */
+:root {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --color-btn-dark: #515357;
+  --color-btn-dark-hover: #3d3e42;
+  
+  --duration-fast: 250ms;
+  --duration-medium: 350ms;
+  --duration-slow: 500ms;
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.25, 0.64, 1);
+  --blur-small: 3px;
+}
+
+/* Scroll Reveal Entrance Animations */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(var(--blur-small));
+  transition: opacity 0.75s var(--ease-smooth-out),
+              transform 0.75s var(--ease-smooth-out),
+              filter 0.75s var(--ease-smooth-out);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+/* Stagger Delays */
+.stagger-1 { transition-delay: 0.08s; }
+.stagger-2 { transition-delay: 0.16s; }
+.stagger-3 { transition-delay: 0.24s; }
+.stagger-4 { transition-delay: 0.32s; }
+
+/* Smooth Accordion Expansion (transitions-dev #21) */
+.accordion-content-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s var(--ease-smooth-out);
+}
+
+.accordion-content-grid.is-open {
+  grid-template-rows: 1fr;
+}
+
+.accordion-content-inner {
+  overflow: hidden;
+}
+
+/* Smooth Button Click Scale Effect */
+.btn-buy:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: #090909;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Custom Typography Helper Classes */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Button Styling matching mypureskin.in.ua - Rounded Luxury Pill Style */
+.btn-buy {
+  background-color: var(--color-btn-dark);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 14px 38px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(30, 31, 31, 0.15);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.btn-buy:hover {
+  background-color: var(--color-btn-dark-hover);
+  box-shadow: 0 8px 22px rgba(30, 31, 31, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Slow Gentle Pulse for Slider Handle Arrows */
+@keyframes arrowLeft {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-4px); }
+}
+
+@keyframes arrowRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+@keyframes badgeLeftPulse {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-6px); }
+}
+
+@keyframes badgeRightPulse {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+.animate-arrow-left {
+  animation: arrowLeft 1.5s ease-in-out infinite;
+}
+
+.animate-arrow-right {
+  animation: arrowRight 1.5s ease-in-out infinite;
+}
+
+.animate-badge-left {
+  animation: badgeLeftPulse 1.8s ease-in-out infinite;
+}
+
+.animate-badge-right {
+  animation: badgeRightPulse 1.8s ease-in-out infinite;
+}
+
+/* ================= ANIMATED FLOATING ICONS ONLY ================= */
+@keyframes iconFloat1 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-3.5px) rotate(10deg); }
+}
+
+@keyframes iconFloat2 {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.12); }
+}
+
+@keyframes iconFloat3 {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+@keyframes iconFloat4 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4.5px); }
+}
+
+.animate-icon-1 { animation: iconFloat1 3s ease-in-out infinite; }
+.animate-icon-2 { animation: iconFloat2 2.6s ease-in-out infinite; }
+.animate-icon-3 { animation: iconFloat3 3.2s ease-in-out infinite; }
+.animate-icon-4 { animation: iconFloat4 2.4s ease-in-out infinite; }
