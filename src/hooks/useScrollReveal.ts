@@ -13,18 +13,33 @@ export const useScrollReveal = () => {
 
     const observerOptions: IntersectionObserverInit = {
       root: null,
-      rootMargin: '0px 0px -50px 0px',
-      threshold: 0.15
+      rootMargin: '0px 0px -20px 0px',
+      threshold: 0.05
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-    const elements = document.querySelectorAll('.reveal-on-scroll');
 
-    elements.forEach((el) => observer.observe(el));
+    const observeUnrevealedElements = () => {
+      const elements = document.querySelectorAll('.reveal-on-scroll:not(.is-revealed)');
+      elements.forEach((el) => observer.observe(el));
+    };
+
+    // Initial pass
+    observeUnrevealedElements();
+
+    // Watch for dynamically added or re-mounted React elements (e.g. quiz step navigation)
+    const mutationObserver = new MutationObserver(() => {
+      observeUnrevealedElements();
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
 
     return () => {
-      elements.forEach((el) => observer.unobserve(el));
       observer.disconnect();
+      mutationObserver.disconnect();
     };
   }, []);
 };

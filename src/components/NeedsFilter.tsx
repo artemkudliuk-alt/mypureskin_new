@@ -241,7 +241,7 @@ export const NeedsFilter: React.FC = () => {
               <div
                 key={tile.id}
                 onClick={() => handleSelectTile(tile.id)}
-                className={`quiz-tile-card reveal-on-scroll stagger-${index + 1}`}
+                className={`quiz-tile-card reveal-on-scroll is-revealed stagger-${index + 1}`}
                 style={{
                   position: 'relative',
                   height: '100%',
