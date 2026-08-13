@@ -1,93 +1,11 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import { B2BPartnerModal } from './B2BPartnerModal';
 
-const BENEFITS = [
-  {
-    id: 1,
-    icon: '/benefits-1.png',
-    title: '4,7/5 Задоволеність клієнтів',
-    text: 'Понад 96% наших клієнтів бачать видиме покращення та задоволені результатами.'
-  },
-  {
-    id: 2,
-    icon: '/benefits-2.png',
-    title: 'Swiss Made',
-    text: 'Бездоганна швейцарська якість, розроблена та виготовлена у Швейцарії.'
-  },
-  {
-    id: 3,
-    icon: '/benefits-3.png',
-    title: 'Клінічно підтверджено',
-    text: 'Формули розроблені за високими науковими стандартами та дослідженнями.'
-  },
-  {
-    id: 4,
-    icon: '/benefits-4.png',
-    title: 'Передова наука про шкіру',
-    text: 'Дослідження спираються на досягнення клітинної дерматології.'
-  }
-];
-
 export const HeroSlider: React.FC = () => {
-  const [sliderPos, setSliderPos] = useState<number>(50); // percentage 0 - 100
-  const [isDragging, setIsDragging] = useState<boolean>(false);
+  // activeSide: 'b2c' = left side 70%, right side 30% (Default on load)
+  // activeSide: 'b2b' = right side 70%, left side 30%
+  const [activeSide, setActiveSide] = useState<'b2c' | 'b2b'>('b2c');
   const [isB2BModalOpen, setIsB2BModalOpen] = useState<boolean>(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const updateSliderPosition = useCallback((clientX: number) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    let percentage = (x / rect.width) * 100;
-    if (percentage < 0) percentage = 0;
-    if (percentage > 100) percentage = 100;
-    setSliderPos(percentage);
-  }, []);
-
-  // Global window listeners when dragging is active for continuous smooth dragging
-  React.useEffect(() => {
-    if (!isDragging) return;
-
-    const handleWindowMouseMove = (e: MouseEvent) => {
-      e.preventDefault();
-      updateSliderPosition(e.clientX);
-    };
-
-    const handleWindowTouchMove = (e: TouchEvent) => {
-      if (e.touches.length > 0) {
-        updateSliderPosition(e.touches[0].clientX);
-      }
-    };
-
-    const handleWindowMouseUp = () => {
-      setIsDragging(false);
-    };
-
-    window.addEventListener('mousemove', handleWindowMouseMove);
-    window.addEventListener('mouseup', handleWindowMouseUp);
-    window.addEventListener('touchmove', handleWindowTouchMove);
-    window.addEventListener('touchend', handleWindowMouseUp);
-
-    return () => {
-      window.removeEventListener('mousemove', handleWindowMouseMove);
-      window.removeEventListener('mouseup', handleWindowMouseUp);
-      window.removeEventListener('touchmove', handleWindowTouchMove);
-      window.removeEventListener('touchend', handleWindowMouseUp);
-    };
-  }, [isDragging, updateSliderPosition]);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-    updateSliderPosition(e.clientX);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    if (e.touches.length > 0) {
-      updateSliderPosition(e.touches[0].clientX);
-    }
-  };
 
   const scrollToB2CQuiz = () => {
     const el = document.getElementById('needs-filter');
@@ -96,507 +14,489 @@ export const HeroSlider: React.FC = () => {
     }
   };
 
-  // ================= ATTACHED LOCKSTEP SHIFT CALCULATIONS =================
-  const leftShiftVw = sliderPos < 50 ? sliderPos - 50 : 0;
-  const rightShiftVw = sliderPos > 50 ? sliderPos - 50 : 0;
-
   return (
-    <>
-      <section
-      ref={containerRef}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleTouchStart}
+    <section
+      id="hero"
       style={{
         position: 'relative',
         width: '100%',
         height: 'calc(100vh - 88px)',
-        minHeight: '660px',
-        backgroundColor: '#000000',
+        minHeight: 'calc(100vh - 88px)',
         overflow: 'hidden',
-        cursor: isDragging ? 'ew-resize' : 'default',
-        userSelect: 'none',
-        WebkitUserSelect: 'none'
+        display: 'flex',
+        boxSizing: 'border-box',
+        backgroundColor: '#090909'
       }}
     >
-        {/* ================= LAYER 1 (B2C CIRCUIT - LEFT SIDE) ================= */}
+      {/* ========================================================================= */}
+      {/* LEFT COLUMN: B2C (PRIVATE CLIENTS) - 70% when active, 30% when inactive   */}
+      {/* ========================================================================= */}
+      <div
+        onClick={() => {
+          if (activeSide !== 'b2c') setActiveSide('b2c');
+        }}
+        style={{
+          position: 'relative',
+          width: activeSide === 'b2c' ? '70%' : '30%',
+          height: '100%',
+          transition: 'width 0.85s cubic-bezier(0.22, 1, 0.36, 1)',
+          overflow: 'hidden',
+          cursor: activeSide === 'b2c' ? 'default' : 'pointer'
+        }}
+      >
+        {/* Full Active Hero Background Video for B2C */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage: 'url(/banner_b2c.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            zIndex: 1
+            opacity: activeSide === 'b2c' ? 1 : 0,
+            transition: 'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1)',
+            pointerEvents: 'none',
+            overflow: 'hidden'
           }}
         >
-          {/* Light Overlay Gradient */}
-          <div
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(90deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.75) 45%, rgba(255,255,255,0.1) 80%)'
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center center'
             }}
-          />
+          >
+            <source src="/b2c_hero_video.mp4" type="video/mp4" />
+          </video>
+        </div>
 
-          {/* Layer 1 Content Container */}
+        {/* Soft Dark Gradient Overlay Under Text for Readability (B2C) */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to right, rgba(9, 9, 9, 0.82) 0%, rgba(9, 9, 9, 0.45) 50%, rgba(9, 9, 9, 0) 100%)',
+            opacity: activeSide === 'b2c' ? 1 : 0,
+            transition: 'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1)',
+            pointerEvents: 'none'
+          }}
+        />
+
+        {/* Active Hero Text & Buttons Content (Staggered Cinematic Entrance) */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            pointerEvents: activeSide === 'b2c' ? 'auto' : 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            padding: 'calc(88px + 3rem) 4.5rem 4.5rem 4.5rem',
+            boxSizing: 'border-box'
+          }}
+        >
           <div
             style={{
               position: 'relative',
               zIndex: 2,
-              height: '100%',
-              maxWidth: '1560px',
-              margin: '0 auto',
-              padding: '2.5rem 3.5rem 2rem 3.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between'
+              maxWidth: '680px',
+              textAlign: 'left',
+              marginTop: 'auto',
+              marginBottom: 'auto'
             }}
           >
-            {/* Top Main Text Area (B2C) */}
-            <div
-              style={{
-                maxWidth: '640px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                textAlign: 'left',
-                transform: `translateX(${leftShiftVw}vw)`,
-                transition: isDragging ? 'none' : 'transform 0.1s ease-out',
-                willChange: 'transform',
-                marginTop: 'auto',
-                marginBottom: '2rem'
-              }}
-            >
+            {/* Tag */}
+            <div className={`hero-fade-layer hero-stagger-1 ${activeSide === 'b2c' ? 'is-active' : ''}`}>
               <span
                 style={{
-                  fontSize: '13.5px',
-                  fontWeight: 700,
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  color: '#515357',
-                  marginBottom: '1rem',
                   display: 'inline-block',
-                  textAlign: 'left',
-                  backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                  padding: '4px 12px',
-                  borderRadius: '20px',
-                  border: '1px solid rgba(0, 0, 0, 0.06)'
+                  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                  color: '#090909',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  letterSpacing: '0.12em',
+                  padding: '7px 18px',
+                  borderRadius: '30px',
+                  marginBottom: '1.5rem',
+                  textTransform: 'uppercase',
+                  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.06)'
                 }}
               >
                 ДЛЯ ПРИВАТНИХ КЛІЄНТІВ
               </span>
+            </div>
 
+            {/* Headline */}
+            <div className={`hero-fade-layer hero-stagger-2 ${activeSide === 'b2c' ? 'is-active' : ''}`}>
               <h1
                 className="font-serif"
                 style={{
-                  fontSize: 'clamp(2.4rem, 4.2vw, 3.6rem)',
+                  fontSize: 'clamp(2.5rem, 4.4vw, 3.8rem)',
                   lineHeight: 1.12,
-                  color: '#000000',
+                  color: '#ffffff',
+                  fontWeight: 500,
                   marginBottom: '1.25rem',
                   letterSpacing: '0.01em',
-                  fontWeight: 500,
-                  textTransform: 'uppercase',
-                  textAlign: 'left'
+                  textShadow: '0 2px 10px rgba(0,0,0,0.6)'
                 }}
               >
                 ПЕРСОНАЛЬНИЙ АНТИВІКОВИЙ ДОГЛЯД ТА МОЛОДІСТЬ ШКІРИ
               </h1>
+            </div>
 
+            {/* Subtitle Paragraph */}
+            <div className={`hero-fade-layer hero-stagger-3 ${activeSide === 'b2c' ? 'is-active' : ''}`}>
               <p
                 style={{
-                  fontSize: 'clamp(1.05rem, 1.25vw, 1.2rem)',
-                  color: '#111111',
-                  lineHeight: 1.5,
-                  marginBottom: '2rem',
-                  fontWeight: 500,
-                  maxWidth: '520px',
-                  textAlign: 'left'
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '16.5px',
+                  lineHeight: 1.6,
+                  color: 'rgba(255, 255, 255, 0.92)',
+                  marginBottom: '2.25rem',
+                  fontWeight: 300,
+                  textShadow: '0 1px 4px rgba(0,0,0,0.5)'
                 }}
               >
                 Преміальна нутрицевтика зі Швейцарії для підтримки природної краси, пружності та внутрішнього здоров'я.
               </p>
-
-              <div style={{ display: 'flex', justifyContent: 'flex-start', width: '100%' }}>
-                <button onClick={scrollToB2CQuiz} className="btn-buy">
-                  ПІДБРАТИ ДОГЛЯД
-                </button>
-              </div>
             </div>
 
-            {/* Bottom 4 Compact Benefit Cards (Layer 1) */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '0.75rem',
-                width: '100%',
-                maxWidth: '1080px',
-                margin: 'auto auto 0 auto'
-              }}
-              className="benefit-cards-grid"
-            >
-              {BENEFITS.map((b) => (
-                <div
-                  key={b.id}
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    backdropFilter: 'blur(8px)',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.06)',
-                    padding: '10px 12px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    border: '1px solid rgba(0, 0, 0, 0.05)'
-                  }}
-                >
-                  <img
-                    src={b.icon}
-                    alt={b.title}
-                    className={`animate-icon-${b.id}`}
-                    style={{
-                      width: '22px',
-                      height: '22px',
-                      objectFit: 'contain',
-                      marginBottom: '6px'
-                    }}
-                  />
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '12.5px',
-                      fontWeight: 700,
-                      color: '#000000',
-                      marginBottom: '3px',
-                      lineHeight: 1.25
-                    }}
-                  >
-                    {b.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '10.5px',
-                      fontWeight: 400,
-                      color: '#4b5563',
-                      lineHeight: 1.35,
-                      margin: 0
-                    }}
-                  >
-                    {b.text}
-                  </p>
-                </div>
-              ))}
+            {/* CTA Button */}
+            <div className={`hero-fade-layer hero-stagger-4 ${activeSide === 'b2c' ? 'is-active' : ''}`}>
+              <button
+                onClick={scrollToB2CQuiz}
+                className="btn-buy"
+                style={{
+                  backgroundColor: '#515357',
+                  color: '#ffffff',
+                  borderRadius: '30px',
+                  padding: '16px 38px',
+                  fontSize: '13.5px',
+                  fontWeight: 700,
+                  letterSpacing: '0.04em'
+                }}
+              >
+                ПІДБРАТИ ДОГЛЯД <span className="btn-arrow">→</span>
+              </button>
             </div>
           </div>
         </div>
 
-        {/* ================= LAYER 2 (B2B CIRCUIT - RIGHT SIDE) ================= */}
+        {/* 30% Inactive Full-Bleed Preview Panel (Cinematic Smooth Entrance/Exit) */}
         <div
+          className={`hero-preview-layer ${activeSide === 'b2b' ? 'is-active' : ''}`}
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage: 'url(/banner_b2b.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            clipPath: `polygon(${sliderPos}% 0, 100% 0, 100% 100%, ${sliderPos}% 100%)`,
-            zIndex: 2,
-            transition: isDragging ? 'none' : 'clip-path 0.05s linear'
+            pointerEvents: activeSide === 'b2b' ? 'auto' : 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            padding: '3rem 2rem 7.5rem 2rem',
+            boxSizing: 'border-box',
+            textAlign: 'left'
           }}
         >
-          {/* Dark subtle contrast gradient */}
+          {/* Full-Bleed Background Image */}
+          <img
+            className="preview-img-target"
+            src="/b2c.jpeg"
+            alt="MyPureSkin B2C Client Preview"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center top'
+            }}
+          />
+
+          {/* Dark Overlay Tint for 30% Preview (Fades Out On Hover) */}
+          <div
+            className="preview-tint-target"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundColor: 'rgba(9, 9, 9, 0.45)',
+              pointerEvents: 'none'
+            }}
+          />
+
+          {/* Bottom Gradient Vignette for Crisp Contrast */}
           <div
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'linear-gradient(270deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0) 100%)'
+              background: 'linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%)',
+              pointerEvents: 'none'
             }}
           />
 
-          {/* Layer 2 Content Container */}
+          {/* Bottom Info Overlay (No Buttons, Clean 2 Lines) */}
+          <div style={{ position: 'relative', zIndex: 2 }}>
+            <h3
+              className="font-serif"
+              style={{
+                fontSize: '22px',
+                fontWeight: 500,
+                color: '#ffffff',
+                lineHeight: 1.25,
+                margin: 0,
+                textShadow: '0 2px 10px rgba(0,0,0,0.7)'
+              }}
+            >
+              Персональний<br />антивіковий догляд
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* ELEGANT SEPARATOR LINE                                                    */}
+      {/* ========================================================================= */}
+      <div
+        style={{
+          width: '2px',
+          height: '100%',
+          backgroundColor: 'rgba(255, 255, 255, 0.4)',
+          backdropFilter: 'blur(4px)',
+          zIndex: 10,
+          pointerEvents: 'none'
+        }}
+      />
+
+      {/* ========================================================================= */}
+      {/* RIGHT COLUMN: B2B (CLINICS & PHYSICIANS) - 70% when active, 30% inactive */}
+      {/* ========================================================================= */}
+      <div
+        onClick={() => {
+          if (activeSide !== 'b2b') setActiveSide('b2b');
+        }}
+        style={{
+          position: 'relative',
+          width: activeSide === 'b2b' ? '70%' : '30%',
+          height: '100%',
+          transition: 'width 0.85s cubic-bezier(0.22, 1, 0.36, 1)',
+          overflow: 'hidden',
+          cursor: activeSide === 'b2b' ? 'default' : 'pointer'
+        }}
+      >
+        {/* Full Active Hero Background Video for B2B */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            opacity: activeSide === 'b2b' ? 1 : 0,
+            transition: 'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1)',
+            pointerEvents: 'none',
+            overflow: 'hidden'
+          }}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center center'
+            }}
+          >
+            <source src="/b2b_hero_video_banner.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        {/* Soft Dark Gradient Overlay Under Text for Readability (B2B) */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to right, rgba(9, 9, 9, 0.85) 0%, rgba(9, 9, 9, 0.5) 50%, rgba(9, 9, 9, 0) 100%)',
+            opacity: activeSide === 'b2b' ? 1 : 0,
+            transition: 'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1)',
+            pointerEvents: 'none'
+          }}
+        />
+
+        {/* Active Hero Text & Buttons Content (Staggered Cinematic Entrance) */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            pointerEvents: activeSide === 'b2b' ? 'auto' : 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            padding: 'calc(88px + 3rem) 4.5rem 4.5rem 4.5rem',
+            boxSizing: 'border-box'
+          }}
+        >
           <div
             style={{
               position: 'relative',
-              zIndex: 3,
-              height: '100%',
-              maxWidth: '1560px',
-              margin: '0 auto',
-              padding: '2.5rem 3.5rem 2rem 3.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between'
+              zIndex: 2,
+              maxWidth: '680px',
+              textAlign: 'left',
+              marginTop: 'auto',
+              marginBottom: 'auto'
             }}
           >
-            {/* Top Main Text Area (B2B) */}
-            <div
-              style={{
-                maxWidth: '640px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-                textAlign: 'right',
-                transform: `translateX(${rightShiftVw}vw)`,
-                transition: isDragging ? 'none' : 'transform 0.1s ease-out',
-                willChange: 'transform',
-                marginLeft: 'auto',
-                marginTop: 'auto',
-                marginBottom: '2rem'
-              }}
-            >
+            {/* Tag */}
+            <div className={`hero-fade-layer hero-stagger-1 ${activeSide === 'b2b' ? 'is-active' : ''}`}>
               <span
                 style={{
-                  fontSize: '13.5px',
-                  fontWeight: 700,
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  color: '#ffffff',
-                  marginBottom: '1rem',
                   display: 'inline-block',
-                  textAlign: 'right',
-                  backgroundColor: 'rgba(124, 58, 237, 0.7)',
-                  padding: '4px 14px',
-                  borderRadius: '20px',
-                  backdropFilter: 'blur(6px)'
+                  backgroundColor: 'rgba(124, 58, 237, 0.85)',
+                  color: '#ffffff',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  letterSpacing: '0.12em',
+                  padding: '7px 18px',
+                  borderRadius: '30px',
+                  marginBottom: '1.5rem',
+                  textTransform: 'uppercase',
+                  boxShadow: '0 4px 14px rgba(124, 58, 237, 0.35)'
                 }}
               >
                 ДЛЯ КЛІНІК ТА ЛІКАРІВ-КОСМЕТОЛОГІВ
               </span>
+            </div>
 
+            {/* Headline */}
+            <div className={`hero-fade-layer hero-stagger-2 ${activeSide === 'b2b' ? 'is-active' : ''}`}>
               <h1
                 className="font-serif"
                 style={{
-                  fontSize: 'clamp(2.4rem, 4.2vw, 3.6rem)',
-                  lineHeight: 1.12,
+                  fontSize: 'clamp(2.3rem, 4.2vw, 3.6rem)',
+                  lineHeight: 1.15,
                   color: '#ffffff',
+                  fontWeight: 500,
                   marginBottom: '1.25rem',
                   letterSpacing: '0.01em',
-                  fontWeight: 500,
-                  textTransform: 'uppercase',
-                  textShadow: '0 2px 8px rgba(0,0,0,0.6)',
-                  textAlign: 'right'
+                  textShadow: '0 2px 10px rgba(0,0,0,0.6)'
                 }}
               >
-                ПРОФЕСІЙНІ НУТРИЦЕВТИЧНІ РІШЕННЯ ДЛЯ ЕСТЕТИЧНОЇ МЕДИЦИНИ
+                ВИ З КЛІЄНТАМИ ОБИРАЄТЕ ПЕРЕВІРЕНІ ЗАСОБИ ДЛЯ КРАСИ Й ЗДОРОВ'Я?
               </h1>
-
-              <p
-                style={{
-                  fontSize: 'clamp(1.05rem, 1.25vw, 1.2rem)',
-                  color: '#f3f4f6',
-                  lineHeight: 1.5,
-                  marginBottom: '2rem',
-                  fontWeight: 500,
-                  maxWidth: '520px',
-                  textShadow: '0 2px 4px rgba(0,0,0,0.5)',
-                  textAlign: 'right'
-                }}
-              >
-                Швейцарські клінічні протоколи відновлення для медичних центрів, естетичних клінік та лікарів-косметологів.
-              </p>
-
-              <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
-                <button
-                  onClick={() => setIsB2BModalOpen(true)}
-                  className="btn-buy"
-                  style={{
-                    backgroundColor: '#7c3aed',
-                    color: '#ffffff',
-                    borderRadius: '30px',
-                    boxShadow: '0 6px 20px rgba(124, 58, 237, 0.4)'
-                  }}
-                >
-                  УМОВИ СПІВПРАЦІ
-                </button>
-              </div>
             </div>
 
-            {/* Bottom 4 Compact Benefit Cards (Layer 2) */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '0.75rem',
-                width: '100%',
-                maxWidth: '1080px',
-                margin: 'auto auto 0 auto'
-              }}
-              className="benefit-cards-grid"
-            >
-              {BENEFITS.map((b) => (
-                <div
-                  key={b.id}
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    backdropFilter: 'blur(8px)',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.06)',
-                    padding: '10px 12px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    border: '1px solid rgba(0, 0, 0, 0.05)'
-                  }}
-                >
-                  <img
-                    src={b.icon}
-                    alt={b.title}
-                    className={`animate-icon-${b.id}`}
-                    style={{
-                      width: '22px',
-                      height: '22px',
-                      objectFit: 'contain',
-                      marginBottom: '6px'
-                    }}
-                  />
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '12.5px',
-                      fontWeight: 700,
-                      color: '#000000',
-                      marginBottom: '3px',
-                      lineHeight: 1.25
-                    }}
-                  >
-                    {b.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '10.5px',
-                      fontWeight: 400,
-                      color: '#4b5563',
-                      lineHeight: 1.35,
-                      margin: 0
-                    }}
-                  >
-                    {b.text}
-                  </p>
-                </div>
-              ))}
+            {/* Subtitle Paragraph */}
+            <div className={`hero-fade-layer hero-stagger-3 ${activeSide === 'b2b' ? 'is-active' : ''}`}>
+              <p
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '17px',
+                  lineHeight: 1.5,
+                  color: 'rgba(255, 255, 255, 0.95)',
+                  marginBottom: '1.75rem',
+                  fontWeight: 400,
+                  textShadow: '0 1px 4px rgba(0,0,0,0.5)'
+                }}
+              >
+                Приєднуйтесь до клубу професіоналів <strong style={{ fontWeight: 700 }}>MyPureSkin</strong>
+              </p>
+            </div>
+
+            {/* CTA Button */}
+            <div className={`hero-fade-layer hero-stagger-4 ${activeSide === 'b2b' ? 'is-active' : ''}`}>
+              <button
+                onClick={() => setIsB2BModalOpen(true)}
+                className="btn-buy"
+                style={{
+                  backgroundColor: '#7c3aed',
+                  color: '#ffffff',
+                  borderRadius: '30px',
+                  padding: '16px 38px',
+                  fontSize: '13.5px',
+                  fontWeight: 700,
+                  letterSpacing: '0.04em',
+                  boxShadow: '0 6px 20px rgba(124, 58, 237, 0.45)'
+                }}
+              >
+                ОТРИМАТИ ПРОФ ПРЕЗЕНТАЦІЮ
+              </button>
             </div>
           </div>
         </div>
 
-        {/* ================= VERTICAL DIVIDER LINE & HANDLE ================= */}
+        {/* 30% Inactive Full-Bleed Preview Panel (Cinematic Smooth Entrance/Exit) */}
         <div
+          className={`hero-preview-layer ${activeSide === 'b2c' ? 'is-active' : ''}`}
           style={{
             position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: `${sliderPos}%`,
-            transform: 'translateX(-50%)',
-            width: '3px',
-            backgroundColor: '#ffffff',
-            boxShadow: '0 0 16px rgba(0,0,0,0.5)',
-            zIndex: 10,
-            cursor: 'ew-resize',
-            pointerEvents: 'none'
+            inset: 0,
+            pointerEvents: activeSide === 'b2c' ? 'auto' : 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            padding: '3rem 2rem 7.5rem 2rem',
+            boxSizing: 'border-box',
+            textAlign: 'left'
           }}
         >
-          {/* Circular Handle with Circuit Indicators */}
+          {/* Full-Bleed Background Image */}
+          <img
+            className="preview-img-target"
+            src="/b2b.jpeg"
+            alt="MyPureSkin B2B Doctors Preview"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center top'
+            }}
+          />
+
+          {/* Dark Overlay Tint for 30% Preview (Fades Out On Hover) */}
+          <div
+            className="preview-tint-target"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundColor: 'rgba(9, 9, 9, 0.45)',
+              pointerEvents: 'none'
+            }}
+          />
+
+          {/* Bottom Gradient Vignette for Crisp Contrast */}
           <div
             style={{
               position: 'absolute',
-              top: '40%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: '56px',
-              height: '56px',
-              backgroundColor: '#ffffff',
-              borderRadius: '50%',
-              boxShadow: '0 4px 22px rgba(0, 0, 0, 0.4)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#000000',
-              fontWeight: 700,
-              fontSize: '18px',
-              pointerEvents: 'auto',
-              userSelect: 'none'
+              inset: 0,
+              background: 'linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.85) 100%)',
+              pointerEvents: 'none'
             }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M8 6L2 12L8 18"
-                stroke="#000000"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M16 6L22 12L16 18"
-                stroke="#000000"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          />
 
-            {/* Left Circuit Hint Badge */}
-            <div
-              className="animate-badge-left"
+          {/* Bottom Info Overlay (No Buttons, Clean 2 Lines) */}
+          <div style={{ position: 'relative', zIndex: 2 }}>
+            <h3
+              className="font-serif"
               style={{
-                position: 'absolute',
-                right: '64px',
-                whiteSpace: 'nowrap',
-                backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                fontSize: '22px',
+                fontWeight: 500,
                 color: '#ffffff',
-                backdropFilter: 'blur(8px)',
-                padding: '4px 10px',
-                borderRadius: '12px',
-                fontSize: '11px',
-                fontWeight: 600,
-                pointerEvents: 'none'
+                lineHeight: 1.25,
+                margin: 0,
+                textShadow: '0 2px 10px rgba(0,0,0,0.7)'
               }}
             >
-              ◄ Для клієнтів
-            </div>
-
-            {/* Right Circuit Hint Badge */}
-            <div
-              className="animate-badge-right"
-              style={{
-                position: 'absolute',
-                left: '64px',
-                whiteSpace: 'nowrap',
-                backgroundColor: 'rgba(124, 58, 237, 0.85)',
-                color: '#ffffff',
-                backdropFilter: 'blur(8px)',
-                padding: '4px 10px',
-                borderRadius: '12px',
-                fontSize: '11px',
-                fontWeight: 600,
-                pointerEvents: 'none'
-              }}
-            >
-              Для клінік ►
-            </div>
+              Приєднуйтесь до клубу<br />професіоналів MyPureSkin
+            </h3>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Responsive Grid Styles */}
-        <style>{`
-          @media (max-width: 1024px) {
-            .benefit-cards-grid {
-              grid-template-columns: repeat(2, 1fr) !important;
-            }
-          }
-          @media (max-width: 640px) {
-            .benefit-cards-grid {
-              grid-template-columns: 1fr !important;
-            }
-          }
-        `}</style>
-      </section>
-
-      {/* B2B Partner Contact Modal */}
-      <B2BPartnerModal
-        isOpen={isB2BModalOpen}
-        onClose={() => setIsB2BModalOpen(false)}
-      />
-    </>
+      {/* B2B Partner Inquiry Modal */}
+      {isB2BModalOpen && (
+        <B2BPartnerModal isOpen={isB2BModalOpen} onClose={() => setIsB2BModalOpen(false)} />
+      )}
+    </section>
   );
 };

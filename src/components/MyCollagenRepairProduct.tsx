@@ -101,95 +101,99 @@ export const MyCollagenRepairProduct: React.FC = () => {
         <span style={{ cursor: 'pointer' }}>Головна</span> / <span style={{ cursor: 'pointer' }}>Каталог</span> / <span style={{ color: '#090909', fontWeight: 600 }}>MyCollagenRepair</span>
       </div>
 
-      {/* Product Hero Section */}
-      <section style={{ maxWidth: '1440px', margin: '0 auto', padding: '2rem 2rem 4rem 2rem' }}>
+      {/* Product Fullscreen Video Hero Section */}
+      <section
+        style={{
+          position: 'relative',
+          width: '100%',
+          minHeight: '85vh',
+          backgroundColor: '#090909',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center'
+        }}
+      >
+        {/* Full Hero Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 1
+          }}
+        >
+          <source src="/Hero_screen_collagen.mp4" type="video/mp4" />
+        </video>
+
+        {/* Soft Dark Gradient Overlay on the Left for Legibility */}
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1.1fr 1fr',
-            gap: '4rem',
-            alignItems: 'start'
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '65%',
+            height: '100%',
+            background: 'linear-gradient(to right, rgba(9, 9, 9, 0.92) 0%, rgba(9, 9, 9, 0.75) 55%, rgba(9, 9, 9, 0) 100%)',
+            zIndex: 2,
+            pointerEvents: 'none'
           }}
-          className="product-hero-grid"
+        />
+
+        {/* Hero Overlay Content Container */}
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 3,
+            maxWidth: '1440px',
+            width: '100%',
+            margin: '0 auto',
+            padding: '3rem 2rem',
+            display: 'grid',
+            gridTemplateColumns: 'minmax(320px, 580px) 1fr',
+            gap: '3rem'
+          }}
         >
+          {/* Left Product Info Block */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', color: '#ffffff' }}>
 
-          {/* Left Gallery */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div
-              style={{
-                width: '100%',
-                aspectRatio: '1',
-                backgroundColor: '#f9fafb',
-                borderRadius: '20px',
-                border: '1px solid #f3f4f6',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                boxShadow: '0 8px 30px rgba(0,0,0,0.04)'
-              }}
-            >
-              <img
-                src={PRODUCT_IMAGES[selectedImg]}
-                alt="MyCollagenRepair Product"
-                style={{ width: '85%', height: '85%', objectFit: 'contain' }}
-              />
-            </div>
-
-            {/* Thumbnails */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
-              {PRODUCT_IMAGES.map((img, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => setSelectedImg(idx)}
-                  style={{
-                    aspectRatio: '1',
-                    borderRadius: '12px',
-                    border: selectedImg === idx ? '2px solid #000000' : '1px solid #e5e7eb',
-                    backgroundColor: '#ffffff',
-                    cursor: 'pointer',
-                    overflow: 'hidden',
-                    padding: '4px',
-                    transition: 'all 0.2s ease'
-                  }}
-                >
-                  <img src={img} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Product Info */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-
-            {/* Stock status & Rating */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            {/* Stock & Rating */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <span
                 style={{
-                  backgroundColor: '#ecfdf5',
-                  color: '#059669',
-                  padding: '4px 12px',
+                  backgroundColor: 'rgba(5, 150, 105, 0.25)',
+                  color: '#34d399',
+                  border: '1px solid rgba(52, 211, 153, 0.4)',
+                  padding: '4px 14px',
                   borderRadius: '20px',
                   fontSize: '13px',
-                  fontWeight: 600
+                  fontWeight: 600,
+                  backdropFilter: 'blur(8px)'
                 }}
               >
                 ● В наявності
               </span>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '14px', color: '#111827' }}>
-                <span style={{ color: '#f59e0b' }}>★★★★★</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#ffffff' }}>
+                <span style={{ color: '#fbbf24', textShadow: '0 0 8px rgba(251, 191, 36, 0.8)' }}>★★★★★</span>
                 <span style={{ fontWeight: 700 }}>5.0</span>
-                <span style={{ color: '#6b7280' }}>(28 відгуків)</span>
+                <span style={{ color: '#d1d5db' }}>(28 відгуків)</span>
               </div>
             </div>
 
             <h1
               className="font-serif"
               style={{
-                fontSize: 'clamp(2.2rem, 3.5vw, 3rem)',
-                lineHeight: 1.15,
-                color: '#090909',
-                letterSpacing: '-0.01em'
+                fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
+                lineHeight: 1.1,
+                color: '#ffffff',
+                letterSpacing: '-0.01em',
+                textShadow: '0 2px 20px rgba(0,0,0,0.5)'
               }}
             >
               MyCollagenRepair
@@ -199,55 +203,52 @@ export const MyCollagenRepairProduct: React.FC = () => {
               style={{
                 fontSize: '15.5px',
                 lineHeight: 1.6,
-                color: '#4b5563',
-                fontWeight: 400
+                color: '#e5e7eb',
+                fontWeight: 400,
+                maxWidth: '520px'
               }}
             >
               100% швейцарська натуральна формула, створена для відновлення колагену, уповільнення клітинного старіння та збереження біологічної молодості. MyCollagenRepair бореться з глікацією, підтримує мітохондріальну енергію та захищає від оксидативного стресу.
             </p>
 
             {/* Option Packs Selector */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
-              <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.25rem' }}>
+              <span style={{ fontSize: '13.5px', fontWeight: 600, color: '#d1d5db' }}>
                 Оберіть зручний варіант для себе:
               </span>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', maxWidth: '520px' }}>
                 {/* 1 Pack Option */}
                 <div
                   onClick={() => setSelectedOption(1)}
                   style={{
-                    padding: '16px',
-                    borderRadius: '12px',
-                    border: selectedOption === 1 ? '2px solid #000000' : '1px solid #e5e7eb',
-                    backgroundColor: selectedOption === 1 ? '#fafafa' : '#ffffff',
+                    padding: '14px 16px',
+                    borderRadius: '14px',
+                    border: selectedOption === 1 ? '2px solid #ffffff' : '1px solid rgba(255,255,255,0.2)',
+                    backgroundColor: selectedOption === 1 ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.06)',
+                    backdropFilter: 'blur(12px)',
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between'
+                    transition: 'all 0.2s ease'
                   }}
                 >
-                  <span style={{ fontSize: '15px', fontWeight: 600, color: '#090909' }}>1 упаковка</span>
-                  <span style={{ fontSize: '18px', fontWeight: 700, color: '#090909', marginTop: '8px' }}>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#ffffff' }}>1 упаковка</span>
+                  <span style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', display: 'block', marginTop: '4px' }}>
                     8 200 ₴
                   </span>
                 </div>
 
-                {/* 3 Packs Option (Save 10%) */}
+                {/* 3 Packs Option */}
                 <div
                   onClick={() => setSelectedOption(3)}
                   style={{
                     position: 'relative',
-                    padding: '16px',
-                    borderRadius: '12px',
-                    border: selectedOption === 3 ? '2px solid #000000' : '1px solid #e5e7eb',
-                    backgroundColor: selectedOption === 3 ? '#fafafa' : '#ffffff',
+                    padding: '14px 16px',
+                    borderRadius: '14px',
+                    border: selectedOption === 3 ? '2px solid #ffffff' : '1px solid rgba(255,255,255,0.2)',
+                    backgroundColor: selectedOption === 3 ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.06)',
+                    backdropFilter: 'blur(12px)',
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between'
+                    transition: 'all 0.2s ease'
                   }}
                 >
                   <span
@@ -255,22 +256,22 @@ export const MyCollagenRepairProduct: React.FC = () => {
                       position: 'absolute',
                       top: '-10px',
                       right: '12px',
-                      backgroundColor: '#515357',
-                      color: '#ffffff',
-                      fontSize: '11px',
-                      fontWeight: 700,
+                      backgroundColor: '#ffffff',
+                      color: '#090909',
+                      fontSize: '10.5px',
+                      fontWeight: 800,
                       padding: '2px 8px',
                       borderRadius: '10px'
                     }}
                   >
                     ЕКОНОМІЯ 10%
                   </span>
-                  <span style={{ fontSize: '15px', fontWeight: 600, color: '#090909' }}>3 упаковки</span>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#ffffff' }}>3 упаковки</span>
                   <div>
-                    <span style={{ fontSize: '18px', fontWeight: 700, color: '#090909' }}>
+                    <span style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', display: 'block', marginTop: '4px' }}>
                       22 140 ₴
                     </span>
-                    <span style={{ fontSize: '12px', color: '#6b7280', display: 'block' }}>
+                    <span style={{ fontSize: '11.5px', color: '#d1d5db' }}>
                       (7 380 ₴ / уп.)
                     </span>
                   </div>
@@ -278,50 +279,52 @@ export const MyCollagenRepairProduct: React.FC = () => {
               </div>
             </div>
 
-            {/* Price & Quantity & Action Button */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1rem' }}>
+            {/* Price & Actions */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '520px', marginTop: '0.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                {/* Quantity selector */}
                 <div
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    border: '1px solid #d1d5db',
-                    borderRadius: '8px',
-                    padding: '6px 12px',
-                    gap: '12px'
+                    border: '1px solid rgba(255,255,255,0.3)',
+                    borderRadius: '10px',
+                    padding: '6px 14px',
+                    gap: '14px',
+                    backgroundColor: 'rgba(255,255,255,0.1)',
+                    backdropFilter: 'blur(10px)'
                   }}
                 >
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    style={{ border: 'none', background: 'none', fontSize: '18px', cursor: 'pointer', fontWeight: 700 }}
+                    style={{ border: 'none', background: 'none', fontSize: '18px', cursor: 'pointer', fontWeight: 700, color: '#ffffff' }}
                   >
                     -
                   </button>
-                  <span style={{ fontSize: '16px', fontWeight: 600 }}>{quantity}</span>
+                  <span style={{ fontSize: '16px', fontWeight: 600, color: '#ffffff' }}>{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    style={{ border: 'none', background: 'none', fontSize: '18px', cursor: 'pointer', fontWeight: 700 }}
+                    style={{ border: 'none', background: 'none', fontSize: '18px', cursor: 'pointer', fontWeight: 700, color: '#ffffff' }}
                   >
                     +
                   </button>
                 </div>
 
-                {/* Total Computed Price */}
-                <div style={{ fontSize: '26px', fontWeight: 700, color: '#090909' }}>
+                <div style={{ fontSize: '26px', fontWeight: 700, color: '#ffffff' }}>
                   {(currentPrice * quantity).toLocaleString('uk-UA')} ₴
                 </div>
               </div>
 
-              {/* Buy Buttons */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.75rem' }}>
                 <button
                   className="btn-buy"
                   style={{
-                    width: '100%',
                     padding: '16px',
-                    fontSize: '16px',
-                    backgroundColor: '#090909'
+                    fontSize: '15px',
+                    backgroundColor: '#ffffff',
+                    color: '#090909',
+                    fontWeight: 700,
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 25px rgba(255,255,255,0.2)'
                   }}
                 >
                   ДОДАТИ В КОШИК
@@ -330,16 +333,47 @@ export const MyCollagenRepairProduct: React.FC = () => {
                 <button
                   className="btn-buy"
                   style={{
-                    width: '100%',
-                    padding: '14px',
-                    fontSize: '15px',
-                    backgroundColor: '#ffffff',
-                    color: '#090909',
-                    border: '1px solid #090909'
+                    padding: '16px',
+                    fontSize: '14px',
+                    backgroundColor: 'rgba(255,255,255,0.12)',
+                    color: '#ffffff',
+                    border: '1px solid rgba(255,255,255,0.4)',
+                    backdropFilter: 'blur(10px)',
+                    fontWeight: 600,
+                    borderRadius: '12px'
                   }}
                 >
                   КУПИТИ В 1 КЛІК
                 </button>
+              </div>
+            </div>
+
+            {/* Product Photo Gallery Thumbnails (At the Bottom of Left Content) */}
+            <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span style={{ fontSize: '12.5px', color: '#9ca3af', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                Галерея продукту:
+              </span>
+              <div style={{ display: 'flex', gap: '0.75rem' }}>
+                {PRODUCT_IMAGES.map((img, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => setSelectedImg(idx)}
+                    style={{
+                      width: '64px',
+                      height: '64px',
+                      borderRadius: '12px',
+                      border: selectedImg === idx ? '2px solid #ffffff' : '1px solid rgba(255,255,255,0.25)',
+                      backgroundColor: 'rgba(255,255,255,0.95)',
+                      cursor: 'pointer',
+                      overflow: 'hidden',
+                      padding: '4px',
+                      transition: 'all 0.2s ease',
+                      boxShadow: selectedImg === idx ? '0 0 15px rgba(255,255,255,0.5)' : 'none'
+                    }}
+                  >
+                    <img src={img} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -467,7 +501,7 @@ export const MyCollagenRepairProduct: React.FC = () => {
                   border: '1px solid rgba(0,0,0,0.04)'
                 }}
               >
-                <div style={{ color: '#f59e0b', fontSize: '16px' }}>★★★★★</div>
+                <div style={{ color: '#fbbf24', fontSize: '16px', textShadow: '0 0 6px rgba(251, 191, 36, 0.6)' }}>★★★★★</div>
                 <p style={{ fontSize: '14.5px', color: '#374151', lineHeight: 1.6, flexGrow: 1 }}>
                   “{rev.text}”
                 </p>

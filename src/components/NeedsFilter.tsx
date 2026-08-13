@@ -1,49 +1,171 @@
 import React, { useState } from 'react';
 
-interface CategoryTile {
+interface SubCategory {
   id: string;
   title: string;
   subtext: string;
   image: string;
-  tags: string[];
 }
 
-const CATEGORY_TILES: CategoryTile[] = [
+interface MacroCategory {
+  id: string;
+  title: string;
+  subtext: string;
+  image: string;
+  subCategories: SubCategory[];
+}
+
+// 15 Exact Categories mapped directly from the official website screenshot
+const MACRO_CATEGORIES: MacroCategory[] = [
   {
     id: 'face_neck',
     title: 'Обличчя та шия',
-    subtext: 'Зморшки, пружність, сяйво та глікація',
-    image: '/quiz_face_neck.jpg',
-    tags: ['Зморшки та ознаки старіння', 'Зволоження та сяйво', 'Старіння та глікація']
+    subtext: 'Зморшки, пружність, сяйво та анти-глікація',
+    image: '/quiz_face_creative.jpg',
+    subCategories: [
+      {
+        id: 'face_wrinkles',
+        title: 'Зморшки та ознаки старіння',
+        subtext: 'Розгладження мімічних зморшок та відновлення овалу обличчя',
+        image: '/sub_face_wrinkles.jpg'
+      },
+      {
+        id: 'face_glow',
+        title: 'Зволоження та сяйво',
+        subtext: 'Глибоке зволоження гиалуроновою кислотою та усунення тьмяності',
+        image: '/sub_face_glow.jpg'
+      },
+      {
+        id: 'face_glycation',
+        title: 'Старіння та глікація',
+        subtext: 'Захист волокон колагену від цукрового руйнування та втрати пружності',
+        image: '/sub_face_glycation.jpg'
+      },
+      {
+        id: 'face_stress',
+        title: 'Зменшення оксидативного стресу',
+        subtext: 'Антиоксидантний захист клітин від вільних радикалів та екології',
+        image: '/sub_face_stress.jpg'
+      }
+    ]
   },
   {
     id: 'skin_hair',
     title: 'Шкіра, волосся та нігті',
     subtext: 'Регенерація, дерматологічний догляд та УФ-захист',
-    image: '/quiz_skin_hair.jpg',
-    tags: ['Клітинна регенерація', 'Шкіра, волосся, нігті', 'Акне та дерматологія', 'УФ-захист']
+    image: '/quiz_hair_creative.jpg',
+    subCategories: [
+      {
+        id: 'skin_regen',
+        title: 'Клітинна регенерація',
+        subtext: 'Прискорене відновлення епідермісу та стимуляція власного колагену',
+        image: '/sub_skin_regen.jpg'
+      },
+      {
+        id: 'hair_nails',
+        title: 'Шкіра, волосся, нігті',
+        subtext: 'Формула з біотином, цинком та біодоступними пептидами для сили',
+        image: '/sub_hair_nails.jpg'
+      },
+      {
+        id: 'dermo_acne',
+        title: 'Акне та дерматологія',
+        subtext: 'Зменшення запалень, загоєння постакне та нормалізація себуму',
+        image: '/sub_dermo_acne.jpg'
+      },
+      {
+        id: 'dermo_uv',
+        title: 'УФ-захист',
+        subtext: 'Захист клітин від сонячного випромінювання та пігментації',
+        image: '/sub_dermo_uv.jpg'
+      }
+    ]
   },
   {
     id: 'body_slimming',
     title: 'Тіло та стрункість',
     subtext: 'Схуднення, тонус м’язів та зменшення целюліту',
-    image: '/quiz_body_slimming.jpg',
-    tags: ['Схуднення', 'Зменшення целюліту', "Відновлення м'язів"]
+    image: '/quiz_body_creative.jpg',
+    subCategories: [
+      {
+        id: 'body_weight',
+        title: 'Схуднення',
+        subtext: 'Активація метаболізму, спалення жирових відкладень та енергія',
+        image: '/sub_body_weight.jpg'
+      },
+      {
+        id: 'body_cellulite',
+        title: 'Зменшення целюліту',
+        subtext: 'Виведення зайвої рідини, разгладження рельєфу та лімфодренаж',
+        image: '/sub_body_cellulite.jpg'
+      },
+      {
+        id: 'body_muscle',
+        title: 'Відновлення м’язів',
+        subtext: 'Підтримка м’язового корсета під час тренувань та схуднення',
+        image: '/sub_body_muscle.jpg'
+      }
+    ]
   },
   {
     id: 'detox_balance',
     title: 'Детокс та самопочуття',
     subtext: 'Внутрішня рівновага, суглоби та травлення',
     image: '/quiz_detox_balance.jpg',
-    tags: ['Детокс та самопочуття', 'Покращення травлення', 'Суглоби', 'Менопауза та гормональний баланс']
+    subCategories: [
+      {
+        id: 'detox_general',
+        title: 'Детокс та самопочуття',
+        subtext: 'Очищення від токсинів з розторопшею та антиоксидантами',
+        image: '/sub_detox_general.jpg'
+      },
+      {
+        id: 'detox_digestion',
+        title: 'Покращення травлення',
+        subtext: 'Підтримка здорової флори кишечника та засвоєння нутрієнтів',
+        image: '/sub_detox_digestion.jpg'
+      },
+      {
+        id: 'detox_joints',
+        title: 'Суглоби',
+        subtext: 'Гнучкість суглобів, відновлення хрящової тканини та зв’язок',
+        image: '/sub_detox_joints.jpg'
+      },
+      {
+        id: 'detox_hormones',
+        title: 'Менопауза та гормональний баланс',
+        subtext: 'Комфортний гормональний фон, підтримка шкіри та суглобів в період змін',
+        image: '/sub_detox_hormones.jpg'
+      }
+    ]
   }
 ];
 
-const AGE_GROUPS = [
-  { id: 'under30', label: 'До 30 років', desc: 'Профілактика, зволоження та захист від оксидативного стресу' },
-  { id: '30_45', label: '30–45 років', desc: 'Перші ознаки старіння, стимуляція природного колагену' },
-  { id: '45_55', label: '45–55 років', desc: 'Глибока регенерація, гормональний баланс та пружність' },
-  { id: '55plus', label: '55+ років', desc: 'Максимальний ліфтинг, захист суглобів та клітинне відновлення' }
+const AGE_GROUPS_VISUAL = [
+  {
+    id: 'under30',
+    label: 'До 30 років',
+    subtext: 'Профілактика, зволоження та захист від оксидативного стресу',
+    image: '/age_under30.jpg'
+  },
+  {
+    id: '30_45',
+    label: '30–45 років',
+    subtext: 'Перші ознаки старіння, стимуляція природного колагену',
+    image: '/age_30_45.jpg'
+  },
+  {
+    id: '45_55',
+    label: '45–55 років',
+    subtext: 'Глибока регенерація, гормональний баланс та пружність',
+    image: '/age_45_55.jpg'
+  },
+  {
+    id: '55plus',
+    label: '55+ років',
+    subtext: 'Максимальний ліфтинг, захист суглобів та клітинне відновлення',
+    image: '/age_55plus.jpg'
+  }
 ];
 
 const PRODUCTS = [
@@ -52,61 +174,69 @@ const PRODUCTS = [
     title: 'MyCollagenLift',
     subtitle: 'Антивіковий колагеновий напій преміум-класу',
     image: 'https://mypureskin.in.ua/image/cache/catalog/products/MyCollagenLift-430x540.png',
-    matchedTileIds: ['face_neck', 'skin_hair']
+    matchedIds: ['face_neck', 'skin_hair', 'face_wrinkles', 'face_glow', 'face_stress', 'skin_regen']
   },
   {
     id: 'glow',
     title: 'MyCollagenGlow',
     subtitle: 'Формула для зволоження та природного сяйва',
     image: 'https://mypureskin.in.ua/image/cache/catalog/products/MyCollagenGlow-430x540.png',
-    matchedTileIds: ['skin_hair', 'face_neck']
+    matchedIds: ['skin_hair', 'face_neck', 'hair_nails', 'face_glow', 'dermo_acne', 'dermo_uv']
   },
   {
     id: 'repair',
     title: 'MyCollagenRepair',
-    subtitle: 'Детокс, відновлення м’язів та суглобів',
-    image: 'https://mypureskin.in.ua/image/cache/catalog/products/MyCollagenRepair-430x540.png',
-    matchedTileIds: ['detox_balance', 'skin_hair']
+    subtitle: 'Формула клітинного відновлення та антиоксидантного захисту',
+    image: '/card_1.jpg',
+    matchedIds: ['detox_balance', 'face_neck', 'face_glycation', 'detox_general', 'detox_joints', 'detox_hormones']
   },
   {
     id: 'contour',
     title: 'MyBodyContour',
-    subtitle: 'Формула для схуднення та зменшення целюліту',
+    subtitle: 'Формула для стрункості, тонусу та зменшення целюліту',
     image: 'https://mypureskin.in.ua/image/cache/catalog/products/MyBodyContour-430x540.png',
-    matchedTileIds: ['body_slimming', 'detox_balance']
+    matchedIds: ['body_slimming', 'body_weight', 'body_cellulite', 'body_muscle']
   }
 ];
 
 export const NeedsFilter: React.FC = () => {
   const [step, setStep] = useState<number>(1);
-  const [selectedTileId, setSelectedTileId] = useState<string>('');
+  const [selectedMacroId, setSelectedMacroId] = useState<string>('');
+  const [selectedSubId, setSelectedSubId] = useState<string>('');
   const [selectedAgeId, setSelectedAgeId] = useState<string>('');
 
-  const handleSelectTile = (tileId: string) => {
-    setSelectedTileId(tileId);
+  const activeMacro = MACRO_CATEGORIES.find((m) => m.id === selectedMacroId) || MACRO_CATEGORIES[0];
+
+  const handleSelectMacro = (id: string) => {
+    setSelectedMacroId(id);
+    setSelectedSubId('');
     setStep(2);
   };
 
-  const handleSelectAge = (ageId: string) => {
-    setSelectedAgeId(ageId);
+  const handleSelectSub = (id: string) => {
+    setSelectedSubId(id);
+    setStep(3);
   };
 
-  const handleFinishQuiz = () => {
-    if (selectedAgeId) {
-      setStep(3);
-    }
+  const handleSelectAge = (id: string) => {
+    setSelectedAgeId(id);
+    setStep(4);
   };
 
   const handleReset = () => {
     setStep(1);
-    setSelectedTileId('');
+    setSelectedMacroId('');
+    setSelectedSubId('');
     setSelectedAgeId('');
   };
 
-  // Filter matched products based on selected tile
-  const recommendedProducts = PRODUCTS.filter(
-    (p) => !selectedTileId || p.matchedTileIds.includes(selectedTileId)
-  );
+  const recommendedProducts = PRODUCTS.filter((p) => {
+    if (!selectedMacroId && !selectedSubId && !selectedAgeId) return true;
+    return (
+      (selectedMacroId && p.matchedIds.includes(selectedMacroId)) ||
+      (selectedSubId && p.matchedIds.includes(selectedSubId))
+    );
+  });
 
   return (
     <section
@@ -120,7 +250,7 @@ export const NeedsFilter: React.FC = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 'calc(88px + 2rem) 3.5rem 2.25rem 3.5rem',
+        padding: 'calc(88px + 1.75rem) 3.5rem 2rem 3.5rem',
         borderTop: '1px solid #eaeaea',
         borderBottom: '1px solid #eaeaea',
         scrollSnapAlign: 'start',
@@ -139,15 +269,15 @@ export const NeedsFilter: React.FC = () => {
           justifyContent: 'space-between'
         }}
       >
-        {/* Header Title Section (Inspired by Aristo Studio) */}
-        <div style={{ textAlign: 'center', marginBottom: '2.25rem' }} className="reveal-on-scroll">
+        {/* Header Title Section */}
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }} className="reveal-on-scroll is-revealed">
           <h2
             className="font-serif"
             style={{
               fontSize: 'clamp(2.2rem, 3.8vw, 3.2rem)',
               lineHeight: 1.15,
               color: '#090909',
-              marginBottom: '0.6rem',
+              marginBottom: '0.4rem',
               letterSpacing: '0.01em',
               fontWeight: 400
             }}
@@ -156,75 +286,100 @@ export const NeedsFilter: React.FC = () => {
           </h2>
           <p
             style={{
-              fontSize: '16px',
+              fontSize: '15.5px',
               fontWeight: 500,
               color: '#6b7280',
               letterSpacing: '0.04em'
             }}
           >
-            за 2 простих кроки
+            3 візуальних кроки для ідеального вибору (всі 15 напрямків)
           </p>
         </div>
 
-        {/* Step Indicator Pills */}
+        {/* 3-Step Indicator Pills */}
         <div
           style={{
             display: 'flex',
-            gap: '1.25rem',
+            gap: '1rem',
             width: '100%',
-            maxWidth: '680px',
-            marginBottom: '2.75rem'
+            maxWidth: '840px',
+            marginBottom: '2rem'
           }}
-          className="reveal-on-scroll stagger-1"
+          className="reveal-on-scroll is-revealed"
         >
           <div
             onClick={() => setStep(1)}
             style={{
               flex: 1,
-              padding: '14px 24px',
+              padding: '12px 18px',
               borderRadius: '12px',
               backgroundColor: step === 1 ? '#7c3aed' : '#f3e8ff',
               color: step === 1 ? '#ffffff' : '#6b21a8',
               fontWeight: 600,
-              fontSize: '15px',
+              fontSize: '14px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '8px',
+              gap: '6px',
               cursor: 'pointer',
               boxShadow: step === 1 ? '0 4px 14px rgba(124, 58, 237, 0.25)' : 'none',
               transition: 'all 0.25s ease'
             }}
           >
-            <span style={{ opacity: 0.8, fontSize: '13px', textTransform: 'uppercase' }}>Крок 1</span>
-            <span>Виберіть напрямок</span>
+            <span style={{ opacity: 0.8, fontSize: '12px', textTransform: 'uppercase' }}>Крок 1</span>
+            <span>Напрямок</span>
           </div>
 
           <div
+            onClick={() => selectedMacroId && setStep(2)}
             style={{
               flex: 1,
-              padding: '14px 24px',
+              padding: '12px 18px',
               borderRadius: '12px',
               backgroundColor: step === 2 ? '#7c3aed' : '#f3e8ff',
               color: step === 2 ? '#ffffff' : '#6b21a8',
               fontWeight: 600,
-              fontSize: '15px',
+              fontSize: '14px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '8px',
-              cursor: step > 1 ? 'pointer' : 'default',
+              gap: '6px',
+              cursor: selectedMacroId ? 'pointer' : 'default',
+              opacity: selectedMacroId ? 1 : 0.55,
               boxShadow: step === 2 ? '0 4px 14px rgba(124, 58, 237, 0.25)' : 'none',
-              opacity: step >= 2 ? 1 : 0.65,
               transition: 'all 0.25s ease'
             }}
           >
-            <span style={{ opacity: 0.8, fontSize: '13px', textTransform: 'uppercase' }}>Крок 2</span>
-            <span>Що вас цікавить</span>
+            <span style={{ opacity: 0.8, fontSize: '12px', textTransform: 'uppercase' }}>Крок 2</span>
+            <span>Потреба ({activeMacro.subCategories.length})</span>
+          </div>
+
+          <div
+            onClick={() => selectedSubId && setStep(3)}
+            style={{
+              flex: 1,
+              padding: '12px 18px',
+              borderRadius: '12px',
+              backgroundColor: step === 3 ? '#7c3aed' : '#f3e8ff',
+              color: step === 3 ? '#ffffff' : '#6b21a8',
+              fontWeight: 600,
+              fontSize: '14px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              cursor: selectedSubId ? 'pointer' : 'default',
+              opacity: selectedSubId ? 1 : 0.55,
+              boxShadow: step === 3 ? '0 4px 14px rgba(124, 58, 237, 0.25)' : 'none',
+              transition: 'all 0.25s ease'
+            }}
+          >
+            <span style={{ opacity: 0.8, fontSize: '12px', textTransform: 'uppercase' }}>Крок 3</span>
+            <span>Вік</span>
           </div>
         </div>
 
-        {/* ================= STEP 1: VISUAL TILES GRID ================= */}
+        {/* ================= STEP 1: 4 MACRO DIRECTION CREATIVE CARDS ================= */}
         {step === 1 && (
           <div
             style={{
@@ -237,15 +392,15 @@ export const NeedsFilter: React.FC = () => {
             }}
             className="animate-fade visual-tiles-grid"
           >
-            {CATEGORY_TILES.map((tile, index) => (
+            {MACRO_CATEGORIES.map((tile, index) => (
               <div
                 key={tile.id}
-                onClick={() => handleSelectTile(tile.id)}
+                onClick={() => handleSelectMacro(tile.id)}
                 className={`quiz-tile-card reveal-on-scroll is-revealed stagger-${index + 1}`}
                 style={{
                   position: 'relative',
                   height: '100%',
-                  minHeight: '440px',
+                  minHeight: '430px',
                   borderRadius: '24px',
                   overflow: 'hidden',
                   cursor: 'pointer',
@@ -257,14 +412,15 @@ export const NeedsFilter: React.FC = () => {
                   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               >
-                {/* Background Image with Overlay */}
-                <div
+                <img
+                  src={tile.image}
+                  alt={tile.title}
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    backgroundImage: `url(${tile.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
                     transition: 'transform 0.5s ease'
                   }}
                   className="quiz-tile-img"
@@ -277,7 +433,6 @@ export const NeedsFilter: React.FC = () => {
                   }}
                 />
 
-                {/* Top Content */}
                 <div style={{ position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <h3
                     style={{
@@ -310,7 +465,6 @@ export const NeedsFilter: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Bottom Subtext & Tags */}
                 <div style={{ position: 'relative', zIndex: 2 }}>
                   <p
                     style={{
@@ -329,226 +483,384 @@ export const NeedsFilter: React.FC = () => {
           </div>
         )}
 
-        {/* ================= STEP 2: AGE SELECTION VISUAL CARDS ================= */}
+        {/* ================= STEP 2: SUB-CATEGORY IMAGE CARDS (ALL 15 ORIGINAL ITEMS) ================= */}
         {step === 2 && (
-          <div style={{ width: '100%', maxWidth: '960px' }} className="animate-fade">
-            <h3
-              style={{
-                fontSize: '22px',
-                fontWeight: 700,
-                color: '#090909',
-                marginBottom: '1.75rem',
-                textAlign: 'center'
-              }}
-            >
-              Виберіть ваш віковий діапазон
-            </h3>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              flex: 1,
+              minHeight: 0
+            }}
+            className="animate-fade"
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+              <button
+                onClick={() => setStep(1)}
+                style={{
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  color: '#7c3aed',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                ← Назад до напрямків
+              </button>
+              <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#090909' }}>
+                Оберіть потребу: <span style={{ color: '#7c3aed' }}>{activeMacro.title}</span> ({activeMacro.subCategories.length} варіанти)
+              </h3>
+              <div style={{ width: '100px' }} />
+            </div>
 
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
+                gridTemplateColumns: `repeat(${activeMacro.subCategories.length}, 1fr)`,
                 gap: '1.25rem',
-                marginBottom: '2.5rem'
+                width: '100%',
+                flex: 1,
+                minHeight: 0
               }}
             >
-              {AGE_GROUPS.map((age) => {
-                const isSelected = selectedAgeId === age.id;
-                return (
-                  <div
-                    key={age.id}
-                    onClick={() => handleSelectAge(age.id)}
+              {activeMacro.subCategories.map((sub, index) => (
+                <div
+                  key={sub.id}
+                  onClick={() => handleSelectSub(sub.id)}
+                  className={`quiz-tile-card reveal-on-scroll is-revealed stagger-${index + 1}`}
+                  style={{
+                    position: 'relative',
+                    height: '100%',
+                    minHeight: '380px',
+                    borderRadius: '24px',
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.08)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    padding: '2rem 1.5rem',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
+                >
+                  <img
+                    src={sub.image}
+                    alt={sub.title}
                     style={{
-                      backgroundColor: isSelected ? '#ffffff' : '#ffffff',
-                      border: isSelected ? '2px solid #7c3aed' : '1px solid #e5e7eb',
-                      borderRadius: '16px',
-                      padding: '24px 20px',
-                      cursor: 'pointer',
-                      boxShadow: isSelected
-                        ? '0 8px 24px rgba(124, 58, 237, 0.2)'
-                        : '0 4px 12px rgba(0, 0, 0, 0.04)',
-                      transition: 'all 0.25s ease',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '8px'
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      transition: 'transform 0.5s ease'
                     }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: '18px', fontWeight: 700, color: '#090909' }}>
-                        {age.label}
-                      </span>
-                      <div
-                        style={{
-                          width: '22px',
-                          height: '22px',
-                          borderRadius: '50%',
-                          border: isSelected ? '6px solid #7c3aed' : '2px solid #d1d5db',
-                          backgroundColor: '#ffffff'
-                        }}
-                      />
+                    className="quiz-tile-img"
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.7) 100%)'
+                    }}
+                  />
+
+                  <div style={{ position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <h4
+                      style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '20px',
+                        fontWeight: 700,
+                        color: '#ffffff',
+                        lineHeight: 1.25,
+                        textShadow: '0 2px 6px rgba(0,0,0,0.4)'
+                      }}
+                    >
+                      {sub.title}
+                    </h4>
+                    <div
+                      style={{
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        backgroundColor: 'rgba(255, 255, 255, 0.25)',
+                        backdropFilter: 'blur(6px)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#ffffff',
+                        fontSize: '15px',
+                        fontWeight: 700
+                      }}
+                    >
+                      →
                     </div>
-                    <p style={{ fontSize: '13.5px', color: '#6b7280', lineHeight: 1.45 }}>
-                      {age.desc}
+                  </div>
+
+                  <div style={{ position: 'relative', zIndex: 2 }}>
+                    <p
+                      style={{
+                        fontSize: '13px',
+                        color: 'rgba(255, 255, 255, 0.95)',
+                        lineHeight: 1.4,
+                        fontWeight: 400,
+                        textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                      }}
+                    >
+                      {sub.subtext}
                     </p>
                   </div>
-                );
-              })}
-            </div>
-
-            {/* Action Buttons */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem' }}>
-              <button
-                onClick={() => setStep(1)}
-                className="btn-buy"
-                style={{
-                  backgroundColor: '#ffffff',
-                  color: '#333333',
-                  border: '1px solid #333333',
-                  padding: '14px 40px',
-                  borderRadius: '30px'
-                }}
-              >
-                НАЗАД
-              </button>
-
-              <button
-                onClick={handleFinishQuiz}
-                disabled={!selectedAgeId}
-                className="btn-buy"
-                style={{
-                  backgroundColor: '#7c3aed',
-                  color: '#ffffff',
-                  padding: '14px 40px',
-                  borderRadius: '30px',
-                  opacity: selectedAgeId ? 1 : 0.5,
-                  cursor: selectedAgeId ? 'pointer' : 'not-allowed',
-                  boxShadow: '0 4px 14px rgba(124, 58, 237, 0.3)'
-                }}
-              >
-                ОТРИМАТИ РЕКОМЕНДАЦІЮ
-              </button>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
-        {/* ================= STEP 3: RECOMMENDED PRODUCTS ================= */}
+        {/* ================= STEP 3: CREATIVE AGE GROUP CARDS ================= */}
         {step === 3 && (
-          <div style={{ width: '100%', maxWidth: '1180px' }} className="animate-fade">
-            <h3
-              style={{
-                fontSize: '24px',
-                fontWeight: 700,
-                color: '#090909',
-                marginBottom: '2rem',
-                textAlign: 'center'
-              }}
-            >
-              Ідеально підібрані формули для вас
-            </h3>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              flex: 1,
+              minHeight: 0
+            }}
+            className="animate-fade"
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+              <button
+                onClick={() => setStep(2)}
+                style={{
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  color: '#7c3aed',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                ← Назад до потреб
+              </button>
+              <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#090909' }}>
+                Оберіть ваш віковий діапазон
+              </h3>
+              <div style={{ width: '100px' }} />
+            </div>
 
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: `repeat(${Math.min(recommendedProducts.length, 4)}, 1fr)`,
-                gap: '1.5rem',
-                marginBottom: '3rem'
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gap: '1.25rem',
+                width: '100%',
+                flex: 1,
+                minHeight: 0
               }}
-              className="results-products-grid"
+            >
+              {AGE_GROUPS_VISUAL.map((age, index) => (
+                <div
+                  key={age.id}
+                  onClick={() => handleSelectAge(age.id)}
+                  className={`quiz-tile-card reveal-on-scroll is-revealed stagger-${index + 1}`}
+                  style={{
+                    position: 'relative',
+                    height: '100%',
+                    minHeight: '380px',
+                    borderRadius: '24px',
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.08)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    padding: '2rem 1.75rem',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
+                >
+                  <img
+                    src={age.image}
+                    alt={age.label}
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      transition: 'transform 0.5s ease'
+                    }}
+                    className="quiz-tile-img"
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.7) 100%)'
+                    }}
+                  />
+
+                  <div style={{ position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <h4
+                      style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '24px',
+                        fontWeight: 700,
+                        color: '#ffffff',
+                        lineHeight: 1.2,
+                        textShadow: '0 2px 6px rgba(0,0,0,0.4)'
+                      }}
+                    >
+                      {age.label}
+                    </h4>
+                    <div
+                      style={{
+                        width: '34px',
+                        height: '34px',
+                        borderRadius: '50%',
+                        backgroundColor: 'rgba(255, 255, 255, 0.25)',
+                        backdropFilter: 'blur(6px)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#ffffff',
+                        fontSize: '16px',
+                        fontWeight: 700
+                      }}
+                    >
+                      ✓
+                    </div>
+                  </div>
+
+                  <div style={{ position: 'relative', zIndex: 2 }}>
+                    <p
+                      style={{
+                        fontSize: '13.5px',
+                        color: 'rgba(255, 255, 255, 0.95)',
+                        lineHeight: 1.45,
+                        fontWeight: 400,
+                        textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                      }}
+                    >
+                      {age.subtext}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ================= STEP 4: RECOMMENDATION RESULT ================= */}
+        {step === 4 && (
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '1080px',
+              backgroundColor: '#ffffff',
+              borderRadius: '24px',
+              padding: '2.5rem',
+              boxShadow: '0 16px 40px rgba(0, 0, 0, 0.08)',
+              border: '1px solid #eaeaea',
+              textAlign: 'center'
+            }}
+            className="animate-fade"
+          >
+            <span
+              style={{
+                backgroundColor: '#f3e8ff',
+                color: '#7c3aed',
+                fontWeight: 700,
+                fontSize: '12px',
+                letterSpacing: '0.12em',
+                padding: '6px 16px',
+                borderRadius: '20px',
+                textTransform: 'uppercase',
+                marginBottom: '1rem',
+                display: 'inline-block'
+              }}
+            >
+              Персональний підбір завершено ✦
+            </span>
+
+            <h3 style={{ fontSize: '26px', fontWeight: 700, color: '#090909', marginBottom: '0.5rem' }}>
+              Ваша рекомендована формула MyPureSkin
+            </h3>
+
+            <p style={{ fontSize: '15px', color: '#6b7280', marginBottom: '2rem' }}>
+              Підібрано ідеальний нутрицевтичний комплекс для ваших потреб:
+            </p>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: `repeat(${recommendedProducts.length}, 1fr)`,
+                gap: '1.5rem',
+                marginBottom: '2rem'
+              }}
             >
               {recommendedProducts.map((prod) => (
                 <div
                   key={prod.id}
                   style={{
-                    backgroundColor: '#ffffff',
+                    border: '1px solid #f0f0f0',
                     borderRadius: '20px',
-                    padding: '24px 20px',
+                    padding: '1.5rem',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    textAlign: 'center',
-                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.06)',
-                    border: '1px solid rgba(0, 0, 0, 0.05)'
+                    backgroundColor: '#fafafa'
                   }}
                 >
-                  <div style={{ width: '100%', height: '210px', marginBottom: '16px', display: 'flex', justifyContent: 'center' }}>
-                    <img
-                      src={prod.image}
-                      alt={prod.title}
-                      style={{ height: '100%', objectFit: 'contain' }}
-                    />
-                  </div>
-
-                  <h4
-                    style={{
-                      fontSize: '18px',
-                      fontWeight: 700,
-                      color: '#090909',
-                      marginBottom: '8px'
-                    }}
-                  >
+                  <img
+                    src={prod.image}
+                    alt={prod.title}
+                    style={{ maxHeight: '180px', objectFit: 'contain', marginBottom: '1rem' }}
+                  />
+                  <h4 style={{ fontSize: '18px', fontWeight: 700, color: '#090909', marginBottom: '0.25rem' }}>
                     {prod.title}
                   </h4>
-
-                  <p
-                    style={{
-                      fontSize: '13px',
-                      color: '#6b7280',
-                      marginBottom: '1.5rem',
-                      lineHeight: 1.45,
-                      flexGrow: 1
-                    }}
-                  >
+                  <p style={{ fontSize: '13px', color: '#6b7280', marginBottom: '1rem', lineHeight: 1.4 }}>
                     {prod.subtitle}
                   </p>
-
                   <button
                     className="btn-buy"
                     style={{
-                      width: '100%',
-                      padding: '12px 20px',
-                      fontSize: '13.5px',
-                      backgroundColor: '#515357'
+                      backgroundColor: '#7c3aed',
+                      color: '#ffffff',
+                      borderRadius: '30px',
+                      padding: '10px 24px',
+                      fontSize: '13px'
                     }}
                   >
-                    ПЕРЕГЛЯНУТИ
+                    ПЕРЕГЛЯНУТИ <span className="btn-arrow">→</span>
                   </button>
                 </div>
               ))}
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <button
-                onClick={handleReset}
-                className="btn-buy"
-                style={{
-                  backgroundColor: '#ffffff',
-                  color: '#333333',
-                  border: '1px solid #333333',
-                  padding: '14px 44px'
-                }}
-              >
-                ПРОЙТИ ЗНОВУ
-              </button>
-            </div>
+            <button
+              onClick={handleReset}
+              className="btn-buy"
+              style={{
+                backgroundColor: '#ffffff',
+                color: '#333333',
+                border: '1px solid #333333',
+                padding: '14px 44px',
+                borderRadius: '30px'
+              }}
+            >
+              ПРОЙТИ ЗНОВУ ↻
+            </button>
           </div>
         )}
 
       </div>
 
-      {/* Hover Zoom & Responsive Grid CSS */}
+      {/* Hover Zoom CSS */}
       <style>{`
         .quiz-tile-card:hover .quiz-tile-img {
           transform: scale(1.06);
-        }
-        @media (max-width: 1080px) {
-          .visual-tiles-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
-        @media (max-width: 640px) {
-          .visual-tiles-grid {
-            grid-template-columns: 1fr !important;
-          }
         }
       `}</style>
     </section>
