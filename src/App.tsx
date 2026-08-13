@@ -4,6 +4,7 @@ import { HeroSlider } from './components/HeroSlider';
 import { NeedsFilter } from './components/NeedsFilter';
 import { ProductSection } from './components/ProductSection';
 import { ProductLineupSection } from './components/ProductLineupSection';
+import { ClinicalInfographicSection } from './components/ClinicalInfographicSection';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 export function App() {
@@ -26,11 +27,14 @@ export function App() {
         {/* Screen 2: Adapted Visual 2-Step Procedure Selector (Aristo Style) */}
         <NeedsFilter />
 
-        {/* Screen 3: Product Purchase Card Block (MyCollagenRepair Hero Section) */}
+        {/* Screen 3: 4-Product Lineup Grid cloned from mypureskin.in.ua */}
+        <ProductLineupSection />
+
+        {/* Screen 4: Product Purchase Card Block (MyCollagenRepair Hero Section) */}
         <ProductSection />
 
-        {/* Screen 4: 4-Product Lineup Grid cloned from mypureskin.in.ua */}
-        <ProductLineupSection />
+        {/* Screen 5: Interactive Clinical & 9-Ingredient Infographic Dashboard */}
+        <ClinicalInfographicSection />
       </main>
     </div>
   );

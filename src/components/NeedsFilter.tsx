@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
 
+const ArrowIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
+  <span className="btn-arrow">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="4" y1="12" x2="19" y2="12" />
+      <polyline points="13 6 19 12 13 18" />
+    </svg>
+  </span>
+);
+
 interface SubCategory {
   id: string;
   title: string;
@@ -833,7 +842,7 @@ export const NeedsFilter: React.FC = () => {
                       fontSize: '13px'
                     }}
                   >
-                    ПЕРЕГЛЯНУТИ <span className="btn-arrow">→</span>
+                    ПЕРЕГЛЯНУТИ <ArrowIcon />
                   </button>
                 </div>
               ))}

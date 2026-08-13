@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { B2BPartnerModal } from './B2BPartnerModal';
 
+const ArrowIcon: React.FC<{ size?: number; className?: string }> = ({ size = 14, className = 'btn-arrow' }) => (
+  <span className={className}>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="4" y1="12" x2="19" y2="12" />
+      <polyline points="13 6 19 12 13 18" />
+    </svg>
+  </span>
+);
+
 export const HeroSlider: React.FC = () => {
   // activeSide: 'b2c' = left side 70%, right side 30% (Default on load)
   // activeSide: 'b2b' = right side 70%, left side 30%
@@ -39,7 +48,7 @@ export const HeroSlider: React.FC = () => {
           position: 'relative',
           width: activeSide === 'b2c' ? '70%' : '30%',
           height: '100%',
-          transition: 'width 0.85s cubic-bezier(0.22, 1, 0.36, 1)',
+          transition: 'width 1.05s cubic-bezier(0.22, 1, 0.36, 1)',
           overflow: 'hidden',
           cursor: activeSide === 'b2c' ? 'default' : 'pointer'
         }}
@@ -50,7 +59,7 @@ export const HeroSlider: React.FC = () => {
             position: 'absolute',
             inset: 0,
             opacity: activeSide === 'b2c' ? 1 : 0,
-            transition: 'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1)',
+            transition: 'opacity 1.0s cubic-bezier(0.22, 1, 0.36, 1)',
             pointerEvents: 'none',
             overflow: 'hidden'
           }}
@@ -177,8 +186,63 @@ export const HeroSlider: React.FC = () => {
                   letterSpacing: '0.04em'
                 }}
               >
-                ПІДБРАТИ ДОГЛЯД <span className="btn-arrow">→</span>
+                ПІДБРАТИ ДОГЛЯД <ArrowIcon />
               </button>
+            </div>
+
+            {/* Minimalist 4 Feature Line Strip (No Frames, Clean Lines) */}
+            <div className={`hero-features-strip hero-fade-layer hero-stagger-4 ${activeSide === 'b2c' ? 'is-active' : ''}`}>
+              <div className="feature-line-item">
+                <div className="feature-icon-box">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="feature-title">4.7/5 Оцінка</div>
+                  <div className="feature-desc">96% задоволених</div>
+                </div>
+              </div>
+
+              <div className="feature-line-item">
+                <div className="feature-icon-box">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <line x1="12" y1="8" x2="12" y2="16" />
+                    <line x1="8" y1="12" x2="16" y2="12" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="feature-title">Swiss Made</div>
+                  <div className="feature-desc">Швейцарія</div>
+                </div>
+              </div>
+
+              <div className="feature-line-item">
+                <div className="feature-icon-box">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <polyline points="9 12 11 14 15 10" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="feature-title">Клінічно</div>
+                  <div className="feature-desc">Підтверджено</div>
+                </div>
+              </div>
+
+              <div className="feature-line-item">
+                <div className="feature-icon-box">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="feature-title">Науковий</div>
+                  <div className="feature-desc">Дерматопідхід</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -193,9 +257,10 @@ export const HeroSlider: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            padding: '3rem 2rem 7.5rem 2rem',
+            alignItems: 'center',
+            padding: '3rem 1.5rem 8.5rem 1.5rem',
             boxSizing: 'border-box',
-            textAlign: 'left'
+            textAlign: 'center'
           }}
         >
           {/* Full-Bleed Background Image */}
@@ -234,21 +299,28 @@ export const HeroSlider: React.FC = () => {
             }}
           />
 
-          {/* Bottom Info Overlay (No Buttons, Clean 2 Lines) */}
-          <div style={{ position: 'relative', zIndex: 2 }}>
-            <h3
-              className="font-serif"
-              style={{
-                fontSize: '22px',
-                fontWeight: 500,
-                color: '#ffffff',
-                lineHeight: 1.25,
-                margin: 0,
-                textShadow: '0 2px 10px rgba(0,0,0,0.7)'
-              }}
-            >
-              Персональний<br />антивіковий догляд
-            </h3>
+          {/* Bottom Info Overlay (Title & Button) */}
+          <div style={{ position: 'relative', zIndex: 2, width: '100%' }}>
+            <div className="preview-text-animated">
+              <h3
+                className="font-serif"
+                style={{
+                  fontSize: '22px',
+                  fontWeight: 500,
+                  color: '#ffffff',
+                  lineHeight: 1.3,
+                  margin: 0,
+                  textAlign: 'center',
+                  textShadow: '0 2px 14px rgba(0,0,0,0.85)',
+                  letterSpacing: '0.02em'
+                }}
+              >
+                Персональний<br />антивіковий догляд
+              </h3>
+              <div className="preview-click-badge">
+                <span className="pulse-dot">●</span> КАТАЛОГ <ArrowIcon className="badge-arrow" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -278,7 +350,7 @@ export const HeroSlider: React.FC = () => {
           position: 'relative',
           width: activeSide === 'b2b' ? '70%' : '30%',
           height: '100%',
-          transition: 'width 0.85s cubic-bezier(0.22, 1, 0.36, 1)',
+          transition: 'width 1.05s cubic-bezier(0.22, 1, 0.36, 1)',
           overflow: 'hidden',
           cursor: activeSide === 'b2b' ? 'default' : 'pointer'
         }}
@@ -289,7 +361,7 @@ export const HeroSlider: React.FC = () => {
             position: 'absolute',
             inset: 0,
             opacity: activeSide === 'b2b' ? 1 : 0,
-            transition: 'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1)',
+            transition: 'opacity 1.0s cubic-bezier(0.22, 1, 0.36, 1)',
             pointerEvents: 'none',
             overflow: 'hidden'
           }}
@@ -417,8 +489,62 @@ export const HeroSlider: React.FC = () => {
                   boxShadow: '0 6px 20px rgba(124, 58, 237, 0.45)'
                 }}
               >
-                ОТРИМАТИ ПРОФ ПРЕЗЕНТАЦІЮ
+                ОТРИМАТИ ПРОФ ПРЕЗЕНТАЦІЮ <ArrowIcon />
               </button>
+            </div>
+
+            {/* Minimalist 4 Feature Line Strip (No Frames, Clean Lines) */}
+            <div className={`hero-features-strip hero-fade-layer hero-stagger-4 ${activeSide === 'b2b' ? 'is-active' : ''}`}>
+              <div className="feature-line-item">
+                <div className="feature-icon-box">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="feature-title">Для клінік</div>
+                  <div className="feature-desc">Протоколи B2B</div>
+                </div>
+              </div>
+
+              <div className="feature-line-item">
+                <div className="feature-icon-box">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <line x1="12" y1="8" x2="12" y2="16" />
+                    <line x1="8" y1="12" x2="16" y2="12" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="feature-title">Swiss Made</div>
+                  <div className="feature-desc">Якість 100%</div>
+                </div>
+              </div>
+
+              <div className="feature-line-item">
+                <div className="feature-icon-box">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <polyline points="9 12 11 14 15 10" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="feature-title">Сертифікація</div>
+                  <div className="feature-desc">Клінічний тест</div>
+                </div>
+              </div>
+
+              <div className="feature-line-item">
+                <div className="feature-icon-box">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="feature-title">Клуб B2B</div>
+                  <div className="feature-desc">Умови та опт</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -433,9 +559,10 @@ export const HeroSlider: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            padding: '3rem 2rem 7.5rem 2rem',
+            alignItems: 'center',
+            padding: '3rem 1.5rem 8.5rem 1.5rem',
             boxSizing: 'border-box',
-            textAlign: 'left'
+            textAlign: 'center'
           }}
         >
           {/* Full-Bleed Background Image */}
@@ -474,21 +601,36 @@ export const HeroSlider: React.FC = () => {
             }}
           />
 
-          {/* Bottom Info Overlay (No Buttons, Clean 2 Lines) */}
-          <div style={{ position: 'relative', zIndex: 2 }}>
-            <h3
-              className="font-serif"
-              style={{
-                fontSize: '22px',
-                fontWeight: 500,
-                color: '#ffffff',
-                lineHeight: 1.25,
-                margin: 0,
-                textShadow: '0 2px 10px rgba(0,0,0,0.7)'
-              }}
-            >
-              Приєднуйтесь до клубу<br />професіоналів MyPureSkin
-            </h3>
+          {/* Very Top Tagline: EXCLUSIVE B2B PARTNERSHIP with Green Star */}
+          <div style={{ position: 'absolute', top: '2.5rem', left: 0, right: 0, textAlign: 'center', zIndex: 2 }}>
+            <span className="poster-tagline" style={{ color: 'rgba(255, 255, 255, 0.95)', textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}>
+              <span style={{ color: '#22c55e', fontSize: '13px', marginRight: '5px' }}>✦</span>
+              EXCLUSIVE B2B PARTNERSHIP
+            </span>
+          </div>
+
+          {/* Bottom Info Overlay (Title & Button at Bottom) */}
+          <div style={{ position: 'relative', zIndex: 2, width: '100%' }}>
+            <div className="preview-text-animated">
+              <h3
+                className="font-serif"
+                style={{
+                  fontSize: '22px',
+                  fontWeight: 500,
+                  color: '#ffffff',
+                  lineHeight: 1.3,
+                  margin: 0,
+                  textAlign: 'center',
+                  textShadow: '0 2px 14px rgba(0,0,0,0.85)',
+                  letterSpacing: '0.02em'
+                }}
+              >
+                Приєднуйтесь до клубу<br />професіоналів MyPureSkin
+              </h3>
+              <div className="preview-click-badge">
+                <span className="pulse-dot">●</span> ДЛЯ КЛІНІК ТА ЛІКАРІВ <ArrowIcon className="badge-arrow" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
