@@ -107,7 +107,7 @@ export const ProductSection: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<number>(1); // 1 or 3 packs
   const [quantity, setQuantity] = useState<number>(1);
   const [activeMediaIndex, setActiveMediaIndex] = useState<number>(0); // Default ALWAYS 0 (Video)
-  const [openAccordionId, setOpenAccordionId] = useState<string | null>('benefits');
+  const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
   const [isDescExpanded, setIsDescExpanded] = useState<boolean>(false);
 
   const priceSingle = 8200;
