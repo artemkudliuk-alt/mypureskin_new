@@ -186,6 +186,7 @@ export const OfficialLeafletModal: React.FC = () => {
           >
             {/* MODAL HEADER WITH CONTROLS */}
             <div
+              className="leaflet-modal-header"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -199,19 +200,20 @@ export const OfficialLeafletModal: React.FC = () => {
                 zIndex: 10
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div className="leaflet-modal-brand" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <SwissFlagIcon size={20} />
                 <span className="font-serif" style={{ fontSize: '1.35rem', fontWeight: 800 }}>
                   MyCollagenRepair<span style={{ color: '#D52B1E' }}>.</span>
                 </span>
-                <span style={{ fontSize: '11px', fontWeight: 800, backgroundColor: '#f4f4f5', padding: '4px 10px', borderRadius: '12px', color: '#52525b' }}>
+                <span className="leaflet-gmp-badge" style={{ fontSize: '11px', fontWeight: 800, backgroundColor: '#f4f4f5', padding: '4px 10px', borderRadius: '12px', color: '#52525b' }}>
                   GMP Certified Leaflet
                 </span>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div className="leaflet-modal-actions" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 {/* TRANSLATE TOGGLE BUTTON */}
                 <button
+                  className="leaflet-translate-btn"
                   onClick={() => setIsUkrainian(!isUkrainian)}
                   style={{
                     backgroundColor: isUkrainian ? '#090909' : '#fafafa',
@@ -234,6 +236,7 @@ export const OfficialLeafletModal: React.FC = () => {
 
                 {/* CLOSE BUTTON (TOP RIGHT CORNER) */}
                 <button
+                  className="leaflet-close-btn"
                   onClick={() => setIsOpen(false)}
                   style={{
                     backgroundColor: '#f4f4f5',
