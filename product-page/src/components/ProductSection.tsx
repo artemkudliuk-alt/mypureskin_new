@@ -449,65 +449,67 @@ export const ProductSection: React.FC = () => {
           className="product-details-scrollable"
         >
 
-          {/* ── TOP BLOCK: Badges + Title + Accordions ── */}
-          <div className="product-info-top" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {/* ── 1. Top Badges, Ratings & Product Headline ── */}
+          <div className="product-title-header" style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            {/* Top Badges & Ratings */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span
+                  style={{
+                    backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                    color: '#047857',
+                    border: '1px solid rgba(5, 150, 105, 0.3)',
+                    padding: '4px 12px',
+                    borderRadius: '20px',
+                    fontSize: '11.5px',
+                    fontWeight: 700
+                  }}
+                >
+                  ● В наявності
+                </span>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                    color: '#090909',
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
+                    padding: '5px 14px',
+                    borderRadius: '20px',
+                    fontSize: '13px',
+                    fontWeight: 700
+                  }}
+                >
+                  <SwissFlagIcon size={14} /> Swiss Made
+                </span>
+              </div>
 
-          {/* Top Badges & Ratings */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span
-                style={{
-                  backgroundColor: 'rgba(5, 150, 105, 0.1)',
-                  color: '#047857',
-                  border: '1px solid rgba(5, 150, 105, 0.3)',
-                  padding: '4px 12px',
-                  borderRadius: '20px',
-                  fontSize: '11.5px',
-                  fontWeight: 700
-                }}
-              >
-                ● В наявності
-              </span>
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                  color: '#090909',
-                  border: '1px solid rgba(0, 0, 0, 0.1)',
-                  padding: '5px 14px',
-                  borderRadius: '20px',
-                  fontSize: '13px',
-                  fontWeight: 700
-                }}
-              >
-                <SwissFlagIcon size={14} /> Swiss Made
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14.5px' }}>
+                <span style={{ color: '#f59e0b' }}>★★★★★</span>
+                <span style={{ fontWeight: 700, color: '#090909' }}>5.0</span>
+                <span style={{ color: '#71717a' }}>(28 відгуків)</span>
+              </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14.5px' }}>
-              <span style={{ color: '#f59e0b' }}>★★★★★</span>
-              <span style={{ fontWeight: 700, color: '#090909' }}>5.0</span>
-              <span style={{ color: '#71717a' }}>(28 відгуків)</span>
-            </div>
-          </div>
-
-          {/* Product Headline + Expandable Description */}
-          <div>
+            {/* Product Headline */}
             <h1
               className="font-serif"
               style={{
                 fontSize: '2.65rem',
                 fontWeight: 700,
                 color: '#090909',
-                margin: '0 0 0.5rem 0',
+                margin: '0',
                 lineHeight: 1.15,
                 letterSpacing: '-0.02em'
               }}
             >
               MyCollagenRepair
             </h1>
+          </div>
+
+          {/* ── 2. Expandable Description ── */}
+          <div className="product-desc-block">
             <p
               style={{
                 fontSize: '15px',
@@ -544,7 +546,7 @@ export const ProductSection: React.FC = () => {
             </button>
           </div>
 
-          {/* Expandable Product Specs & Accordions */}
+          {/* ── 3. Expandable Product Specs & Accordions ── */}
           <div className="product-accordions-grid" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', borderTop: '1px solid #e4e4e7', paddingTop: '1rem' }}>
             {ACCORDION_TABS.map((tab) => {
               const isOpen = openAccordionId === tab.id;
@@ -563,11 +565,10 @@ export const ProductSection: React.FC = () => {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
+                      padding: '0.45rem 0',
                       cursor: 'pointer',
-                      padding: '0.4rem 0',
-                      fontSize: '15px',
+                      fontSize: '14.5px',
                       fontWeight: 700,
-                      color: isOpen ? '#090909' : '#3f3f46',
                       transition: 'color 0.2s ease'
                     }}
                   >
@@ -616,8 +617,6 @@ export const ProductSection: React.FC = () => {
               );
             })}
           </div>
-
-          </div> {/* END product-info-top */}
 
           {/* ── BUY BLOCK: Pack selector + Qty + Buttons + Trust ── */}
           <div className="product-buy-bottom" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

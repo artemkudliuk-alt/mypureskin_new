@@ -1297,10 +1297,24 @@ svg, img {
     padding-bottom: 0 !important;
   }
 
-  /* ORDER 1 — Product info + accordions */
-  .product-info-top {
+  /* ORDER 1 — Top Header: Badges + Rating + Title */
+  .product-title-header {
     order: 1 !important;
-    gap: 0.8rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  .product-title-header h1 {
+    font-size: 1.55rem !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.01em !important;
+    margin: 0 !important;
+  }
+
+  .product-title-header > div:first-child span {
+    font-size: 10.5px !important;
+    padding: 3px 9px !important;
   }
 
   /* ORDER 2 — Gallery (left column div) */
@@ -1311,9 +1325,31 @@ svg, img {
     gap: 6px !important;
   }
 
-  /* ORDER 3 — Buy block */
-  .product-buy-bottom {
+  /* ORDER 3 — Description */
+  .product-desc-block {
     order: 3 !important;
+  }
+
+  .product-desc-block p {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+  }
+
+  /* ORDER 4 — Accordions: 2 columns × 3 rows on mobile */
+  .product-accordions-grid {
+    order: 4 !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0 0.65rem !important;
+    border-top: 1px solid #e4e4e7 !important;
+    padding-top: 0.75rem !important;
+    align-items: start !important;
+  }
+
+  /* ORDER 5 — Buy block */
+  .product-buy-bottom {
+    order: 5 !important;
     gap: 0.85rem !important;
   }
 
@@ -1375,35 +1411,10 @@ svg, img {
     height: 100% !important;
   }
 
-  /* ── Typography — compact ── */
-  .product-info-top {
-    gap: 0.85rem !important;
-  }
-
-  .product-info-top h1 {
-    font-size: 1.4rem !important;
-    line-height: 1.15 !important;
-    letter-spacing: -0.01em !important;
-    margin-bottom: 0.2rem !important;
-  }
-
-  /* Description — React controls line-clamp via inline style; CSS just sets font */
-  .product-info-top > div > p {
-    font-size: 12px !important;
-    line-height: 1.5 !important;
-    margin: 0 !important;
-  }
-
   /* Show the «Читати більше» toggle on mobile */
   .desc-toggle-btn {
     display: block !important;
     margin-top: 4px !important;
-  }
-
-  /* Badges compact */
-  .product-info-top > div:first-child span {
-    font-size: 10.5px !important;
-    padding: 3px 9px !important;
   }
 
   /* Accordion compact — fits 2-column grid */
