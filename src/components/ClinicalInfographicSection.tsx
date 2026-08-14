@@ -378,20 +378,7 @@ export const ClinicalInfographicSection: React.FC = () => {
                   {activeStage.subtitle}
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                  <span
-                    style={{
-                      backgroundColor: '#090909',
-                      color: '#ffffff',
-                      fontSize: '13px',
-                      fontWeight: 800,
-                      padding: '4px 12px',
-                      borderRadius: '8px',
-                      letterSpacing: '0.04em'
-                    }}
-                  >
-                    {activeStage.periodTag}
-                  </span>
+                <div>
                   <h3 className="font-serif" style={{ fontSize: '1.9rem', fontWeight: 800, color: '#090909', margin: 0, lineHeight: 1.25 }}>
                     {activeStage.title}
                   </h3>
