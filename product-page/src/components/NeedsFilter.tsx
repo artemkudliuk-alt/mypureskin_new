@@ -785,7 +785,6 @@ export const NeedsFilter: React.FC = () => {
         {/* ================= STEP 4: RECOMMENDATION RESULT ================= */}
         {step === 4 && (
           <div
-            className="animate-fade quiz-result-container"
             style={{
               width: '100%',
               maxWidth: '920px',
@@ -795,12 +794,11 @@ export const NeedsFilter: React.FC = () => {
               boxShadow: '0 16px 40px rgba(0, 0, 0, 0.08)',
               border: '1px solid #eaeaea',
               textAlign: 'center',
-              margin: '0 auto',
-              boxSizing: 'border-box'
+              margin: '0 auto'
             }}
+            className="animate-fade"
           >
             <span
-              className="quiz-result-badge"
               style={{
                 backgroundColor: '#f3e8ff',
                 color: '#7c3aed',
@@ -817,16 +815,15 @@ export const NeedsFilter: React.FC = () => {
               Персональний підбір завершено ✦
             </span>
 
-            <h3 className="quiz-result-title" style={{ fontSize: '22px', fontWeight: 700, color: '#090909', marginBottom: '0.35rem' }}>
+            <h3 style={{ fontSize: '22px', fontWeight: 700, color: '#090909', marginBottom: '0.35rem' }}>
               Ваша рекомендована формула MyPureSkin
             </h3>
 
-            <p className="quiz-result-subtitle" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '1.25rem' }}>
+            <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '1.25rem' }}>
               Підібрано ідеальний нутрицевтичний комплекс для ваших потреб:
             </p>
 
             <div
-              className="quiz-recommended-grid"
               style={{
                 display: 'grid',
                 gridTemplateColumns: `repeat(${recommendedProducts.length}, 1fr)`,
@@ -837,7 +834,6 @@ export const NeedsFilter: React.FC = () => {
               {recommendedProducts.map((prod) => (
                 <div
                   key={prod.id}
-                  className="quiz-recommended-card"
                   style={{
                     border: '1px solid #f0f0f0',
                     borderRadius: '18px',

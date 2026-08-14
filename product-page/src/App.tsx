@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { Header } from './components/Header';
-import { HeroSlider } from './components/HeroSlider';
-import { NeedsFilter } from './components/NeedsFilter';
-import { ProductLineupSection } from './components/ProductLineupSection';
+import { ProductSection } from './components/ProductSection';
+import { ClinicalInfographicSection } from './components/ClinicalInfographicSection';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 export function App() {
@@ -19,14 +18,11 @@ export function App() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff' }}>
       <Header />
       <main style={{ flexGrow: 1 }}>
-        {/* Screen 1: Hero Banner Slider with Split Curtain & 4 Benefit Cards */}
-        <HeroSlider />
+        {/* Product Purchase Card Block (MyCollagenRepair Hero Section) */}
+        <ProductSection />
 
-        {/* Screen 2: Adapted Visual 2-Step Procedure Selector (Aristo Style) */}
-        <NeedsFilter />
-
-        {/* Screen 3: 4-Product Lineup Grid cloned from mypureskin.in.ua */}
-        <ProductLineupSection />
+        {/* Interactive Clinical & 9-Ingredient Infographic Dashboard */}
+        <ClinicalInfographicSection />
       </main>
     </div>
   );
