@@ -307,9 +307,10 @@ export const ProductSection: React.FC = () => {
                     }}
                   />
 
-                  {/* 5th Tile Glass Overlay "+8 фото та відео" */}
+                  {/* 5th Tile Glass Overlay "+8 фото та відео" / Animated Arrow on Mobile */}
                   {isLast && (
                     <div
+                      className="gallery-last-tile-overlay"
                       style={{
                         position: 'absolute',
                         inset: 0,
@@ -325,7 +326,13 @@ export const ProductSection: React.FC = () => {
                         padding: '4px'
                       }}
                     >
-                      +8 фото та відео
+                      <span className="gallery-last-tile-text">+8 фото та відео</span>
+                      <span className="gallery-last-tile-arrow">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="animate-arrow-bounce">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </span>
                     </div>
                   )}
                 </div>

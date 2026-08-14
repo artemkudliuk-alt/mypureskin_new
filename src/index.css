@@ -705,6 +705,28 @@ svg, img {
   box-sizing: border-box;
 }
 
+/* Gallery last tile arrow animation */
+@keyframes arrowSlideRight {
+  0%, 100% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+
+.animate-arrow-bounce {
+  animation: arrowSlideRight 1.2s ease-in-out infinite;
+}
+
+.gallery-last-tile-text {
+  display: block;
+}
+
+.gallery-last-tile-arrow {
+  display: none;
+}
+
 @media (max-width: 768px) {
   /* Compact mobile header */
   header {
@@ -1406,6 +1428,19 @@ svg, img {
     height: 52px !important;
     max-height: 52px !important;
     border-radius: 10px !important;
+  }
+
+  /* Mobile: hide "+8 фото" text, show animated moving arrow */
+  .gallery-last-tile-text {
+    display: none !important;
+  }
+
+  .gallery-last-tile-arrow {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 
   /* ── Typography — compact ── */
