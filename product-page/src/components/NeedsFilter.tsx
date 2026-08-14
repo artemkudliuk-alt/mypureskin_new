@@ -278,41 +278,30 @@ export const NeedsFilter: React.FC = () => {
           justifyContent: 'space-between'
         }}
       >
-        {/* Header Title Section */}
-        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }} className="reveal-on-scroll is-revealed">
+        {/* Header Title Section - Clean & Minimal */}
+        <div style={{ textAlign: 'center', marginBottom: '0.85rem' }} className="reveal-on-scroll is-revealed">
           <h2
-            className="font-serif"
+            className="font-serif quiz-main-title"
             style={{
-              fontSize: 'clamp(2.2rem, 3.8vw, 3.2rem)',
+              fontSize: 'clamp(1.6rem, 3.2vw, 2.4rem)',
               lineHeight: 1.15,
               color: '#090909',
-              marginBottom: '0.4rem',
-              letterSpacing: '0.01em',
-              fontWeight: 400
+              margin: '0',
+              fontWeight: 600
             }}
           >
             Підбір персональної формули
           </h2>
-          <p
-            style={{
-              fontSize: '15.5px',
-              fontWeight: 500,
-              color: '#6b7280',
-              letterSpacing: '0.04em'
-            }}
-          >
-            3 візуальних кроки для ідеального вибору (всі 15 напрямків)
-          </p>
         </div>
 
-        {/* 3-Step Indicator Pills */}
+        {/* 3-Step Indicator Pills - Compact */}
         <div
           style={{
             display: 'flex',
-            gap: '1rem',
+            gap: '0.65rem',
             width: '100%',
-            maxWidth: '840px',
-            marginBottom: '2rem'
+            maxWidth: '640px',
+            marginBottom: '1.25rem'
           }}
           className="reveal-on-scroll is-revealed step-bar-mobile"
         >
@@ -321,23 +310,22 @@ export const NeedsFilter: React.FC = () => {
             className="step-pill-item"
             style={{
               flex: 1,
-              padding: '12px 18px',
-              borderRadius: '12px',
+              padding: '8px 12px',
+              borderRadius: '20px',
               backgroundColor: step === 1 ? '#7c3aed' : '#f3e8ff',
               color: step === 1 ? '#ffffff' : '#6b21a8',
-              fontWeight: 600,
-              fontSize: '14px',
+              fontWeight: 700,
+              fontSize: '12.5px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '6px',
+              gap: '4px',
               cursor: 'pointer',
-              boxShadow: step === 1 ? '0 4px 14px rgba(124, 58, 237, 0.25)' : 'none',
+              boxShadow: step === 1 ? '0 3px 10px rgba(124, 58, 237, 0.2)' : 'none',
               transition: 'all 0.25s ease'
             }}
           >
-            <span style={{ opacity: 0.8, fontSize: '12px', textTransform: 'uppercase' }}>Крок 1</span>
-            <span>Напрямок</span>
+            <span>1. Напрямок</span>
           </div>
 
           <div
@@ -345,24 +333,23 @@ export const NeedsFilter: React.FC = () => {
             className="step-pill-item"
             style={{
               flex: 1,
-              padding: '12px 18px',
-              borderRadius: '12px',
+              padding: '8px 12px',
+              borderRadius: '20px',
               backgroundColor: step === 2 ? '#7c3aed' : '#f3e8ff',
               color: step === 2 ? '#ffffff' : '#6b21a8',
-              fontWeight: 600,
-              fontSize: '14px',
+              fontWeight: 700,
+              fontSize: '12.5px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '6px',
+              gap: '4px',
               cursor: selectedMacroId ? 'pointer' : 'default',
-              opacity: selectedMacroId ? 1 : 0.55,
-              boxShadow: step === 2 ? '0 4px 14px rgba(124, 58, 237, 0.25)' : 'none',
+              opacity: selectedMacroId ? 1 : 0.5,
+              boxShadow: step === 2 ? '0 3px 10px rgba(124, 58, 237, 0.2)' : 'none',
               transition: 'all 0.25s ease'
             }}
           >
-            <span style={{ opacity: 0.8, fontSize: '12px', textTransform: 'uppercase' }}>Крок 2</span>
-            <span>Потреба ({activeMacro.subCategories.length})</span>
+            <span>2. Потреба</span>
           </div>
 
           <div
@@ -370,24 +357,23 @@ export const NeedsFilter: React.FC = () => {
             className="step-pill-item"
             style={{
               flex: 1,
-              padding: '12px 18px',
-              borderRadius: '12px',
+              padding: '8px 12px',
+              borderRadius: '20px',
               backgroundColor: step === 3 ? '#7c3aed' : '#f3e8ff',
               color: step === 3 ? '#ffffff' : '#6b21a8',
-              fontWeight: 600,
-              fontSize: '14px',
+              fontWeight: 700,
+              fontSize: '12.5px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '6px',
+              gap: '4px',
               cursor: selectedSubId ? 'pointer' : 'default',
-              opacity: selectedSubId ? 1 : 0.55,
-              boxShadow: step === 3 ? '0 4px 14px rgba(124, 58, 237, 0.25)' : 'none',
+              opacity: selectedSubId ? 1 : 0.5,
+              boxShadow: step === 3 ? '0 3px 10px rgba(124, 58, 237, 0.2)' : 'none',
               transition: 'all 0.25s ease'
             }}
           >
-            <span style={{ opacity: 0.8, fontSize: '12px', textTransform: 'uppercase' }}>Крок 3</span>
-            <span>Вік</span>
+            <span>3. Вік</span>
           </div>
         </div>
 
@@ -495,7 +481,7 @@ export const NeedsFilter: React.FC = () => {
           </div>
         )}
 
-        {/* ================= STEP 2: SUB-CATEGORY IMAGE CARDS (ALL 15 ORIGINAL ITEMS) ================= */}
+        {/* ================= STEP 2: CREATIVE SUB-CATEGORY CARDS ================= */}
         {step === 2 && (
           <div
             style={{
@@ -507,32 +493,31 @@ export const NeedsFilter: React.FC = () => {
             }}
             className="animate-fade"
           >
-            <div style={{ marginBottom: '1.25rem', width: '100%' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.65rem' }}>
-                <button
-                  onClick={() => setStep(1)}
-                  style={{
-                    backgroundColor: '#f3e8ff',
-                    border: 'none',
-                    color: '#7c3aed',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    padding: '6px 14px',
-                    borderRadius: '20px',
-                    cursor: 'pointer',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    transition: 'all 0.2s ease'
-                  }}
-                >
-                  ← Назад до напрямків
-                </button>
-                <span style={{ fontSize: '12px', fontWeight: 600, color: '#6b7280', backgroundColor: '#e5e7eb', padding: '3px 10px', borderRadius: '12px' }}>
-                  {activeMacro.subCategories.length} варіанти
-                </span>
-              </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#090909', margin: 0, lineHeight: 1.3 }}>
+            <div style={{ marginBottom: '0.85rem', width: '100%', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button
+                onClick={() => setStep(1)}
+                className="quiz-inline-back-btn"
+                style={{
+                  backgroundColor: '#f3e8ff',
+                  border: 'none',
+                  color: '#7c3aed',
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '15px',
+                  fontWeight: 700,
+                  flexShrink: 0,
+                  transition: 'all 0.2s ease'
+                }}
+                title="Назад"
+              >
+                ←
+              </button>
+              <h3 className="quiz-step-title" style={{ fontSize: '1.15rem', fontWeight: 700, color: '#090909', margin: 0, lineHeight: 1.25 }}>
                 Оберіть потребу: <span style={{ color: '#7c3aed' }}>{activeMacro.title}</span>
               </h3>
             </div>
@@ -652,29 +637,31 @@ export const NeedsFilter: React.FC = () => {
             }}
             className="animate-fade"
           >
-            <div style={{ marginBottom: '1.25rem', width: '100%' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.65rem' }}>
-                <button
-                  onClick={() => setStep(2)}
-                  style={{
-                    backgroundColor: '#f3e8ff',
-                    border: 'none',
-                    color: '#7c3aed',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    padding: '6px 14px',
-                    borderRadius: '20px',
-                    cursor: 'pointer',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    transition: 'all 0.25s ease'
-                  }}
-                >
-                  ← Назад до потреб
-                </button>
-              </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#090909', margin: 0, lineHeight: 1.3 }}>
+            <div style={{ marginBottom: '0.85rem', width: '100%', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button
+                onClick={() => setStep(2)}
+                className="quiz-inline-back-btn"
+                style={{
+                  backgroundColor: '#f3e8ff',
+                  border: 'none',
+                  color: '#7c3aed',
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '15px',
+                  fontWeight: 700,
+                  flexShrink: 0,
+                  transition: 'all 0.25s ease'
+                }}
+                title="Назад"
+              >
+                ←
+              </button>
+              <h3 className="quiz-step-title" style={{ fontSize: '1.15rem', fontWeight: 700, color: '#090909', margin: 0, lineHeight: 1.25 }}>
                 Оберіть ваш віковий діапазон
               </h3>
             </div>
@@ -785,6 +772,7 @@ export const NeedsFilter: React.FC = () => {
         {/* ================= STEP 4: RECOMMENDATION RESULT ================= */}
         {step === 4 && (
           <div
+            className="animate-fade quiz-result-container"
             style={{
               width: '100%',
               maxWidth: '920px',
@@ -794,11 +782,12 @@ export const NeedsFilter: React.FC = () => {
               boxShadow: '0 16px 40px rgba(0, 0, 0, 0.08)',
               border: '1px solid #eaeaea',
               textAlign: 'center',
-              margin: '0 auto'
+              margin: '0 auto',
+              boxSizing: 'border-box'
             }}
-            className="animate-fade"
           >
             <span
+              className="quiz-result-badge"
               style={{
                 backgroundColor: '#f3e8ff',
                 color: '#7c3aed',
@@ -815,15 +804,16 @@ export const NeedsFilter: React.FC = () => {
               Персональний підбір завершено ✦
             </span>
 
-            <h3 style={{ fontSize: '22px', fontWeight: 700, color: '#090909', marginBottom: '0.35rem' }}>
+            <h3 className="quiz-result-title" style={{ fontSize: '22px', fontWeight: 700, color: '#090909', marginBottom: '0.35rem' }}>
               Ваша рекомендована формула MyPureSkin
             </h3>
 
-            <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '1.25rem' }}>
+            <p className="quiz-result-subtitle" style={{ fontSize: '14px', color: '#6b7280', marginBottom: '1.25rem' }}>
               Підібрано ідеальний нутрицевтичний комплекс для ваших потреб:
             </p>
 
             <div
+              className="quiz-recommended-grid"
               style={{
                 display: 'grid',
                 gridTemplateColumns: `repeat(${recommendedProducts.length}, 1fr)`,
@@ -834,6 +824,7 @@ export const NeedsFilter: React.FC = () => {
               {recommendedProducts.map((prod) => (
                 <div
                   key={prod.id}
+                  className="quiz-recommended-card"
                   style={{
                     border: '1px solid #f0f0f0',
                     borderRadius: '18px',

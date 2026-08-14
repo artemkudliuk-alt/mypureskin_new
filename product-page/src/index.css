@@ -877,34 +877,46 @@ svg, img {
   #needs-filter {
     height: auto !important;
     min-height: auto !important;
-    padding: 3rem 1.25rem 3.5rem 1.25rem !important;
+    padding: 2rem 1rem 2.5rem 1rem !important;
   }
 
   #needs-filter h2 {
-    font-size: 1.75rem !important;
+    font-size: 1.45rem !important;
     line-height: 1.2 !important;
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.25rem !important;
   }
 
   #needs-filter p {
-    font-size: 13.5px !important;
-    line-height: 1.4 !important;
+    font-size: 12px !important;
+    line-height: 1.35 !important;
   }
 
   .step-bar-mobile {
-    gap: 6px !important;
-    margin-bottom: 1.5rem !important;
+    gap: 5px !important;
+    margin-bottom: 0.75rem !important;
   }
 
   .step-pill-item {
-    padding: 8px 6px !important;
+    padding: 6px 8px !important;
     font-size: 11px !important;
-    border-radius: 10px !important;
-    gap: 4px !important;
+    border-radius: 14px !important;
+    gap: 3px !important;
   }
 
   .step-pill-item span {
-    font-size: 10.5px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+  }
+
+  .quiz-step-title {
+    font-size: 13.5px !important;
+    line-height: 1.25 !important;
+  }
+
+  .quiz-inline-back-btn {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 13px !important;
   }
 
   .visual-tiles-grid,
@@ -912,26 +924,32 @@ svg, img {
   .age-groups-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
+    gap: 8px !important;
     width: 100% !important;
   }
 
   .quiz-tile-card {
-    min-height: 220px !important;
-    height: 220px !important;
-    border-radius: 18px !important;
-    padding: 1.1rem 0.9rem !important;
+    min-height: 185px !important;
+    height: 185px !important;
+    border-radius: 14px !important;
+    padding: 0.85rem 0.75rem !important;
   }
 
   .quiz-tile-card h3,
   .quiz-tile-card h4 {
-    font-size: 15px !important;
-    line-height: 1.25 !important;
+    font-size: 13.5px !important;
+    line-height: 1.2 !important;
   }
 
   .quiz-tile-card p {
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+  }
+
+  .quiz-tile-card > div:first-of-type > div {
+    width: 24px !important;
+    height: 24px !important;
     font-size: 11px !important;
-    line-height: 1.35 !important;
   }
 
   /* Screen 3: Product Lineup Section Mobile Adaptation (Option 1: Vertical Stack of 4 Premium Cards) */
