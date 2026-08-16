@@ -71,7 +71,7 @@ export const Header: React.FC = () => {
         {/* Right Nav Links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '3.5rem' }} className="nav-desktop">
           <a
-            href="#professionals"
+            href="#needs-filter"
             style={{
               textDecoration: 'none',
               color: '#000000',
@@ -81,7 +81,7 @@ export const Header: React.FC = () => {
               transition: 'color 0.2s ease'
             }}
           >
-            Професіоналам
+            Підбір формули
           </a>
 
           <a
@@ -161,8 +161,8 @@ export const Header: React.FC = () => {
           <a href="#about" onClick={() => setIsMobileOpen(false)} style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}>
             Про MyPureSkin
           </a>
-          <a href="#professionals" onClick={() => setIsMobileOpen(false)} style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}>
-            Професіоналам
+          <a href="#needs-filter" onClick={() => setIsMobileOpen(false)} style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}>
+            Підбір формули
           </a>
           <a href="tel:+380937205277" style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Phone size={22} /> Допомога

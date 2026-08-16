@@ -691,18 +691,71 @@ svg, img {
   min-height: calc(100vh - 88px);
   overflow: hidden;
   display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
-  background-color: #090909;
+  background-color: #000000;
 }
 
 .hero-content-padding {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: calc(88px + 3rem) 4.5rem 4.5rem 4.5rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 2rem;
   box-sizing: border-box;
+  z-index: 5;
+}
+
+.hero-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(255, 255, 255, 0.3) !important;
+}
+
+.hero-features-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.feature-line-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.feature-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.feature-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.feature-desc {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.2;
 }
 
 /* Gallery last tile arrow animation */
@@ -737,7 +790,7 @@ svg, img {
     height: 28px !important;
   }
 
-  /* Screen 1: Hero Slider Mobile Stack (Exact 100% Screen Height Fit iOS & Android) */
+  /* Screen 1: Hero Video Mobile Stack */
   .hero-section-container {
     position: relative !important;
     width: 100% !important;
@@ -745,106 +798,41 @@ svg, img {
     min-height: calc(100dvh - 60px) !important;
     height: calc(100vh - 60px) !important;
     min-height: calc(100vh - 60px) !important;
-    flex-direction: column !important;
     overflow: hidden !important;
-    background-color: #090909 !important;
+    background-color: #000000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .hero-mobile-toggle-bar {
-    display: flex !important;
-    position: absolute;
-    top: 0.75rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 35;
-    background: rgba(18, 18, 18, 0.85);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 30px;
-    padding: 3px;
-    gap: 4px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    max-width: 92vw;
-  }
-
-  .hero-mobile-toggle-bar button {
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 11px;
-    font-weight: 700;
-    padding: 7px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    white-space: nowrap;
-  }
-
-  .hero-mobile-toggle-bar button.active {
-    background: #ffffff;
-    color: #090909;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  }
-
-  .hero-column {
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 100% !important;
-    position: absolute !important;
-    inset: 0 !important;
-    transition: opacity 0.45s ease, transform 0.45s ease !important;
-  }
-
-  .hero-column video {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center center !important;
-  }
-
-  .hero-column.is-inactive {
-    opacity: 0 !important;
-    pointer-events: none !important;
-    transform: scale(0.97) !important;
-    visibility: hidden !important;
-  }
-
-  .hero-column.is-active {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transform: scale(1) !important;
-    visibility: visible !important;
-  }
-
-  .hero-preview-layer {
     display: none !important;
   }
 
   .hero-content-padding {
-    position: absolute !important;
-    inset: 0 !important;
+    position: relative !important;
     width: 100% !important;
     height: 100% !important;
-    padding: 4.25rem 1.75rem 1.75rem 1.75rem !important;
+    padding: 1.5rem 1.25rem 2rem 1.25rem !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: space-between !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
     z-index: 10 !important;
   }
 
   #hero h1 {
     font-size: 1.75rem !important;
-    line-height: 1.22 !important;
-    margin-bottom: 0.85rem !important;
+    line-height: 1.18 !important;
+    margin-bottom: 0.75rem !important;
+    letter-spacing: -0.01em !important;
   }
 
   #hero p {
-    font-size: 14.5px !important;
-    line-height: 1.55 !important;
+    font-size: 13.5px !important;
+    line-height: 1.5 !important;
     margin-bottom: 1.5rem !important;
   }
 
@@ -854,23 +842,34 @@ svg, img {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 14px 28px !important;
-    margin-bottom: 0.5rem !important;
+    padding: 13px 32px !important;
+    font-size: 13px !important;
+    margin-bottom: 1.5rem !important;
   }
 
   .hero-features-strip {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 0.75rem !important;
-    margin-top: 1.5rem !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+    max-width: 320px !important;
   }
 
   .feature-line-item {
-    background: rgba(255, 255, 255, 0.08) !important;
-    backdrop-filter: blur(8px) !important;
-    padding: 8px 12px !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(10px) !important;
+    padding: 6px 10px !important;
     border-radius: 12px !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    gap: 6px !important;
+  }
+
+  .feature-title {
+    font-size: 10.5px !important;
+  }
+
+  .feature-desc {
+    font-size: 9.5px !important;
   }
 
   /* Screen 2: NeedsFilter Mobile Responsive 2x2 Grid */
