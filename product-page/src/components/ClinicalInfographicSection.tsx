@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { OfficialLeafletModal } from './OfficialLeafletModal';
 import { AnimatedNumber } from './AnimatedNumber';
 
 const SwissFlagIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (

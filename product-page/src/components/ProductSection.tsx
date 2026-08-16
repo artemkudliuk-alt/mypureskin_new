@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { OfficialLeafletModal } from './OfficialLeafletModal';
 
 const ArrowIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
   <span className="btn-arrow">

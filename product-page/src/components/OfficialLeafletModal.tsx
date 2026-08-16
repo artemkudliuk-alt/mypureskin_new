@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const SwissFlagIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
   <svg
@@ -15,7 +15,7 @@ const SwissFlagIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
 );
 
 export const OfficialLeafletModal: React.FC = () => {
-  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [isVisible] = useState<boolean>(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isUkrainian, setIsUkrainian] = useState<boolean>(false); // False = Official Photo Scan, True = Translated UA
 
