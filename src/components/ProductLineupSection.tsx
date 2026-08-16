@@ -329,14 +329,7 @@ export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNa
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '4px',
-                      backgroundColor: 'rgba(255, 255, 255, 0.92)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      padding: '5px 10px',
-                      borderRadius: '20px',
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-                      border: '1px solid rgba(0, 0, 0, 0.05)'
+                      gap: '4px'
                     }}
                   >
                     <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#090909' }}>
