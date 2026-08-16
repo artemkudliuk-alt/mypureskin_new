@@ -158,6 +158,7 @@ export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNa
       >
         {/* LEFT COLUMN: Vertical Line Accent + 2-Line Bold Title */}
         <div
+          className="product-lineup-title-block"
           style={{
             display: 'flex',
             alignItems: 'stretch',
@@ -165,6 +166,7 @@ export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNa
           }}
         >
           <div
+            className="product-lineup-title-accent"
             style={{
               width: '1.5px',
               backgroundColor: 'rgba(0, 0, 0, 0.18)',
@@ -189,7 +191,7 @@ export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNa
         </div>
 
         {/* RIGHT COLUMN: Paragraph + Horizontal Line with Swiss Badge */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        <div className="product-lineup-subtitle-block" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
           <p
             style={{
               fontFamily: 'var(--font-sans)',
@@ -205,7 +207,7 @@ export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNa
           </p>
 
           {/* Horizontal Line with Swiss Badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', width: '100%', maxWidth: '440px' }}>
+          <div className="product-lineup-swiss-line" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', width: '100%', maxWidth: '440px' }}>
             <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(0, 0, 0, 0.12)' }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12.5px', fontStyle: 'italic', color: '#52525b', fontWeight: 600 }}>
               <SwissFlagIcon size={14} />
