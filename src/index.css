@@ -1574,9 +1574,14 @@ svg, img {
   /* Screen 4: ProductSection — Ordered Mobile Stack             */
   /* Order: 1. Title  2. Gallery  3. Subtitle/Desc  4. Accordions  5. Buy */
   /* ============================================================ */
+  /* Breadcrumb — minimal on mobile */
+  .product-breadcrumb-bar {
+    padding: 0.5rem 1.15rem 0.1rem 1.15rem !important;
+  }
+
   #product-section {
     min-height: auto !important;
-    padding: 1.5rem 1.15rem 3rem 1.15rem !important;
+    padding: 0.75rem 1.15rem 3rem 1.15rem !important;
     box-sizing: border-box !important;
   }
 

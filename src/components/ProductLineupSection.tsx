@@ -409,47 +409,52 @@ export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNa
                     </>
                   ) : (
                     <>
-                      <div className="product-card-title-row" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+                      {/* Name + Price */}
+                      <div className="product-card-title-row" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '4px' }}>
                         <h3
                           style={{
                             margin: 0,
-                            fontSize: '18px',
+                            fontSize: '16px',
                             fontWeight: 700,
                             color: '#090909',
-                            lineHeight: 1.15
+                            lineHeight: 1.2,
+                            flex: 1
                           }}
                         >
                           {prod.name}
                         </h3>
-                        <span className="product-card-price-tag" style={{ fontSize: '16px', fontWeight: 700, color: '#090909' }}>
+                        <span className="product-card-price-tag" style={{ fontSize: '15px', fontWeight: 800, color: '#090909', whiteSpace: 'nowrap' }}>
                           {prod.price}
                         </span>
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                        <span style={{ color: '#16a34a', fontSize: '9px' }}>●</span>
-                        <span style={{ fontSize: '11px', fontWeight: 600, color: '#16a34a' }}>
-                          В наявності
+                      {/* В наявності + Flavor on one line */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexWrap: 'wrap', marginTop: '4px' }}>
+                        <span style={{ fontSize: '10px', fontWeight: 600, color: '#16a34a', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                          <span style={{ fontSize: '7px' }}>●</span> В наявності
                         </span>
-                        <span style={{ color: '#cbd5e1' }}>•</span>
-                        <span style={{ fontSize: '11px', fontWeight: 600, color: '#52525b' }}>
+                        <span style={{ color: '#e2e8f0', fontSize: '10px' }}>•</span>
+                        <span style={{ fontSize: '10px', fontWeight: 500, color: '#71717a' }}>
                           {prod.flavor}
                         </span>
                       </div>
 
+                      {/* Bold headline */}
                       <p
                         style={{
-                          margin: '2px 0 6px 0',
-                          fontSize: '11.5px',
-                          fontWeight: 600,
+                          margin: '5px 0 8px 0',
+                          fontSize: '11px',
+                          fontWeight: 700,
                           color: '#18181b',
-                          lineHeight: 1.35
+                          lineHeight: 1.3,
+                          letterSpacing: '0.02em',
+                          textTransform: 'uppercase'
                         }}
                       >
                         {prod.boldHeadline}
                       </p>
 
-                      {/* Centered CTA Button */}
+                      {/* CTA Button */}
                       <button
                         onClick={handleGoToProduct}
                         className="btn-buy"
@@ -458,21 +463,21 @@ export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNa
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          gap: '6px',
+                          gap: '5px',
                           backgroundColor: prod.accentColor,
                           color: '#ffffff',
-                          borderRadius: '24px',
-                          padding: '10px 14px',
-                          fontSize: '11.5px',
+                          borderRadius: '20px',
+                          padding: '9px 12px',
+                          fontSize: '11px',
                           fontWeight: 700,
-                          letterSpacing: '0.04em',
-                          boxShadow: `0 4px 14px ${prod.accentColor}55`,
+                          letterSpacing: '0.03em',
+                          boxShadow: `0 4px 12px ${prod.accentColor}44`,
                           border: 'none',
                           cursor: 'pointer',
-                          marginTop: '2px'
+                          marginTop: 'auto'
                         }}
                       >
-                        ПЕРЕЙТИ ДО ТОВАРУ <ArrowIcon size={12} />
+                        ПЕРЕЙТИ ДО ТОВАРУ <ArrowIcon size={11} />
                       </button>
                     </>
                   )}

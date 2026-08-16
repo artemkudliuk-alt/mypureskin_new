@@ -92,11 +92,12 @@ export function App() {
               style={{
                 maxWidth: '1360px',
                 margin: '0 auto',
-                padding: '1.25rem 2.5rem 0.5rem 2.5rem',
+                padding: '0.65rem 2.5rem 0.25rem 2.5rem',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '10px'
+                gap: '8px'
               }}
+              className="product-breadcrumb-bar"
             >
               <button
                 onClick={() => navigateTo('home')}
@@ -104,22 +105,20 @@ export function App() {
                   background: 'none',
                   border: 'none',
                   color: '#7c3aed',
-                  fontSize: '14px',
-                  fontWeight: 600,
+                  fontSize: '13px',
+                  fontWeight: 500,
                   cursor: 'pointer',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '6px',
-                  padding: '6px 14px',
-                  borderRadius: '20px',
-                  backgroundColor: '#f3e8ff',
-                  transition: 'all 0.2s ease'
+                  gap: '4px',
+                  padding: '0',
+                  transition: 'opacity 0.2s ease'
                 }}
               >
                 ← Головна / Каталог
               </button>
-              <span style={{ color: '#9ca3af', fontSize: '13px' }}>/</span>
-              <span style={{ color: '#4b5563', fontSize: '13px', fontWeight: 600 }}>MyCollagenRepair</span>
+              <span style={{ color: '#d1d5db', fontSize: '13px' }}>/</span>
+              <span style={{ color: '#4b5563', fontSize: '13px', fontWeight: 500 }}>MyCollagenRepair</span>
             </div>
 
             {/* Dedicated Product Page: Detailed Card + Clinical Infographic */}
