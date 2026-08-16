@@ -108,12 +108,26 @@ const PRODUCTS: RichProduct[] = [
   }
 ];
 
-export const ProductLineupSection: React.FC = () => {
+interface ProductLineupSectionProps {
+  onNavigateProduct?: () => void;
+}
+
+export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNavigateProduct }) => {
   const [activeId, setActiveId] = useState<string | null>(null);
+
+  const handleGoToProduct = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onNavigateProduct) {
+      onNavigateProduct();
+    } else {
+      window.location.hash = '#product';
+    }
+  };
 
   return (
     <section
-      id="product-lineup-section"
+      id="products"
+      className="product-lineup-section-container"
       style={{
         position: 'relative',
         width: '100%',
@@ -122,26 +136,23 @@ export const ProductLineupSection: React.FC = () => {
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-end',
-        padding: 'calc(88px + 165px) 4.5rem 0 4.5rem',
-        scrollSnapAlign: 'start',
+        justifyContent: 'space-between',
+        padding: 'calc(88px + 1.25rem) 4rem 2rem 4rem',
         boxSizing: 'border-box',
-        backgroundColor: '#fafafa',
+        backgroundColor: '#f8fafc',
         perspective: '1200px'
       }}
     >
-      {/* Top 2-Column Section Header (Shifted 50px right, raised 10px up for perfect centering) */}
+      {/* Top 2-Column Section Header */}
       <div
         className="product-lineup-header"
         style={{
-          position: 'absolute',
-          top: 'calc(88px + 2.1rem)',
-          left: 'calc(4.5rem + 50px)',
-          right: '4.5rem',
           display: 'grid',
           gridTemplateColumns: '1.25fr 1fr',
-          gap: '3rem',
+          gap: '2.5rem',
           alignItems: 'center',
+          width: '100%',
+          marginBottom: '1rem',
           zIndex: 20
         }}
       >
@@ -163,9 +174,9 @@ export const ProductLineupSection: React.FC = () => {
           <h2
             style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: '2.38rem',
+              fontSize: 'clamp(1.4rem, 2.1vw, 2rem)',
               fontWeight: 800,
-              letterSpacing: '0.04em',
+              letterSpacing: '0.03em',
               color: '#090909',
               margin: 0,
               lineHeight: 1.2,
@@ -178,25 +189,25 @@ export const ProductLineupSection: React.FC = () => {
         </div>
 
         {/* RIGHT COLUMN: Paragraph + Horizontal Line with Swiss Badge */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
           <p
             style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: '15px',
+              fontSize: '14px',
               fontWeight: 500,
-              color: '#3f3f46',
+              color: '#52525b',
               margin: 0,
-              lineHeight: 1.6,
-              maxWidth: '540px'
+              lineHeight: 1.5,
+              maxWidth: '520px'
             }}
           >
             Відкрийте наші комплекти та знайдіть той, що найкраще відповідає вашим потребам: краса, комфорт, енергія або життєва сила.
           </p>
 
           {/* Horizontal Line with Swiss Badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', width: '100%', maxWidth: '460px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', width: '100%', maxWidth: '440px' }}>
             <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(0, 0, 0, 0.12)' }} />
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontStyle: 'italic', color: '#52525b', fontWeight: 600 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12.5px', fontStyle: 'italic', color: '#52525b', fontWeight: 600 }}>
               <SwissFlagIcon size={14} />
               <span>Swiss Quality for Your Skin</span>
             </div>
@@ -205,19 +216,19 @@ export const ProductLineupSection: React.FC = () => {
         </div>
       </div>
 
-      {/* 4 STATIC VERTICAL COLUMNS (Flush to Bottom) */}
+      {/* 4 STATIC VERTICAL COLUMNS (Floating with rounded corners and bottom margin) */}
       <div
         className="product-lineup-grid"
         style={{
           display: 'flex',
           width: '100%',
-          height: '100%',
-          borderRadius: '24px 24px 0 0',
+          flex: 1,
+          minHeight: 0,
+          borderRadius: '24px',
           overflow: 'hidden',
-          boxShadow: '0 -12px 40px rgba(0, 0, 0, 0.08)',
-          borderTop: '1px solid rgba(0, 0, 0, 0.08)',
-          borderLeft: '1px solid rgba(0, 0, 0, 0.08)',
-          borderRight: '1px solid rgba(0, 0, 0, 0.08)'
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+          border: '1px solid rgba(0, 0, 0, 0.08)',
+          backgroundColor: '#ffffff'
         }}
       >
         {PRODUCTS.map((prod, index) => {
@@ -231,11 +242,11 @@ export const ProductLineupSection: React.FC = () => {
               onMouseEnter={() => setActiveId(prod.id)}
               style={{
                 position: 'relative',
-                flex: 1, // Static equal column width
+                flex: 1,
                 height: '100%',
                 overflow: 'hidden',
                 cursor: 'pointer',
-                borderRight: index < PRODUCTS.length - 1 ? '1px solid rgba(0, 0, 0, 0.12)' : 'none',
+                borderRight: index < PRODUCTS.length - 1 ? '1px solid rgba(0, 0, 0, 0.08)' : 'none',
                 boxSizing: 'border-box'
               }}
             >
@@ -250,15 +261,14 @@ export const ProductLineupSection: React.FC = () => {
                   height: '100%',
                   objectFit: 'cover',
                   objectPosition: 'center center',
-                  filter: 'brightness(1.02) blur(0px)',
                   opacity: isActive ? 0 : 1,
-                  transform: isActive ? 'scale(1.08) rotateY(12deg)' : 'scale(1) rotateY(0deg)',
-                  transition: 'all 0.75s cubic-bezier(0.22, 1, 0.36, 1)',
+                  transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                  transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
                   pointerEvents: 'none'
                 }}
               />
 
-              {/* REVERSE ACTIVE MODEL PHOTO (Shown ONLY when hovered - 100% Light & Bright 9:16 Model Photo) */}
+              {/* REVERSE ACTIVE MODEL PHOTO (Shown ONLY when hovered) */}
               <img
                 src={prod.activeImage}
                 alt={`${prod.name} Active`}
@@ -269,23 +279,9 @@ export const ProductLineupSection: React.FC = () => {
                   height: '100%',
                   objectFit: 'cover',
                   objectPosition: 'center 45%',
-                  filter: 'brightness(0.98) blur(0px)',
                   opacity: isActive ? 1 : 0,
-                  transform: isActive ? 'scale(1)' : 'scale(1.08) rotateY(-12deg)',
-                  transition: 'all 0.75s cubic-bezier(0.22, 1, 0.36, 1)',
-                  pointerEvents: 'none'
-                }}
-              />
-
-              {/* Soft Dark Bottom Gradient Overlay for Text Legibility */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: isActive
-                    ? 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.88) 100%)'
-                    : 'linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.9) 100%)',
-                  transition: 'all 0.5s ease',
+                  transform: isActive ? 'scale(1)' : 'scale(1.05)',
+                  transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
                   pointerEvents: 'none'
                 }}
               />
@@ -300,187 +296,191 @@ export const ProductLineupSection: React.FC = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  padding: '1.75rem 1.75rem 2.25rem 1.75rem',
+                  padding: '1.25rem 1.25rem 1.25rem 1.25rem',
                   boxSizing: 'border-box'
                 }}
               >
-              {/* TOP BAR: Tag (Left) + 5 Gold Stars Rating (Right Top) */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span
-                  style={{
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    letterSpacing: '0.14em',
-                    backgroundColor: isActive ? 'rgba(0, 0, 0, 0.45)' : 'rgba(255, 255, 255, 0.85)',
-                    color: isActive ? '#ffffff' : '#090909',
-                    backdropFilter: 'blur(10px)',
-                    padding: '5px 14px',
-                    borderRadius: '20px',
-                    textTransform: 'uppercase',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                    transition: 'all 0.4s ease'
-                  }}
-                >
-                  {prod.number} • {prod.name}
-                </span>
+                {/* TOP BAR: Tag (Left) + 5 Gold Stars Rating (Right Top) */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                  <span
+                    className="product-card-top-tag"
+                    style={{
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      letterSpacing: '0.1em',
+                      backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      color: '#090909',
+                      padding: '5px 12px',
+                      borderRadius: '20px',
+                      textTransform: 'uppercase',
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+                      border: '1px solid rgba(0, 0, 0, 0.05)',
+                      transition: 'all 0.3s ease'
+                    }}
+                  >
+                    {prod.number} • {prod.name}
+                  </span>
 
-                {/* Top Right Rating with 5 Gold Stars */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff' }}>
-                    {prod.rating.toFixed(1)}
-                  </span>
-                  <span style={{ color: '#fbbf24', fontSize: '12px', letterSpacing: '1px' }}>
-                    ★★★★★
-                  </span>
+                  {/* Top Right Rating with 5 Gold Stars */}
+                  <div
+                    className="product-card-top-rating"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      padding: '5px 10px',
+                      borderRadius: '20px',
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+                      border: '1px solid rgba(0, 0, 0, 0.05)'
+                    }}
+                  >
+                    <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#090909' }}>
+                      {prod.rating.toFixed(1)}
+                    </span>
+                    <span style={{ color: '#f59e0b', fontSize: '10px', letterSpacing: '1px' }}>
+                      ★★★★★
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              {/* ================= INACTIVE STATE (ALL 4 ARE INACTIVE BY DEFAULT!) ================= */}
-              {!isActive && (
+                {/* ================= BOTTOM INFO CONTAINER (FROSTED GLASS) ================= */}
                 <div
                   className="product-card-bottom-info"
                   style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    borderRadius: '18px',
+                    padding: '12px 14px',
+                    boxShadow: '0 6px 20px rgba(0, 0, 0, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.8)',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '0.5rem',
+                    gap: '5px',
                     marginTop: 'auto',
-                    animation: 'fadeInSlow 0.4s ease forwards'
+                    width: '100%',
+                    boxSizing: 'border-box'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
-                    <h3
-                      style={{
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '23px',
-                        fontWeight: 700,
-                        color: '#ffffff',
-                        lineHeight: 1.15
-                      }}
-                    >
-                      {prod.name}
-                    </h3>
-                    <span style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff' }}>
-                      {prod.price}
-                    </span>
-                  </div>
+                  {!isActive ? (
+                    <>
+                      <div className="product-card-title-row" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+                        <h3
+                          style={{
+                            margin: 0,
+                            fontFamily: 'var(--font-sans)',
+                            fontSize: '18px',
+                            fontWeight: 700,
+                            color: '#090909',
+                            lineHeight: 1.15
+                          }}
+                        >
+                          {prod.name}
+                        </h3>
+                        <span className="product-card-price-tag" style={{ fontSize: '16px', fontWeight: 700, color: '#090909' }}>
+                          {prod.price}
+                        </span>
+                      </div>
 
-                  {/* Flavor Badge without Fruit Icon */}
-                  <span style={{ fontSize: '13px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.95)' }}>
-                    {prod.flavor}
-                  </span>
+                      <span className="product-card-flavor" style={{ fontSize: '11.5px', fontWeight: 600, color: '#52525b' }}>
+                        {prod.flavor}
+                      </span>
 
-                  {/* Cosmetic Icon Bullets */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginTop: '0.2rem' }}>
-                    {prod.bullets.map((b, i) => (
-                      <span
-                        key={i}
+                      <div className="product-card-bullets" style={{ display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '2px' }}>
+                        {prod.bullets.map((b, i) => (
+                          <span
+                            key={i}
+                            style={{
+                              fontSize: '11px',
+                              fontWeight: 500,
+                              color: '#3f3f46',
+                              lineHeight: 1.3
+                            }}
+                          >
+                            ◇ {b}
+                          </span>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="product-card-title-row" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+                        <h3
+                          style={{
+                            margin: 0,
+                            fontSize: '18px',
+                            fontWeight: 700,
+                            color: '#090909',
+                            lineHeight: 1.15
+                          }}
+                        >
+                          {prod.name}
+                        </h3>
+                        <span className="product-card-price-tag" style={{ fontSize: '16px', fontWeight: 700, color: '#090909' }}>
+                          {prod.price}
+                        </span>
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                        <span style={{ color: '#16a34a', fontSize: '9px' }}>●</span>
+                        <span style={{ fontSize: '11px', fontWeight: 600, color: '#16a34a' }}>
+                          В наявності
+                        </span>
+                        <span style={{ color: '#cbd5e1' }}>•</span>
+                        <span style={{ fontSize: '11px', fontWeight: 600, color: '#52525b' }}>
+                          {prod.flavor}
+                        </span>
+                      </div>
+
+                      <p
                         style={{
-                          fontSize: '13px',
-                          fontWeight: 500,
-                          color: 'rgba(255, 255, 255, 0.95)'
+                          margin: '2px 0 6px 0',
+                          fontSize: '11.5px',
+                          fontWeight: 600,
+                          color: '#18181b',
+                          lineHeight: 1.35
                         }}
                       >
-                        ◇ {b}
-                      </span>
-                    ))}
-                  </div>
+                        {prod.boldHeadline}
+                      </p>
+
+                      {/* Centered CTA Button */}
+                      <button
+                        onClick={handleGoToProduct}
+                        className="btn-buy"
+                        style={{
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px',
+                          backgroundColor: prod.accentColor,
+                          color: '#ffffff',
+                          borderRadius: '24px',
+                          padding: '10px 14px',
+                          fontSize: '11.5px',
+                          fontWeight: 700,
+                          letterSpacing: '0.04em',
+                          boxShadow: `0 4px 14px ${prod.accentColor}55`,
+                          border: 'none',
+                          cursor: 'pointer',
+                          marginTop: '2px'
+                        }}
+                      >
+                        ПЕРЕЙТИ ДО ТОВАРУ <ArrowIcon size={12} />
+                      </button>
+                    </>
+                  )}
                 </div>
-              )}
-
-              {/* ================= ACTIVE REVERSE STATE (REVEALED ONLY ON HOVER!) ================= */}
-              {isActive && (
-                <div
-                  className="product-card-bottom-info"
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end',
-                    marginTop: 'auto',
-                    animation: 'surfaceRise 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards'
-                  }}
-                >
-                  {/* Title & Price Header */}
-                  <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                    <h3
-                      style={{
-                        fontSize: '26px',
-                        fontWeight: 700,
-                        color: '#ffffff',
-                        lineHeight: 1.1
-                      }}
-                    >
-                      {prod.name}
-                    </h3>
-
-                    <span
-                      style={{
-                        fontSize: '24px',
-                        fontWeight: 700,
-                        color: '#ffffff'
-                      }}
-                    >
-                      {prod.price}
-                    </span>
-                  </div>
-
-                  {/* Stock Status Badge */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '0.65rem' }}>
-                    <span style={{ color: '#22c55e', fontSize: '11px' }}>●</span>
-                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#ffffff' }}>
-                      В наявності
-                    </span>
-                  </div>
-
-                  {/* Bold Headline Paragraph */}
-                  <p
-                    style={{
-                      fontSize: '14px',
-                      fontWeight: 700,
-                      color: '#ffffff',
-                      lineHeight: 1.35,
-                      marginBottom: '0.6rem'
-                    }}
-                  >
-                    {prod.boldHeadline}
-                  </p>
-
-                  {/* Flavor Line */}
-                  <div style={{ marginBottom: '1.25rem' }}>
-                    <span
-                      style={{
-                        fontSize: '13.5px',
-                        fontWeight: 600,
-                        fontStyle: 'italic',
-                        color: 'rgba(255, 255, 255, 0.95)'
-                      }}
-                    >
-                      {prod.flavor}
-                    </span>
-                  </div>
-
-                  {/* CTA Button: 50% Width, Left-Aligned */}
-                  <button
-                    className="btn-buy"
-                    style={{
-                      width: '65%', // ~50-60% width of column
-                      alignSelf: 'flex-start', // Left aligned
-                      backgroundColor: prod.accentColor,
-                      color: '#ffffff',
-                      borderRadius: '30px',
-                      padding: '12px 18px',
-                      fontSize: '12.5px',
-                      fontWeight: 600,
-                      boxShadow: `0 6px 20px ${prod.accentColor}77`
-                    }}
-                  >
-                    ПЕРЕЙТИ ДО ТОВАРУ <ArrowIcon />
-                  </button>
-                </div>
-              )}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
       </div>
 
       {/* Custom Styles */}

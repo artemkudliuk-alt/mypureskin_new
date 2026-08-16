@@ -15,31 +15,9 @@ const SwissFlagIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
 );
 
 export const OfficialLeafletModal: React.FC = () => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isUkrainian, setIsUkrainian] = useState<boolean>(false); // False = Official Photo Scan, True = Translated UA
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          } else {
-            setIsVisible(false);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    const section = document.getElementById('clinical-infographic-section');
-    if (section) observer.observe(section);
-
-    return () => {
-      if (section) observer.unobserve(section);
-    };
-  }, []);
 
   return (
     <>
@@ -49,7 +27,7 @@ export const OfficialLeafletModal: React.FC = () => {
           position: 'fixed',
           bottom: '28px',
           right: '28px',
-          zIndex: 90,
+          zIndex: 99999,
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
           pointerEvents: isVisible ? 'auto' : 'none',

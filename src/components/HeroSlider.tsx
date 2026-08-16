@@ -56,7 +56,7 @@ export const HeroSlider: React.FC = () => {
         </video>
       </div>
 
-      {/* Centered Clean Luxury Content (No dark gradients, No heavy plaques) */}
+      {/* Clean Luxury Content */}
       <div
         className="hero-content-padding"
         style={{
@@ -73,67 +73,26 @@ export const HeroSlider: React.FC = () => {
           boxSizing: 'border-box'
         }}
       >
-        {/* Swiss Tag */}
-        <div className="hero-fade-layer is-active" style={{ marginBottom: '1.25rem' }}>
-          <span
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              backgroundColor: 'rgba(255, 255, 255, 0.92)',
-              backdropFilter: 'blur(10px)',
-              color: '#090909',
-              fontSize: '12px',
-              fontWeight: 700,
-              letterSpacing: '0.12em',
-              padding: '7px 18px',
-              borderRadius: '30px',
-              textTransform: 'uppercase',
-              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
-            }}
-          >
-            ● SWISS CELLULAR NUTRITION
-          </span>
-        </div>
-
-        {/* Headline with clean drop-shadow for 100% legibility over pure video */}
-        <div className="hero-fade-layer is-active" style={{ marginBottom: '1.25rem' }}>
+        {/* Title directly above the button */}
+        <div className="hero-fade-layer is-active hero-title-wrapper" style={{ marginBottom: '1.75rem' }}>
           <h1
-            className="font-serif"
+            className="font-serif hero-single-title"
             style={{
-              fontSize: 'clamp(2.4rem, 5vw, 4.2rem)',
-              lineHeight: 1.12,
+              fontSize: 'clamp(1.6rem, 3.2vw, 2.6rem)',
+              lineHeight: 1.2,
               color: '#ffffff',
               fontWeight: 600,
               margin: 0,
-              letterSpacing: '-0.01em',
-              textShadow: '0 2px 20px rgba(0, 0, 0, 0.45), 0 1px 4px rgba(0, 0, 0, 0.35)'
+              letterSpacing: '0.02em',
+              textShadow: '0 2px 20px rgba(0, 0, 0, 0.6), 0 1px 6px rgba(0, 0, 0, 0.5)'
             }}
           >
             КЛІТИННЕ ОМОЛОДЖЕННЯ ЗІ ШВЕЙЦАРІЇ
           </h1>
         </div>
 
-        {/* Subtitle Paragraph */}
-        <div className="hero-fade-layer is-active" style={{ marginBottom: '2.25rem' }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: 'clamp(15px, 1.8vw, 18px)',
-              lineHeight: 1.6,
-              color: 'rgba(255, 255, 255, 0.96)',
-              maxWidth: '680px',
-              margin: '0 auto',
-              fontWeight: 400,
-              textShadow: '0 2px 12px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.35)'
-            }}
-          >
-            100% натуральна нутрікосметика преміум-класу для відновлення колагену, захисту від глікації та збереження біологічної молодості.
-          </p>
-        </div>
-
         {/* CTA Button */}
-        <div className="hero-fade-layer is-active" style={{ marginBottom: '2.5rem' }}>
+        <div className="hero-fade-layer is-active hero-btn-wrapper" style={{ marginBottom: '2rem' }}>
           <button
             onClick={scrollToB2CQuiz}
             className="btn-buy hero-cta-btn"
@@ -147,9 +106,10 @@ export const HeroSlider: React.FC = () => {
               letterSpacing: '0.05em',
               border: 'none',
               cursor: 'pointer',
-              boxShadow: '0 8px 28px rgba(0, 0, 0, 0.25)',
+              boxShadow: '0 8px 28px rgba(0, 0, 0, 0.3)',
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '8px',
               transition: 'all 0.3s ease'
             }}
@@ -158,7 +118,7 @@ export const HeroSlider: React.FC = () => {
           </button>
         </div>
 
-        {/* Minimal 4-Feature Line Strip (Centered, Clean Glass, No opaque plaques) */}
+        {/* 4 Feature Line Strip / 2x2 Grid */}
         <div className="hero-features-strip hero-fade-layer is-active">
           <div className="feature-line-item">
             <div className="feature-icon-box">

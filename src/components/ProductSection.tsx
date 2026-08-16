@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { OfficialLeafletModal } from './OfficialLeafletModal';
 
 const ArrowIcon: React.FC<{ size?: number }> = ({ size = 14 }) => (
   <span className="btn-arrow">
@@ -36,40 +37,6 @@ const GALLERY_ITEMS = [
 
 const ACCORDION_TABS = [
   {
-    id: 'benefits',
-    title: 'Переваги та дія',
-    items: [
-      'Відновлює колагенову матрицю, пошкоджену процесами глікації',
-      'Потрійна антиоксидантна, протизапальна та антиглікаційна функція',
-      'Захищає клітини шкіри від оксидативного стресу та фотостаріння',
-      'Детоксикує печінку, організм і відновлює рівний тон обличчя',
-      'Зміцнює м’язи, суглоби, зв’язки та волосяні фолікули'
-    ]
-  },
-  {
-    id: 'ingredients',
-    title: 'Склад та інгредієнти',
-    items: [
-      'Морські колагенові пептиди <2 кДа (гідролізований колаген) — 5000 мг',
-      'Гіалуронова кислота низькомолекулярна — 120 мг',
-      'Екстракт ацероли (натуральний вітамін C) — 320 мг (80 мг, 100% NRV)',
-      'Натуральний вітамін E — 18 мг (150% NRV)',
-      'Екстракт розмарину (розмаринова кислота) — 50 мг',
-      'Екстракт розторопші (силімарин) — 100 мг',
-      'Коензим Q10 (убіхінон) — 30 мг'
-    ]
-  },
-  {
-    id: 'usage',
-    title: 'Спосіб застосування та дозування',
-    items: [
-      '1 стік на день, розчинений у 150-200 мл води кімнатної температури',
-      'Рекомендовано приймати вранці під час або після сніданку',
-      'Мінімальний курс: 28 днів (1 упаковка) для появи перших результатів',
-      'Оптимальний антивіковий курс: 3 місяці (3 упаковки) для закріплення ефекту'
-    ]
-  },
-  {
     id: 'nutrition',
     title: 'Харчова та енергетична цінність',
     items: [
@@ -77,28 +44,26 @@ const ACCORDION_TABS = [
       'Білки (гідролізований білок) — 5,42 г',
       'Вуглеводи — 0,65 г (з них цукри — 0,07 г)',
       'Жири — 0,14 г (з них насичені — 0,02 г)',
-      'Харчова клітковина — 0,03 г',
-      'Сіль — 0,02 г'
+      'Харчова клітковина — 0,03 г, Сіль — 0,02 г'
     ]
   },
   {
     id: 'duration',
     title: 'Клінічні результати (28-90 днів)',
     items: [
-      '82,5% випробуваних — значне зволоження та зменшення глибини зморшок',
-      '86% — покращення пружності, відновлення сяйва та гладкості шкіри',
+      '82,5% — значне зволоження та зменшення глибини зморшок',
+      '86% — покращення пружності та сяйва шкіри',
       '75% — зміцнення волосся, зменшення ламкості нігтів',
-      '87,5% — зниження оксидативного стресу та підтримка рухливості суглобів'
+      '87,5% — зниження оксидативного стресу та підтримка суглобів'
     ]
   },
   {
     id: 'standards',
     title: 'Швейцарська сертифікація та якість',
     items: [
-      '100% виготовлено в Швейцарії (Swiss Made Quality Certificate)',
-      'Відповідає фармацевтичним стандартам GMP та ISO 22000',
-      'Без ГМО, глютену, консервантів, штучних ароматизаторів та стевії',
-      'Сертифікований халяльний та кошерний морський колаген високої очистки'
+      '100% виготовлено в Швейцарії (GMP Лозанна, ISO 22000)',
+      'Без цукру, стевії, глютену, консервантів та ГМО',
+      'Сертифікований халяльний та кошерний морський колаген'
     ]
   }
 ];
@@ -106,9 +71,8 @@ const ACCORDION_TABS = [
 export const ProductSection: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<number>(1); // 1 or 3 packs
   const [quantity, setQuantity] = useState<number>(1);
-  const [activeMediaIndex, setActiveMediaIndex] = useState<number>(0); // Default ALWAYS 0 (Video)
+  const [activeMediaIndex, setActiveMediaIndex] = useState<number>(0);
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
-  const [isDescExpanded, setIsDescExpanded] = useState<boolean>(false);
 
   const priceSingle = 8200;
   const pricePack3 = 7380; // per pack
@@ -122,27 +86,25 @@ export const ProductSection: React.FC = () => {
       style={{
         position: 'relative',
         width: '100%',
-        minHeight: '100vh',
         backgroundColor: '#ffffff',
         color: '#090909',
-        padding: 'calc(88px + 1.25rem) 1.75rem 3.5rem 1.75rem',
-        boxSizing: 'border-box',
-        scrollSnapAlign: 'start'
+        padding: '0.75rem 2.5rem 3rem 2.5rem',
+        boxSizing: 'border-box'
       }}
     >
       <div
         style={{
-          maxWidth: '1680px',
+          maxWidth: '1360px',
           margin: '0 auto',
           display: 'grid',
-          gridTemplateColumns: '1.25fr 1fr',
+          gridTemplateColumns: '1.15fr 1fr',
           gap: '2.5rem',
           alignItems: 'start'
         }}
         className="product-hero-grid"
       >
         {/* ========================================================================= */}
-        {/* LEFT COLUMN: BOOKING.COM 1:1 PHOTO GRID LAYOUT (CLEAN WHITE TEXT ITEMS)   */}
+        {/* LEFT COLUMN: COMPACT PHOTO & VIDEO GALLERY (BOOKING BENTO)                */}
         {/* ========================================================================= */}
         <div className="product-gallery-container" style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
           
@@ -153,8 +115,8 @@ export const ProductSection: React.FC = () => {
               display: 'grid',
               gridTemplateColumns: '2fr 1fr',
               gap: '10px',
-              height: '400px',
-              maxHeight: '400px',
+              height: '350px',
+              maxHeight: '350px',
               minHeight: 0
             }}
           >
@@ -165,7 +127,7 @@ export const ProductSection: React.FC = () => {
                 position: 'relative',
                 width: '100%',
                 height: '100%',
-                maxHeight: '400px',
+                maxHeight: '350px',
                 minHeight: 0,
                 borderRadius: '16px',
                 overflow: 'hidden',
@@ -184,155 +146,160 @@ export const ProductSection: React.FC = () => {
                   style={{
                     width: '100%',
                     height: '100%',
-                    maxHeight: '400px',
                     objectFit: 'cover',
                     display: 'block'
                   }}
-                >
-                  <source src={activeMedia.src} type="video/mp4" />
-                </video>
+                  src={activeMedia.src}
+                />
               ) : (
                 <img
+                  key={activeMedia.src}
                   src={activeMedia.src}
                   alt={activeMedia.title}
                   style={{
                     width: '100%',
                     height: '100%',
-                    maxHeight: '400px',
                     objectFit: 'cover',
-                    display: 'block',
-                    transition: 'transform 0.4s ease'
+                    display: 'block'
                   }}
                 />
               )}
+
+              {/* Top Tag on Main Media */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '12px',
+                  left: '12px',
+                  backgroundColor: 'rgba(9, 9, 9, 0.75)',
+                  backdropFilter: 'blur(8px)',
+                  color: '#ffffff',
+                  padding: '4px 10px',
+                  borderRadius: '20px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  pointerEvents: 'none'
+                }}
+              >
+                {activeMedia.type === 'video' ? '▶ Відео-огляд' : '✦ Фото огляд'}
+              </div>
             </div>
 
-            {/* 2 Stacked Horizontal Photos (Right Column) */}
+            {/* Right Stacked 2 Photos (1:1 Ratio) */}
             <div
-              className="product-bento-side-column"
+              className="product-side-stack"
               style={{
                 display: 'grid',
                 gridTemplateRows: '1fr 1fr',
                 gap: '10px',
                 height: '100%',
-                maxHeight: '400px',
+                maxHeight: '350px',
                 minHeight: 0
               }}
             >
-              {GALLERY_ITEMS.slice(1, 3).map((item, idx) => {
-                const globalIdx = idx + 1;
-                const isSelected = activeMediaIndex === globalIdx;
-                return (
-                  <div
-                    key={item.id}
-                    onClick={() => setActiveMediaIndex(globalIdx)}
-                    style={{
-                      position: 'relative',
-                      width: '100%',
-                      height: '100%',
-                      maxHeight: '195px',
-                      minHeight: 0,
-                      borderRadius: '16px',
-                      overflow: 'hidden',
-                      backgroundColor: '#f4f4f5',
-                      cursor: 'pointer',
-                      border: isSelected ? '2px solid #090909' : '1px solid rgba(0, 0, 0, 0.08)'
-                    }}
-                  >
-                    <img
-                      src={item.src}
-                      alt={item.title}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        maxHeight: '195px',
-                        objectFit: 'cover',
-                        display: 'block',
-                        opacity: isSelected ? 1 : 0.88,
-                        transition: 'all 0.3s ease'
-                      }}
-                    />
-                  </div>
-                );
-              })}
+              {/* Photo 2 (Box Packshot) */}
+              <div
+                onClick={() => setActiveMediaIndex(1)}
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '14px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  border: activeMediaIndex === 1 ? '2px solid #090909' : '1px solid rgba(0, 0, 0, 0.08)',
+                  backgroundColor: '#ffffff'
+                }}
+                className="gallery-thumb-interactive"
+              >
+                <img
+                  src={GALLERY_ITEMS[1].src}
+                  alt={GALLERY_ITEMS[1].title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+
+              {/* Photo 3 (Aesthetic Model) */}
+              <div
+                onClick={() => setActiveMediaIndex(2)}
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '14px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  border: activeMediaIndex === 2 ? '2px solid #090909' : '1px solid rgba(0, 0, 0, 0.08)',
+                  backgroundColor: '#ffffff'
+                }}
+                className="gallery-thumb-interactive"
+              >
+                <img
+                  src={GALLERY_ITEMS[2].src}
+                  alt={GALLERY_ITEMS[2].title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
             </div>
           </div>
 
-          {/* LOWER BLOCK: Clean Row of Preview Tiles */}
+          {/* LOWER BLOCK: 5 Bottom Thumbnails in 1 Row */}
           <div
             className="product-lower-bento"
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(5, 1fr)',
               gap: '10px',
-              height: '110px',
-              maxHeight: '110px',
-              minHeight: 0,
-              marginTop: '2px'
+              height: '74px'
             }}
           >
             {GALLERY_ITEMS.slice(3, 8).map((item, idx) => {
-              const globalIdx = idx + 3;
-              const isSelected = activeMediaIndex === globalIdx;
-              const isLast = idx === 4; // 5th tile in lower row
+              const actualIndex = idx + 3;
+              const isSelected = activeMediaIndex === actualIndex;
+              const isLast = idx === 4;
 
               return (
                 <div
                   key={item.id}
-                  onClick={() => setActiveMediaIndex(globalIdx)}
+                  onClick={() => setActiveMediaIndex(actualIndex)}
                   style={{
                     position: 'relative',
                     width: '100%',
                     height: '100%',
-                    maxHeight: '110px',
-                    minHeight: 0,
-                    borderRadius: '14px',
+                    borderRadius: '12px',
                     overflow: 'hidden',
-                    backgroundColor: '#f4f4f5',
                     cursor: 'pointer',
                     border: isSelected ? '2px solid #090909' : '1px solid rgba(0, 0, 0, 0.08)',
-                    opacity: isSelected ? 1 : 0.88,
-                    transition: 'all 0.3s ease'
+                    backgroundColor: '#ffffff'
                   }}
+                  className="gallery-thumb-interactive"
                 >
                   <img
                     src={item.src}
                     alt={item.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      maxHeight: '110px',
-                      objectFit: 'cover',
-                      display: 'block'
-                    }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
-
-                  {/* 5th Tile Glass Overlay "+8 фото та відео" / Animated Arrow on Mobile */}
                   {isLast && (
                     <div
-                      className="gallery-last-tile-overlay"
                       style={{
                         position: 'absolute',
                         inset: 0,
                         backgroundColor: 'rgba(9, 9, 9, 0.65)',
-                        backdropFilter: 'blur(4px)',
+                        backdropFilter: 'blur(2px)',
+                        color: '#ffffff',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: '#ffffff',
-                        fontSize: '12px',
+                        fontSize: '11px',
                         fontWeight: 700,
                         textAlign: 'center',
-                        padding: '4px'
+                        padding: '2px'
                       }}
                     >
-                      <span className="gallery-last-tile-text">+8 фото та відео</span>
-                      <span className="gallery-last-tile-arrow">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="animate-arrow-bounce">
-                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                          <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                      </span>
+                      +8 фото та відео
                     </div>
                   )}
                 </div>
@@ -340,118 +307,53 @@ export const ProductSection: React.FC = () => {
             })}
           </div>
 
-          {/* Lower Left 2-Column IDEAL FOR List (Pure White, No Pill Bubbles, No Borders) */}
+          {/* Key Advantages Tags (Under Gallery) */}
           <div
+            className="product-quick-specs"
             style={{
-              marginTop: '0.85rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.75rem',
-              width: '100%',
-              padding: '0.2rem 0'
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '1.75rem',
+              paddingTop: '1.25rem',
+              marginTop: '0.5rem',
+              borderTop: '1px solid #e4e4e7',
+              fontSize: '13px',
+              color: '#3f3f46'
             }}
           >
-            {/* Category Label */}
-            <div style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.08em', color: '#71717a', textTransform: 'uppercase' }}>
-              ІДЕАЛЬНО ДЛЯ / IDEAL FOR
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <span style={{ fontWeight: 800, color: '#090909', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
+                Ідеально для
+              </span>
+              <span style={{ lineHeight: 1.45 }}>• Клітинне довголіття & детокс</span>
+              <span style={{ lineHeight: 1.45 }}>• Захист від глікації (цукрового стресу)</span>
+              <span style={{ lineHeight: 1.45 }}>• Глибоке зволоження та пружність</span>
             </div>
-
-            {/* 2-Column Bullet List: Column 1 (5 items), Column 2 (4 items) */}
-            <div
-              className="product-ideal-for-grid"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1.15fr 1fr',
-                gap: '0.55rem 2.25rem',
-                fontSize: '13px',
-                color: '#18181b',
-                lineHeight: 1.5
-              }}
-            >
-              {/* COLUMN 1: 5 items */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-                {[
-                  'Клітинне довголіття',
-                  'Захист від глікації',
-                  'Контроль запалень',
-                  'Протизапальна дія',
-                  'Відновлення після стресу'
-                ].map((item, idx) => (
-                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontWeight: 600 }}>
-                    <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#52525b', flexShrink: 0, display: 'inline-block' }} />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* COLUMN 2: 4 items */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-                {[
-                  'Профілактика клітинного старіння',
-                  'Мітохондріальна енергія',
-                  'Відновлення м’язів та суглобів',
-                  'Клітинне перезавантаження'
-                ].map((item, idx) => (
-                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontWeight: 600 }}>
-                    <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#52525b', flexShrink: 0, display: 'inline-block' }} />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Formulation & Recommendation Footer Bar */}
-            <div
-              className="product-formula-footer"
-              style={{
-                marginTop: '0.85rem',
-                paddingTop: '0.85rem',
-                borderTop: '1px solid #f4f4f5',
-                display: 'grid',
-                gridTemplateColumns: '1.15fr 1fr',
-                gap: '2.25rem',
-                alignItems: 'center',
-                fontSize: '12.5px'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ color: '#a1a1aa', fontWeight: 800, fontSize: '11px', letterSpacing: '0.05em' }}>ФОРМУЛА:</span>
-                <span style={{ fontWeight: 700, color: '#090909' }}>Без ароматизаторів · Без цукру та стевії</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ color: '#a1a1aa', fontWeight: 800, fontSize: '11px', letterSpacing: '0.05em' }}>РЕКОМЕНДОВАНО:</span>
-                <span style={{ fontWeight: 700, color: '#090909' }}>
-                  лікарями та швейцарськими експертами
-                </span>
-              </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <span style={{ fontWeight: 800, color: '#090909', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
+                Стандарти якості
+              </span>
+              <span style={{ lineHeight: 1.45 }}>• 100% Swiss Made (GMP Лозанна)</span>
+              <span style={{ lineHeight: 1.45 }}>• Без цукру, стевії, ГМО та барвників</span>
+              <span style={{ lineHeight: 1.45 }}>• Сертифікований халяль та кошер</span>
             </div>
           </div>
-
         </div>
 
         {/* ========================================================================= */}
-        {/* RIGHT COLUMN: STICKY SCROLLABLE PRODUCT DETAILS (WHITE CLEAN THEME)      */}
+        {/* RIGHT COLUMN: COMPACT PRODUCT DETAILS & BUY ACTIONS (NO SCROLL NEEDED)    */}
         {/* ========================================================================= */}
         <div
           style={{
-            position: 'sticky',
-            top: 'calc(88px + 1.25rem)',
-            maxHeight: 'calc(100vh - 110px)',
-            overflowY: 'auto',
-            paddingRight: '0.75rem',
-            paddingBottom: '3.5rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1.4rem',
-            scrollBehavior: 'smooth',
-            overscrollBehavior: 'contain'
+            gap: '1rem',
+            paddingLeft: '0.5rem'
           }}
-          className="product-details-scrollable"
+          className="product-details-container"
         >
-
-          {/* ── 1. Top Badges, Ratings & Product Headline ── */}
-          <div className="product-title-header" style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-            {/* Top Badges & Ratings */}
+          {/* ── 1. TOP HEADER: Badges + Product Headline (ORDER 1 on Mobile) ── */}
+          <div className="product-title-header" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span
@@ -459,9 +361,9 @@ export const ProductSection: React.FC = () => {
                     backgroundColor: 'rgba(5, 150, 105, 0.1)',
                     color: '#047857',
                     border: '1px solid rgba(5, 150, 105, 0.3)',
-                    padding: '4px 12px',
+                    padding: '3px 10px',
                     borderRadius: '20px',
-                    fontSize: '11.5px',
+                    fontSize: '11px',
                     fontWeight: 700
                   }}
                 >
@@ -471,21 +373,21 @@ export const ProductSection: React.FC = () => {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '6px',
+                    gap: '5px',
                     backgroundColor: 'rgba(0, 0, 0, 0.05)',
                     color: '#090909',
                     border: '1px solid rgba(0, 0, 0, 0.1)',
-                    padding: '5px 14px',
+                    padding: '3px 10px',
                     borderRadius: '20px',
-                    fontSize: '13px',
+                    fontSize: '11px',
                     fontWeight: 700
                   }}
                 >
-                  <SwissFlagIcon size={14} /> Swiss Made
+                  <SwissFlagIcon size={12} /> Swiss Made
                 </span>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14.5px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px' }}>
                 <span style={{ color: '#f59e0b' }}>★★★★★</span>
                 <span style={{ fontWeight: 700, color: '#090909' }}>5.0</span>
                 <span style={{ color: '#71717a' }}>(28 відгуків)</span>
@@ -496,7 +398,7 @@ export const ProductSection: React.FC = () => {
             <h1
               className="font-serif"
               style={{
-                fontSize: '2.65rem',
+                fontSize: '2.35rem',
                 fontWeight: 700,
                 color: '#090909',
                 margin: '0',
@@ -508,46 +410,35 @@ export const ProductSection: React.FC = () => {
             </h1>
           </div>
 
-          {/* ── 2. Expandable Description ── */}
-          <div className="product-desc-block">
+          {/* ── 2. SUBTITLE & KEY BENEFITS (ORDER 3 on Mobile) ── */}
+          <div className="product-desc-block" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             <p
               style={{
-                fontSize: '15px',
-                lineHeight: 1.6,
+                fontSize: '13.5px',
+                lineHeight: 1.5,
                 color: '#52525b',
-                margin: 0,
-                display: '-webkit-box',
-                WebkitLineClamp: isDescExpanded ? 'unset' : 3,
-                WebkitBoxOrient: 'vertical',
-                overflow: isDescExpanded ? 'visible' : 'hidden',
-                transition: 'all 0.3s ease'
-              } as React.CSSProperties}
-            >
-              100% швейцарська натуральна формула, створена для відновлення колагену, уповільнення клітинного старіння та збереження біологічної молодості. Пригнічує глікацію, підтримує мітохондріальну енергію та захищає від оксидативного стресу.
-            </p>
-            {/* Mobile-only expand toggle */}
-            <button
-              className="desc-toggle-btn"
-              onClick={() => setIsDescExpanded(prev => !prev)}
-              style={{
-                display: 'none', // shown only on mobile via CSS
-                background: 'none',
-                border: 'none',
-                padding: '4px 0 0 0',
-                fontSize: '12px',
-                fontWeight: 700,
-                color: '#090909',
-                cursor: 'pointer',
-                textDecoration: 'underline',
-                textUnderlineOffset: '3px'
+                margin: 0
               }}
             >
-              {isDescExpanded ? 'Згорнути ▲' : 'Читати більше ▼'}
-            </button>
+              100% швейцарська натуральна формула потрійного відновлення: нейтралізує глікацію, підтримує мітохондріальну енергію та захищає колагенову матрицю.
+            </p>
+
+            {/* Key Benefits Pills */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '2px' }}>
+              <span style={{ backgroundColor: '#f4f4f5', color: '#3f3f46', fontSize: '11px', fontWeight: 600, padding: '3px 9px', borderRadius: '12px' }}>
+                ✦ 5000 мг морських пептидів &lt;2 кДа
+              </span>
+              <span style={{ backgroundColor: '#f4f4f5', color: '#3f3f46', fontSize: '11px', fontWeight: 600, padding: '3px 9px', borderRadius: '12px' }}>
+                ✦ Екстракт розмарину & силімарин
+              </span>
+              <span style={{ backgroundColor: '#f4f4f5', color: '#3f3f46', fontSize: '11px', fontWeight: 600, padding: '3px 9px', borderRadius: '12px' }}>
+                ✦ Коензим Q10 + SOD
+              </span>
+            </div>
           </div>
 
-          {/* ── 3. Expandable Product Specs & Accordions ── */}
-          <div className="product-accordions-grid" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', borderTop: '1px solid #e4e4e7', paddingTop: '1rem' }}>
+          {/* ── 3. COMPACT ACCORDIONS (ORDER 4 on Mobile) ── */}
+          <div className="product-accordions-block" style={{ display: 'flex', flexDirection: 'column', gap: '2px', borderTop: '1px solid #f4f4f5', paddingTop: '6px', marginTop: '4px' }}>
             {ACCORDION_TABS.map((tab) => {
               const isOpen = openAccordionId === tab.id;
               return (
@@ -555,20 +446,19 @@ export const ProductSection: React.FC = () => {
                   key={tab.id}
                   style={{
                     borderBottom: '1px solid #f4f4f5',
-                    paddingBottom: '0.65rem'
+                    paddingBottom: '3px'
                   }}
                 >
                   <div
                     onClick={() => setOpenAccordionId(isOpen ? null : tab.id)}
-                    className="product-accordion-title"
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       cursor: 'pointer',
-                      padding: '0.4rem 0',
-                      fontSize: '15px',
-                      fontWeight: 700,
+                      padding: '3px 0',
+                      fontSize: '12px',
+                      fontWeight: 600,
                       color: isOpen ? '#090909' : '#3f3f46',
                       transition: 'color 0.2s ease'
                     }}
@@ -576,10 +466,10 @@ export const ProductSection: React.FC = () => {
                     <span>{tab.title}</span>
                     <span
                       style={{
-                        fontSize: '18px',
+                        fontSize: '15px',
                         color: isOpen ? '#090909' : '#a1a1aa',
                         transform: isOpen ? 'rotate(45deg)' : 'rotate(0)',
-                        transition: 'transform 0.25s ease'
+                        transition: 'transform 0.2s ease'
                       }}
                     >
                       +
@@ -589,20 +479,19 @@ export const ProductSection: React.FC = () => {
                   {isOpen && (
                     <div
                       style={{
-                        paddingTop: '0.5rem',
-                        animation: 'fadeInSlow 0.3s ease forwards'
+                        padding: '4px 0 6px 0',
+                        animation: 'fadeInSlow 0.25s ease forwards'
                       }}
                     >
                       <ul
-                        className="product-accordion-items"
                         style={{
                           margin: 0,
-                          paddingLeft: '1.25rem',
+                          paddingLeft: '1.15rem',
                           display: 'flex',
                           flexDirection: 'column',
-                          gap: '0.45rem',
-                          fontSize: '12.5px',
-                          lineHeight: 1.55,
+                          gap: '3px',
+                          fontSize: '11.5px',
+                          lineHeight: 1.45,
                           color: '#52525b'
                         }}
                       >
@@ -619,236 +508,179 @@ export const ProductSection: React.FC = () => {
             })}
           </div>
 
-          {/* ── BUY BLOCK: Pack selector + Qty + Buttons + Trust ── */}
-          <div className="product-buy-bottom" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {/* ── 4. BUY BLOCK: Pack selector + Qty + Buttons (ORDER 5 on Mobile) ── */}
+          <div className="product-buy-block" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', borderTop: '1px solid #e4e4e7', paddingTop: '0.75rem' }}>
 
-          {/* Pack Options Selector (1 Month vs 3 Months) */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-            <span className="product-pack-label" style={{ fontSize: '13px', fontWeight: 700, color: '#090909' }}>
-              Оберіть зручний варіант для себе:
-            </span>
+            {/* Pack Options Selector (1 Month vs 3 Months) */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#090909' }}>
+                Оберіть курс прийому:
+              </span>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
-              {/* 1 Pack Option */}
-              <div
-                onClick={() => setSelectedOption(1)}
-                className="product-pack-option"
-                style={{
-                  padding: '12px 14px',
-                  borderRadius: '12px',
-                  border: selectedOption === 1 ? '2px solid #090909' : '1px solid #e4e4e7',
-                  backgroundColor: selectedOption === 1 ? '#ffffff' : '#fafafa',
-                  boxShadow: selectedOption === 1 ? '0 4px 14px rgba(0,0,0,0.06)' : 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <span style={{ fontSize: '13px', fontWeight: 700, color: '#090909' }}>1 місяць (1 упаковка)</span>
-                <span className="product-pack-price" style={{ fontSize: '17px', fontWeight: 800, color: '#090909', display: 'block', marginTop: '4px' }}>
-                  8 200 ₴
-                </span>
-              </div>
-
-              {/* 3 Packs Option */}
-              <div
-                onClick={() => setSelectedOption(3)}
-                className="product-pack-option"
-                style={{
-                  position: 'relative',
-                  padding: '12px 14px',
-                  borderRadius: '12px',
-                  border: selectedOption === 3 ? '2px solid #090909' : '1px solid #e4e4e7',
-                  backgroundColor: selectedOption === 3 ? '#ffffff' : '#fafafa',
-                  boxShadow: selectedOption === 3 ? '0 4px 14px rgba(0,0,0,0.06)' : 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <span
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                {/* 1 Pack Option */}
+                <div
+                  onClick={() => setSelectedOption(1)}
                   style={{
-                    position: 'absolute',
-                    top: '-9px',
-                    right: '10px',
-                    backgroundColor: '#090909',
-                    color: '#ffffff',
-                    fontSize: '10px',
-                    fontWeight: 800,
-                    padding: '2px 8px',
-                    borderRadius: '10px'
+                    padding: '10px 12px',
+                    borderRadius: '12px',
+                    border: selectedOption === 1 ? '2px solid #090909' : '1px solid #e4e4e7',
+                    backgroundColor: selectedOption === 1 ? '#ffffff' : '#fafafa',
+                    boxShadow: selectedOption === 1 ? '0 4px 12px rgba(0,0,0,0.06)' : 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
                   }}
                 >
-                  ЕКОНОМІЯ 10%
-                </span>
-                <span style={{ fontSize: '13px', fontWeight: 700, color: '#090909' }}>3 місяці (3 упаковки)</span>
-                <div>
-                  <span style={{ fontSize: '17px', fontWeight: 800, color: '#090909', display: 'block', marginTop: '4px' }}>
-                    22 140 ₴
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#090909' }}>1 місяць (1 упаковка)</span>
+                  <span style={{ fontSize: '16px', fontWeight: 800, color: '#090909', display: 'block', marginTop: '2px' }}>
+                    8 200 ₴
                   </span>
-                  <span style={{ fontSize: '11px', color: '#71717a' }}>
-                    (7 380 ₴ / уп.)
+                </div>
+
+                {/* 3 Packs Option */}
+                <div
+                  onClick={() => setSelectedOption(3)}
+                  style={{
+                    position: 'relative',
+                    padding: '10px 12px',
+                    borderRadius: '12px',
+                    border: selectedOption === 3 ? '2px solid #090909' : '1px solid #e4e4e7',
+                    backgroundColor: selectedOption === 3 ? '#ffffff' : '#fafafa',
+                    boxShadow: selectedOption === 3 ? '0 4px 12px rgba(0,0,0,0.06)' : 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: '-8px',
+                      right: '8px',
+                      backgroundColor: '#090909',
+                      color: '#ffffff',
+                      fontSize: '9px',
+                      fontWeight: 800,
+                      padding: '2px 6px',
+                      borderRadius: '8px'
+                    }}
+                  >
+                    -10% ЕКОНОМІЯ
                   </span>
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#090909' }}>3 місяці (3 упаковки)</span>
+                  <div>
+                    <span style={{ fontSize: '16px', fontWeight: 800, color: '#090909', display: 'block', marginTop: '2px' }}>
+                      22 140 ₴
+                    </span>
+                    <span style={{ fontSize: '10px', color: '#71717a' }}>
+                      (7 380 ₴ / уп.)
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Price & Quantity Counter */}
-          <div className="product-qty-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #e4e4e7', paddingTop: '1rem' }}>
+            {/* Price & Quantity Counter */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #f4f4f5', paddingTop: '0.75rem' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  border: '1px solid #e4e4e7',
+                  borderRadius: '10px',
+                  padding: '5px 12px',
+                  gap: '12px',
+                  backgroundColor: '#fafafa'
+                }}
+              >
+                <button
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  style={{ border: 'none', background: 'none', fontSize: '16px', cursor: 'pointer', fontWeight: 700, color: '#090909' }}
+                >
+                  -
+                </button>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: '#090909' }}>{quantity}</span>
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  style={{ border: 'none', background: 'none', fontSize: '16px', cursor: 'pointer', fontWeight: 700, color: '#090909' }}
+                >
+                  +
+                </button>
+              </div>
+
+              <div style={{ textAlign: 'right' }}>
+                <span style={{ fontSize: '11px', color: '#71717a', display: 'block' }}>Сума замовлення:</span>
+                <span style={{ fontSize: '22px', fontWeight: 800, color: '#090909' }}>
+                  {(currentPrice * quantity).toLocaleString('uk-UA')} ₴
+                </span>
+              </div>
+            </div>
+
+            {/* Primary Buy Actions */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.75rem', marginTop: '2px' }}>
+              <button
+                className="btn-buy"
+                style={{
+                  padding: '13px',
+                  fontSize: '13px',
+                  backgroundColor: '#090909',
+                  color: '#ffffff',
+                  border: 'none',
+                  fontWeight: 700,
+                  borderRadius: '12px',
+                  boxShadow: '0 6px 20px rgba(0,0,0,0.14)',
+                  cursor: 'pointer'
+                }}
+              >
+                ДОДАТИ В КОШИК <ArrowIcon />
+              </button>
+
+              <button
+                className="btn-buy"
+                style={{
+                  padding: '13px',
+                  fontSize: '13px',
+                  backgroundColor: '#fafafa',
+                  color: '#090909',
+                  border: '1px solid #e4e4e7',
+                  fontWeight: 700,
+                  borderRadius: '12px',
+                  cursor: 'pointer'
+                }}
+              >
+                КУПИТИ В 1 КЛІК <ArrowIcon />
+              </button>
+            </div>
+
+            {/* Micro Trust Strip */}
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                border: '1px solid #e4e4e7',
-                borderRadius: '10px',
-                padding: '6px 14px',
-                gap: '14px',
-                backgroundColor: '#fafafa'
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '0.65rem',
+                paddingTop: '0.75rem',
+                borderTop: '1px solid #f4f4f5'
               }}
             >
-              <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                style={{ border: 'none', background: 'none', fontSize: '18px', cursor: 'pointer', fontWeight: 700, color: '#090909' }}
-              >
-                -
-              </button>
-              <span style={{ fontSize: '15px', fontWeight: 700, color: '#090909' }}>{quantity}</span>
-              <button
-                onClick={() => setQuantity(quantity + 1)}
-                style={{ border: 'none', background: 'none', fontSize: '18px', cursor: 'pointer', fontWeight: 700, color: '#090909' }}
-              >
-                +
-              </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '14px' }}>🚚</span>
+                <div style={{ fontSize: '11px', color: '#52525b', lineHeight: 1.3 }}>
+                  <strong style={{ color: '#090909', display: 'block' }}>Безкоштовна доставка</strong>
+                  Нова Пошта (1-2 дні)
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '14px' }}>🛡️</span>
+                <div style={{ fontSize: '11px', color: '#52525b', lineHeight: 1.3 }}>
+                  <strong style={{ color: '#090909', display: 'block' }}>100% Swiss Quality</strong>
+                  Оригінальний сертифікат
+                </div>
+              </div>
             </div>
 
-            <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: '12px', color: '#71717a', display: 'block' }}>Загальна вартість:</span>
-              <span style={{ fontSize: '24px', fontWeight: 800, color: '#090909' }}>
-                {(currentPrice * quantity).toLocaleString('uk-UA')} ₴
-              </span>
-            </div>
           </div>
-
-          {/* Action Buttons */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '0.85rem' }}>
-            <button
-              className="btn-buy"
-              style={{
-                padding: '14px',
-                fontSize: '13.5px',
-                backgroundColor: '#090909',
-                color: '#ffffff',
-                border: 'none',
-                fontWeight: 700,
-                borderRadius: '12px',
-                boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
-                cursor: 'pointer'
-              }}
-            >
-              ДОДАТИ В КОШИК <ArrowIcon />
-            </button>
-
-            <button
-              className="btn-buy"
-              style={{
-                padding: '14px',
-                fontSize: '13.5px',
-                backgroundColor: '#fafafa',
-                color: '#090909',
-                border: '1px solid #e4e4e7',
-                fontWeight: 700,
-                borderRadius: '12px',
-                cursor: 'pointer'
-              }}
-            >
-              КУПИТИ В 1 КЛІК <ArrowIcon />
-            </button>
-          </div>
-
-          {/* Trust Guarantees Block (Re-placed under Buy Buttons with ample scroll space) */}
-          <div
-            style={{
-              marginTop: '0.85rem',
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '0.85rem',
-              paddingTop: '1rem',
-              borderTop: '1px solid #f4f4f5'
-            }}
-          >
-            {/* Card 1: Delivery */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-              <div style={{ padding: '6px', borderRadius: '8px', backgroundColor: '#fafafa', border: '1px solid rgba(0,0,0,0.06)', flexShrink: 0 }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#090909" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="animate-icon-1">
-                  <rect x="1" y="3" width="15" height="13" rx="2" />
-                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-                  <circle cx="5.5" cy="18.5" r="2.5" />
-                  <circle cx="18.5" cy="18.5" r="2.5" />
-                </svg>
-              </div>
-              <div>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#090909' }}>
-                  Безкоштовна доставка
-                </div>
-                <div style={{ fontSize: '11px', color: '#71717a', lineHeight: 1.35 }}>
-                  По всій Україні (1-2 дні)
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2: Swiss Original */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-              <div style={{ padding: '6px', borderRadius: '8px', backgroundColor: '#fafafa', border: '1px solid rgba(0,0,0,0.06)', flexShrink: 0 }}>
-                <SwissFlagIcon size={18} />
-              </div>
-              <div>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#090909' }}>
-                  100% Swiss Original
-                </div>
-                <div style={{ fontSize: '11px', color: '#71717a', lineHeight: 1.35 }}>
-                  Сертифікат з Лозанни
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3: Certificate */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-              <div style={{ padding: '6px', borderRadius: '8px', backgroundColor: '#fafafa', border: '1px solid rgba(0,0,0,0.06)', flexShrink: 0 }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#090909" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="animate-icon-3">
-                  <circle cx="12" cy="8" r="6" />
-                  <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
-                </svg>
-              </div>
-              <div>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#090909' }}>
-                  Гарантія GMP & ISO
-                </div>
-                <div style={{ fontSize: '11px', color: '#71717a', lineHeight: 1.35 }}>
-                  Халяль та Кошер колаген
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4: Secure Payment */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-              <div style={{ padding: '6px', borderRadius: '8px', backgroundColor: '#fafafa', border: '1px solid rgba(0,0,0,0.06)', flexShrink: 0 }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#090909" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="animate-icon-4">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-              </div>
-              <div>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#090909' }}>
-                  Безпечна оплата
-                </div>
-                <div style={{ fontSize: '11px', color: '#71717a', lineHeight: 1.35 }}>
-                  Офіційний фіскальний чек
-                </div>
-              </div>
-            </div>
-          </div> {/* END trust grid */}
-          </div> {/* END product-buy-bottom */}
-        </div> {/* END product-details-scrollable */}
-      </div> {/* END product-hero-grid */}
+        </div>
+      </div>
     </section>
   );
 };

@@ -208,7 +208,11 @@ const PRODUCTS = [
   }
 ];
 
-export const NeedsFilter: React.FC = () => {
+interface NeedsFilterProps {
+  onNavigateProduct?: () => void;
+}
+
+export const NeedsFilter: React.FC<NeedsFilterProps> = ({ onNavigateProduct }) => {
   const [step, setStep] = useState<number>(1);
   const [selectedMacroId, setSelectedMacroId] = useState<string>('');
   const [selectedSubId, setSelectedSubId] = useState<string>('');
@@ -259,7 +263,7 @@ export const NeedsFilter: React.FC = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 'calc(88px + 1rem) 3.5rem 2.5rem 3.5rem',
+        padding: 'calc(88px + 2rem) 3.5rem 3.5rem 3.5rem',
         borderTop: '1px solid #eaeaea',
         borderBottom: '1px solid #eaeaea',
         scrollSnapAlign: 'start',
@@ -278,13 +282,13 @@ export const NeedsFilter: React.FC = () => {
           justifyContent: 'space-between'
         }}
       >
-        {/* Header Title Section - Clean & Minimal */}
-        <div style={{ textAlign: 'center', marginBottom: '0.85rem' }} className="reveal-on-scroll is-revealed">
+        {/* Header Title Section - Clean & Minimal with Comfortable Margins */}
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }} className="reveal-on-scroll is-revealed">
           <h2
             className="font-serif quiz-main-title"
             style={{
               fontSize: 'clamp(1.6rem, 3.2vw, 2.4rem)',
-              lineHeight: 1.15,
+              lineHeight: 1.2,
               color: '#090909',
               margin: '0',
               fontWeight: 600
@@ -294,14 +298,14 @@ export const NeedsFilter: React.FC = () => {
           </h2>
         </div>
 
-        {/* 3-Step Indicator Pills - Compact */}
+        {/* 3-Step Indicator Pills - Spacious & Rounded */}
         <div
           style={{
             display: 'flex',
-            gap: '0.65rem',
+            gap: '0.85rem',
             width: '100%',
-            maxWidth: '640px',
-            marginBottom: '1.25rem'
+            maxWidth: '680px',
+            marginBottom: '2rem'
           }}
           className="reveal-on-scroll is-revealed step-bar-mobile"
         >
@@ -310,8 +314,8 @@ export const NeedsFilter: React.FC = () => {
             className="step-pill-item"
             style={{
               flex: 1,
-              padding: '8px 12px',
-              borderRadius: '20px',
+              padding: '10px 14px',
+              borderRadius: '24px',
               backgroundColor: step === 1 ? '#7c3aed' : '#f3e8ff',
               color: step === 1 ? '#ffffff' : '#6b21a8',
               fontWeight: 700,
@@ -395,86 +399,25 @@ export const NeedsFilter: React.FC = () => {
                 key={tile.id}
                 onClick={() => handleSelectMacro(tile.id)}
                 className={`quiz-tile-card reveal-on-scroll is-revealed stagger-${index + 1}`}
-                style={{
-                  position: 'relative',
-                  height: '100%',
-                  minHeight: '430px',
-                  borderRadius: '24px',
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                  boxShadow: '0 12px 32px rgba(0, 0, 0, 0.08)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  padding: '2rem 1.75rem',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-                }}
               >
-                <img
-                  src={tile.image}
-                  alt={tile.title}
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.5s ease'
-                  }}
-                  className="quiz-tile-img"
-                />
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.65) 100%)'
-                  }}
-                />
-
-                <div style={{ position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <h3
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '22px',
-                      fontWeight: 700,
-                      color: '#ffffff',
-                      lineHeight: 1.25,
-                      textShadow: '0 2px 6px rgba(0,0,0,0.4)'
-                    }}
-                  >
-                    {tile.title}
-                  </h3>
-                  <div
-                    style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '50%',
-                      backgroundColor: 'rgba(255, 255, 255, 0.25)',
-                      backdropFilter: 'blur(6px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#ffffff',
-                      fontSize: '18px',
-                      fontWeight: 700
-                    }}
-                  >
+                <div className="quiz-card-img-wrapper">
+                  <img
+                    src={tile.image}
+                    alt={tile.title}
+                    className="quiz-card-img"
+                  />
+                  <div className="quiz-card-badge-circle">
                     →
                   </div>
                 </div>
 
-                <div style={{ position: 'relative', zIndex: 2 }}>
-                  <p
-                    style={{
-                      fontSize: '13.5px',
-                      color: 'rgba(255, 255, 255, 0.95)',
-                      lineHeight: 1.4,
-                      fontWeight: 500,
-                      textShadow: '0 2px 4px rgba(0,0,0,0.5)'
-                    }}
-                  >
-                    {tile.subtext}
-                  </p>
+                <div
+                  className="quiz-card-footer"
+                  style={{
+                    backgroundColor: ['#e2ece9', '#ebe8f4', '#faeee3', '#e2eae4'][index % 4]
+                  }}
+                >
+                  <h3>{tile.title}</h3>
                 </div>
               </div>
             ))}
@@ -538,86 +481,25 @@ export const NeedsFilter: React.FC = () => {
                   key={sub.id}
                   onClick={() => handleSelectSub(sub.id)}
                   className={`quiz-tile-card reveal-on-scroll is-revealed stagger-${index + 1}`}
-                  style={{
-                    position: 'relative',
-                    height: '100%',
-                    minHeight: '380px',
-                    borderRadius: '24px',
-                    overflow: 'hidden',
-                    cursor: 'pointer',
-                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.08)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    padding: '2rem 1.5rem',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
                 >
-                  <img
-                    src={sub.image}
-                    alt={sub.title}
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      transition: 'transform 0.5s ease'
-                    }}
-                    className="quiz-tile-img"
-                  />
-                  <div
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      background: 'linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.7) 100%)'
-                    }}
-                  />
-
-                  <div style={{ position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <h4
-                      style={{
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '20px',
-                        fontWeight: 700,
-                        color: '#ffffff',
-                        lineHeight: 1.25,
-                        textShadow: '0 2px 6px rgba(0,0,0,0.4)'
-                      }}
-                    >
-                      {sub.title}
-                    </h4>
-                    <div
-                      style={{
-                        width: '32px',
-                        height: '32px',
-                        borderRadius: '50%',
-                        backgroundColor: 'rgba(255, 255, 255, 0.25)',
-                        backdropFilter: 'blur(6px)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#ffffff',
-                        fontSize: '15px',
-                        fontWeight: 700
-                      }}
-                    >
+                  <div className="quiz-card-img-wrapper">
+                    <img
+                      src={sub.image}
+                      alt={sub.title}
+                      className="quiz-card-img"
+                    />
+                    <div className="quiz-card-badge-circle">
                       →
                     </div>
                   </div>
 
-                  <div style={{ position: 'relative', zIndex: 2 }}>
-                    <p
-                      style={{
-                        fontSize: '13px',
-                        color: 'rgba(255, 255, 255, 0.95)',
-                        lineHeight: 1.4,
-                        fontWeight: 400,
-                        textShadow: '0 2px 4px rgba(0,0,0,0.5)'
-                      }}
-                    >
-                      {sub.subtext}
-                    </p>
+                  <div
+                    className="quiz-card-footer"
+                    style={{
+                      backgroundColor: ['#e2ece9', '#ebe8f4', '#faeee3', '#e2eae4'][index % 4]
+                    }}
+                  >
+                    <h4>{sub.title}</h4>
                   </div>
                 </div>
               ))}
@@ -682,86 +564,25 @@ export const NeedsFilter: React.FC = () => {
                   key={age.id}
                   onClick={() => handleSelectAge(age.id)}
                   className={`quiz-tile-card reveal-on-scroll is-revealed stagger-${index + 1}`}
-                  style={{
-                    position: 'relative',
-                    height: '100%',
-                    minHeight: '380px',
-                    borderRadius: '24px',
-                    overflow: 'hidden',
-                    cursor: 'pointer',
-                    boxShadow: '0 12px 32px rgba(0, 0, 0, 0.08)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    padding: '2rem 1.75rem',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
                 >
-                  <img
-                    src={age.image}
-                    alt={age.label}
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      transition: 'transform 0.5s ease'
-                    }}
-                    className="quiz-tile-img"
-                  />
-                  <div
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.7) 100%)'
-                    }}
-                  />
-
-                  <div style={{ position: 'relative', zIndex: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <h4
-                      style={{
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '24px',
-                        fontWeight: 700,
-                        color: '#ffffff',
-                        lineHeight: 1.2,
-                        textShadow: '0 2px 6px rgba(0,0,0,0.4)'
-                      }}
-                    >
-                      {age.label}
-                    </h4>
-                    <div
-                      style={{
-                        width: '34px',
-                        height: '34px',
-                        borderRadius: '50%',
-                        backgroundColor: 'rgba(255, 255, 255, 0.25)',
-                        backdropFilter: 'blur(6px)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#ffffff',
-                        fontSize: '16px',
-                        fontWeight: 700
-                      }}
-                    >
+                  <div className="quiz-card-img-wrapper">
+                    <img
+                      src={age.image}
+                      alt={age.label}
+                      className="quiz-card-img"
+                    />
+                    <div className="quiz-card-badge-circle">
                       ✓
                     </div>
                   </div>
 
-                  <div style={{ position: 'relative', zIndex: 2 }}>
-                    <p
-                      style={{
-                        fontSize: '13.5px',
-                        color: 'rgba(255, 255, 255, 0.95)',
-                        lineHeight: 1.45,
-                        fontWeight: 400,
-                        textShadow: '0 2px 4px rgba(0,0,0,0.5)'
-                      }}
-                    >
-                      {age.subtext}
-                    </p>
+                  <div
+                    className="quiz-card-footer"
+                    style={{
+                      backgroundColor: ['#e2ece9', '#ebe8f4', '#faeee3', '#e2eae4'][index % 4]
+                    }}
+                  >
+                    <h4>{age.label}</h4>
                   </div>
                 </div>
               ))}
@@ -847,13 +668,21 @@ export const NeedsFilter: React.FC = () => {
                     {prod.subtitle}
                   </p>
                   <button
+                    onClick={() => {
+                      if (onNavigateProduct) {
+                        onNavigateProduct();
+                      } else {
+                        window.location.hash = '#product';
+                      }
+                    }}
                     className="btn-buy"
                     style={{
                       backgroundColor: '#7c3aed',
                       color: '#ffffff',
                       borderRadius: '30px',
                       padding: '9px 22px',
-                      fontSize: '12.5px'
+                      fontSize: '12.5px',
+                      cursor: 'pointer'
                     }}
                   >
                     ПЕРЕГЛЯНУТИ <ArrowIcon />

@@ -1,9 +1,24 @@
 import React, { useState } from 'react';
 import { Phone, Menu, X } from 'lucide-react';
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  onNavigateHome?: () => void;
+  currentRoute?: 'home' | 'product';
+}
+
+export const Header: React.FC<HeaderProps> = ({ onNavigateHome, currentRoute = 'home' }) => {
   const [lang, setLang] = useState<'Ru' | 'Ua'>('Ru');
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  const handleNav = (e: React.MouseEvent, sectionId: string) => {
+    if (currentRoute === 'product' && onNavigateHome) {
+      e.preventDefault();
+      onNavigateHome();
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  };
 
   return (
     <header
@@ -33,6 +48,7 @@ export const Header: React.FC = () => {
         <nav style={{ display: 'flex', alignItems: 'center', gap: '3.5rem' }} className="nav-desktop">
           <a
             href="#products"
+            onClick={(e) => handleNav(e, 'products')}
             style={{
               textDecoration: 'none',
               color: '#000000',
@@ -46,6 +62,7 @@ export const Header: React.FC = () => {
           </a>
           <a
             href="#about"
+            onClick={(e) => handleNav(e, 'about')}
             style={{
               textDecoration: 'none',
               color: '#000000',
@@ -60,7 +77,16 @@ export const Header: React.FC = () => {
         </nav>
 
         {/* Center Logo */}
-        <a href="#" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+        <a
+          href="#"
+          onClick={(e) => {
+            if (onNavigateHome) {
+              e.preventDefault();
+              onNavigateHome();
+            }
+          }}
+          style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
+        >
           <img
             src="https://mypureskin.in.ua/catalog/view/theme/historilab/assets/img/logo.svg"
             alt="MyPureSkin"
@@ -72,6 +98,7 @@ export const Header: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '3.5rem' }} className="nav-desktop">
           <a
             href="#needs-filter"
+            onClick={(e) => handleNav(e, 'needs-filter')}
             style={{
               textDecoration: 'none',
               color: '#000000',
@@ -155,13 +182,34 @@ export const Header: React.FC = () => {
             zIndex: 49
           }}
         >
-          <a href="#products" onClick={() => setIsMobileOpen(false)} style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}>
+          <a
+            href="#products"
+            onClick={(e) => {
+              setIsMobileOpen(false);
+              handleNav(e, 'products');
+            }}
+            style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}
+          >
             Лінійка продуктів
           </a>
-          <a href="#about" onClick={() => setIsMobileOpen(false)} style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}>
+          <a
+            href="#about"
+            onClick={(e) => {
+              setIsMobileOpen(false);
+              handleNav(e, 'about');
+            }}
+            style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}
+          >
             Про MyPureSkin
           </a>
-          <a href="#needs-filter" onClick={() => setIsMobileOpen(false)} style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}>
+          <a
+            href="#needs-filter"
+            onClick={(e) => {
+              setIsMobileOpen(false);
+              handleNav(e, 'needs-filter');
+            }}
+            style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}
+          >
             Підбір формули
           </a>
           <a href="tel:+380937205277" style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px' }}>

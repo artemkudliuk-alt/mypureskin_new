@@ -59,64 +59,73 @@ const INGREDIENTS_LIST = [
     id: 'collagen',
     name: 'Гідролізований морський колаген',
     dose: '5000 мг',
-    desc: 'Морські пептиди I та III типу для відновлення пружності та щільності шкіри.',
-    bgImg: '/ing_collagen.jpg'
+    desc: 'Морські пептиди для пружності та щільності шкіри',
+    bgImg: '/ing_collagen.jpg',
+    pastelBg: '#fbf3ee'
   },
   {
     id: 'hyaluronic',
     name: 'Гіалуронова кислота',
     dose: '120 мг',
-    desc: 'Глибоко зволожує, розгладжує рельєф та усуває мікрозморшки зсередини.',
-    bgImg: '/ing_hyaluronic.jpg'
+    desc: 'Глибоке зволоження та розгладження мікрорельєфу',
+    bgImg: '/ing_hyaluronic.jpg',
+    pastelBg: '#e8f4f8'
   },
   {
     id: 'acerola',
     name: 'Ацерола (Вітамін C)',
     dose: '320 мг (100% C)',
-    desc: 'Потужний каталізатор природного синтезу власного колагену та сяйва.',
-    bgImg: '/ing_acerola.jpg'
+    desc: 'Потужний каталізатор синтезу колагену та сяйва',
+    bgImg: '/ing_acerola.jpg',
+    pastelBg: '#faeceb'
   },
   {
     id: 'pepper',
     name: 'Чорний перець (BioPerine®)',
     dose: '5 мг',
-    desc: 'Запатентна формула для підвищення біодоступності нутрієнтів у 2 рази.',
-    bgImg: '/ing_pepper.jpg'
+    desc: 'Підвищення біодоступності нутрієнтів у 2 рази',
+    bgImg: '/ing_pepper.jpg',
+    pastelBg: '#f3eee9'
   },
   {
     id: 'rosemary',
     name: 'Екстракт Розмарину',
     dose: '500 мг',
-    desc: 'Захищає волокна колагену від цукрового руйнування та глікації.',
-    bgImg: '/ing_rosemary.jpg'
+    desc: 'Захист колагену від цукрового руйнування та глікації',
+    bgImg: '/ing_rosemary.jpg',
+    pastelBg: '#e9f1ea'
   },
   {
     id: 'q10',
     name: 'Коензим Q10',
     dose: '100 мг',
-    desc: 'Відновлює мітохондріальну енергію та захищає клітинний тонус.',
-    bgImg: '/ing_q10.jpg'
+    desc: 'Мітохондріальна енергія та захист клітинного тонусу',
+    bgImg: '/ing_q10.jpg',
+    pastelBg: '#faf3e6'
   },
   {
     id: 'vite',
     name: 'Вітамін E (Токоферол)',
     dose: '18 мг (150%)',
-    desc: 'Захищає та заспокоює клітинні мембрани від оксидативного стресу.',
-    bgImg: '/ing_vite.jpg'
+    desc: 'Захист мембран клітин від оксидативного стресу',
+    bgImg: '/ing_vite.jpg',
+    pastelBg: '#fdf7e7'
   },
   {
     id: 'thistle',
     name: 'Екстракт Розторопші',
     dose: '300 мг',
-    desc: 'Глибока детоксикація печінки та клітинний розпад токсинів.',
-    bgImg: '/ing_thistle.jpg'
+    desc: 'Детоксикація печінки та клітинний розпад токсинів',
+    bgImg: '/ing_thistle.jpg',
+    pastelBg: '#f2ecf8'
   },
   {
     id: 'sod',
     name: 'SOD (Екстракт дині)',
     dose: '10 мг',
-    desc: 'Супероксиддисмутаза для високої нейтралізації вільних радикалів.',
-    bgImg: '/ing_sod.jpg'
+    desc: 'Супероксиддисмутаза проти вільних радикалів',
+    bgImg: '/ing_sod.jpg',
+    pastelBg: '#e8f3ec'
   }
 ];
 
@@ -128,16 +137,15 @@ export const ClinicalInfographicSection: React.FC = () => {
 
   return (
     <section
-      id="clinical-infographic-section"
+      id="about"
       style={{
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
         backgroundColor: '#ffffff',
         color: '#090909',
-        padding: 'calc(88px + 2rem) 2.5rem 5rem 2.5rem',
+        padding: '3rem 2.5rem 5rem 2.5rem',
         boxSizing: 'border-box',
-        scrollSnapAlign: 'start',
         display: 'flex',
         flexDirection: 'column',
         gap: '5rem'
@@ -564,7 +572,7 @@ export const ClinicalInfographicSection: React.FC = () => {
             </p>
           </div>
 
-          {/* 9-Photo Grid */}
+          {/* 3x3 Luxury Bento Ingredient Grid (Histolab Bright Aesthetic) */}
           <div
             className="ingredients-grid"
             style={{
@@ -577,97 +585,100 @@ export const ClinicalInfographicSection: React.FC = () => {
             {INGREDIENTS_LIST.map((ing) => (
               <div
                 key={ing.id}
-                className="glossy-sheen-card"
+                className="ingredient-card-histolab"
                 style={{
                   position: 'relative',
-                  aspectRatio: '21 / 9',
-                  width: '100%',
+                  height: '240px',
                   borderRadius: '18px',
                   overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  backgroundColor: '#ffffff',
+                  border: '1px solid rgba(0, 0, 0, 0.08)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
                   cursor: 'pointer',
-                  userSelect: 'none'
+                  transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
                 }}
               >
-                {/* High-Res Background Image */}
-                <img
-                  src={`${ing.bgImg}?v=2`}
-                  alt={ing.name}
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                />
-
-                {/* Dark Vignette Overlay for Crisp White Text Readability */}
+                {/* Upper Photo Container (100% Bright & Natural) */}
                 <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(90deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.1) 100%)',
-                    zIndex: 1
-                  }}
-                />
-
-                {/* Dosage Badge */}
-                <div
-                  className="ingredient-dose-badge"
-                  style={{
-                    position: 'absolute',
-                    top: '12px',
-                    right: '12px',
-                    zIndex: 3,
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    backdropFilter: 'blur(8px)',
-                    color: '#090909',
-                    fontSize: '11.5px',
-                    fontWeight: 800,
-                    padding: '3px 10px',
-                    borderRadius: '12px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
-                  }}
-                >
-                  {ing.dose}
-                </div>
-
-                {/* White Text Overlay Content */}
-                <div
-                  className="ingredient-text-overlay"
                   style={{
                     position: 'relative',
-                    zIndex: 2,
-                    height: '100%',
-                    padding: '1.15rem 1.35rem',
+                    flex: 1,
+                    minHeight: 0,
+                    overflow: 'hidden',
+                    backgroundColor: '#f8fafc'
+                  }}
+                >
+                  <img
+                    src={`${ing.bgImg}?v=2`}
+                    alt={ing.name}
+                    className="ing-img"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                      transition: 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)'
+                    }}
+                  />
+
+                  {/* Dosage Badge (Top-Right Glass Pill) */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '10px',
+                      right: '10px',
+                      zIndex: 2,
+                      backgroundColor: 'rgba(255, 255, 255, 0.94)',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)',
+                      color: '#090909',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      padding: '3px 9px',
+                      borderRadius: '12px',
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+                      border: '1px solid rgba(0, 0, 0, 0.06)'
+                    }}
+                  >
+                    {ing.dose}
+                  </div>
+                </div>
+
+                {/* Bottom Pastel Frame (Histolab Cosmetic Style) */}
+                <div
+                  style={{
+                    backgroundColor: ing.pastelBg,
+                    borderTop: '1px solid rgba(0, 0, 0, 0.05)',
+                    padding: '9px 12px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    gap: '4px',
-                    color: '#ffffff',
-                    maxWidth: '75%'
+                    gap: '2px',
+                    minHeight: '64px',
+                    boxSizing: 'border-box'
                   }}
                 >
                   <h4
                     style={{
-                      fontSize: '17px',
-                      fontWeight: 800,
-                      color: '#ffffff',
                       margin: 0,
+                      fontSize: '13.5px',
+                      fontWeight: 700,
+                      color: '#090909',
                       lineHeight: 1.25,
-                      textShadow: '0 2px 6px rgba(0,0,0,0.4)'
+                      letterSpacing: '-0.01em'
                     }}
                   >
                     {ing.name}
                   </h4>
                   <p
                     style={{
-                      fontSize: '12px',
-                      color: 'rgba(255, 255, 255, 0.92)',
                       margin: 0,
-                      lineHeight: 1.4,
-                      fontWeight: 500,
-                      textShadow: '0 1px 4px rgba(0,0,0,0.4)'
+                      fontSize: '11px',
+                      color: '#52525b',
+                      lineHeight: 1.3,
+                      fontWeight: 500
                     }}
                   >
                     {ing.desc}
@@ -681,8 +692,57 @@ export const ClinicalInfographicSection: React.FC = () => {
 
       </div>
 
-      {/* Floating Official GMP Insert & Translation Modal Trigger */}
-      <OfficialLeafletModal />
+      {/* Glare Sheen Sweep Effect CSS */}
+      <style>{`
+        .ingredient-card-histolab {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .ingredient-card-histolab::after {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -70%;
+          width: 50%;
+          height: 200%;
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.65) 50%,
+            transparent 100%
+          );
+          transform: rotate(25deg);
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+          z-index: 5;
+        }
+
+        .ingredient-card-histolab:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 14px 30px rgba(0, 0, 0, 0.09) !important;
+          border-color: rgba(0, 0, 0, 0.14) !important;
+        }
+
+        .ingredient-card-histolab:hover .ing-img {
+          transform: scale(1.07);
+        }
+
+        .ingredient-card-histolab:hover::after {
+          opacity: 1;
+          animation: glareSweep 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes glareSweep {
+          0% {
+            left: -70%;
+          }
+          100% {
+            left: 140%;
+          }
+        }
+      `}</style>
     </section>
   );
 };
