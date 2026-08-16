@@ -27,6 +27,7 @@ interface RichProduct {
   id: string;
   number: string;
   name: string;
+  shortName: string;
   boldHeadline: string;
   flavor: string;
   price: string;
@@ -42,6 +43,7 @@ const PRODUCTS: RichProduct[] = [
     id: 'lift',
     number: '01',
     name: 'MyCollagenLift',
+    shortName: 'LIFT',
     boldHeadline: 'СЯЙВО ТА ЛІФТИНГ',
     flavor: 'Смак стиглої малини',
     price: '7 900 ₴',
@@ -59,6 +61,7 @@ const PRODUCTS: RichProduct[] = [
     id: 'glow',
     number: '02',
     name: 'MyCollagenGlow',
+    shortName: 'GLOW',
     boldHeadline: 'ЖИВЛЕННЯ ТА БЛЕСК',
     flavor: 'Ніжний персик та ваніль',
     price: '7 500 ₴',
@@ -76,6 +79,7 @@ const PRODUCTS: RichProduct[] = [
     id: 'repair',
     number: '03',
     name: 'MyCollagenRepair',
+    shortName: 'REPAIR',
     boldHeadline: 'ПОТРІЙНЕ ВІДНОВЛЕННЯ',
     flavor: 'Соковитий цитрус та ягоди',
     price: '8 200 ₴',
@@ -93,7 +97,8 @@ const PRODUCTS: RichProduct[] = [
     id: 'contour',
     number: '04',
     name: 'MyBodyContour',
-    boldHeadline: 'ДЕТОКС ТА ТОНУС',
+    shortName: 'BODY',
+    boldHeadline: 'ДЕТОКС ТА ТОNUS',
     flavor: 'Освіжаючий зелений чай',
     price: '8 500 ₴',
     rating: 4.9,
@@ -309,35 +314,44 @@ export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNa
                     style={{
                       fontSize: '11px',
                       fontWeight: 700,
-                      letterSpacing: '0.1em',
-                      backgroundColor: 'rgba(255, 255, 255, 0.92)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
+                      letterSpacing: '0.08em',
+                      backgroundColor: 'rgba(255, 255, 255, 0.94)',
+                      backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
                       color: '#090909',
                       padding: '5px 12px',
                       borderRadius: '20px',
                       textTransform: 'uppercase',
                       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-                      border: '1px solid rgba(0, 0, 0, 0.05)',
-                      transition: 'all 0.3s ease'
+                      border: '1px solid rgba(255, 255, 255, 0.9)',
+                      whiteSpace: 'nowrap'
                     }}
                   >
-                    {prod.number} • {prod.name}
+                    <span className="product-tag-full">{prod.number} • {prod.name}</span>
+                    <span className="product-tag-short">{prod.number} • {prod.shortName}</span>
                   </span>
 
-                  {/* Top Right Rating with 5 Gold Stars */}
+                  {/* Top Right Rating with 5 Gold Stars — with clean frosted glass pill for perfect readability */}
                   <div
                     className="product-card-top-rating"
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '4px'
+                      gap: '4px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.94)',
+                      backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
+                      padding: '5px 10px',
+                      borderRadius: '20px',
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+                      border: '1px solid rgba(255, 255, 255, 0.9)',
+                      whiteSpace: 'nowrap'
                     }}
                   >
                     <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#090909' }}>
                       {prod.rating.toFixed(1)}
                     </span>
-                    <span style={{ color: '#f59e0b', fontSize: '10px', letterSpacing: '1px' }}>
+                    <span style={{ color: '#f59e0b', fontSize: '10px', letterSpacing: '0.5px' }}>
                       ★★★★★
                     </span>
                   </div>

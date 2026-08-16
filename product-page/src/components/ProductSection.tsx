@@ -353,9 +353,10 @@ export const ProductSection: React.FC = () => {
         >
           {/* ── 1. TOP HEADER: Badges + Product Headline (ORDER 1 on Mobile) ── */}
           <div className="product-title-header" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="product-badges-rating-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+              <div className="product-badges-group" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
                 <span
+                  className="product-badge-stock"
                   style={{
                     backgroundColor: 'rgba(5, 150, 105, 0.1)',
                     color: '#047857',
@@ -363,12 +364,17 @@ export const ProductSection: React.FC = () => {
                     padding: '3px 10px',
                     borderRadius: '20px',
                     fontSize: '11px',
-                    fontWeight: 700
+                    fontWeight: 700,
+                    whiteSpace: 'nowrap',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px'
                   }}
                 >
-                  ● В наявності
+                  <span style={{ fontSize: '8px', color: '#16a34a' }}>●</span> В наявності
                 </span>
                 <span
+                  className="product-badge-swiss"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -379,14 +385,15 @@ export const ProductSection: React.FC = () => {
                     padding: '3px 10px',
                     borderRadius: '20px',
                     fontSize: '11px',
-                    fontWeight: 700
+                    fontWeight: 700,
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   <SwissFlagIcon size={12} /> Swiss Made
                 </span>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px' }}>
+              <div className="product-rating-group" style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', whiteSpace: 'nowrap', flexShrink: 0 }}>
                 <span style={{ color: '#f59e0b' }}>★★★★★</span>
                 <span style={{ fontWeight: 700, color: '#090909' }}>5.0</span>
                 <span style={{ color: '#71717a' }}>(28 відгуків)</span>

@@ -533,6 +533,14 @@ svg, img {
   font-family: var(--font-sans);
 }
 
+.product-tag-full {
+  display: inline;
+}
+
+.product-tag-short {
+  display: none;
+}
+
 /* Button Styling matching mypureskin.in.ua - Rounded Luxury Pill Style */
 .btn-buy {
   background-color: var(--color-btn-dark);
@@ -886,14 +894,15 @@ svg, img {
   .hero-section-container {
     position: relative !important;
     width: 100% !important;
+    height: calc(100svh - 60px) !important;
     height: calc(100dvh - 60px) !important;
-    min-height: calc(100dvh - 60px) !important;
-    height: calc(100vh - 60px) !important;
-    min-height: calc(100vh - 60px) !important;
+    max-height: calc(100dvh - 60px) !important;
+    min-height: auto !important;
     overflow: hidden !important;
     background-color: #000000 !important;
     display: flex !important;
     align-items: flex-end !important;
+    box-sizing: border-box !important;
   }
 
   .hero-mobile-toggle-bar {
@@ -904,7 +913,8 @@ svg, img {
     position: relative !important;
     width: 100% !important;
     height: auto !important;
-    padding: 2.5rem 1.25rem 4.5rem 1.25rem !important;
+    max-height: 100% !important;
+    padding: 1rem 1rem calc(env(safe-area-inset-bottom, 0px) + 1.25rem) 1rem !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
@@ -912,24 +922,24 @@ svg, img {
     align-items: center !important;
     text-align: center !important;
     z-index: 10 !important;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 65%, transparent 100%) !important;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 60%, transparent 100%) !important;
   }
 
   .hero-title-wrapper {
-    margin-bottom: 1.25rem !important;
+    margin-bottom: 0.75rem !important;
     width: 100% !important;
   }
 
   #hero h1 {
-    font-size: 1.35rem !important;
-    line-height: 1.22 !important;
+    font-size: clamp(1.15rem, 4.5vw, 1.35rem) !important;
+    line-height: 1.2 !important;
     margin: 0 !important;
     letter-spacing: 0.01em !important;
     text-shadow: 0 2px 16px rgba(0, 0, 0, 0.8), 0 1px 4px rgba(0, 0, 0, 0.6) !important;
   }
 
   .hero-btn-wrapper {
-    margin-bottom: 1.25rem !important;
+    margin-bottom: 0.85rem !important;
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
@@ -941,37 +951,37 @@ svg, img {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 14px 24px !important;
-    font-size: 13.5px !important;
+    padding: 12px 20px !important;
+    font-size: 13px !important;
     margin-bottom: 0 !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35) !important;
   }
 
   .hero-features-strip {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
+    gap: 6px !important;
     width: 100% !important;
-    max-width: 330px !important;
+    max-width: 340px !important;
   }
 
   .feature-line-item {
-    background: rgba(255, 255, 255, 0.16) !important;
+    background: rgba(255, 255, 255, 0.18) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
-    padding: 7px 10px !important;
-    border-radius: 14px !important;
+    padding: 6px 8px !important;
+    border-radius: 12px !important;
     border: 1px solid rgba(255, 255, 255, 0.28) !important;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
-    gap: 7px !important;
+    gap: 6px !important;
     display: flex !important;
     align-items: center !important;
     text-align: left !important;
   }
 
   .feature-icon-box {
-    width: 20px !important;
-    height: 20px !important;
+    width: 18px !important;
+    height: 18px !important;
     background: rgba(255, 255, 255, 0.25) !important;
     border-radius: 50% !important;
     display: flex !important;
@@ -1249,30 +1259,59 @@ svg, img {
   }
 
   /* Top tag & rating on mobile */
-  .product-lineup-card-content > div:first-child {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    width: 100% !important;
-  }
-
-  .product-lineup-card-content > div:first-child span {
-    font-size: 8.5px !important;
-    padding: 3px 6px !important;
-    letter-spacing: 0.03em !important;
-    max-width: 70% !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-
-  .product-lineup-card-content > div:first-child > div:last-child {
-    padding: 3px 6px !important;
-    gap: 2px !important;
-  }
-
-  .product-lineup-card-content > div:first-child > div:last-child span:first-child {
+  .product-card-top-tag {
     font-size: 10px !important;
+    font-weight: 700 !important;
+    padding: 4px 9px !important;
+    border-radius: 14px !important;
+    letter-spacing: 0.05em !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    color: #090909 !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    white-space: nowrap !important;
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .product-tag-full {
+    display: none !important;
+  }
+
+  .product-tag-short {
+    display: inline !important;
+  }
+
+  .product-card-top-rating {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    padding: 4px 8px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    white-space: nowrap !important;
+  }
+
+  .product-card-top-rating span:first-child {
+    font-size: 10.5px !important;
+    font-weight: 700 !important;
+    color: #090909 !important;
+  }
+
+  .product-card-top-rating span:last-child {
+    font-size: 9.5px !important;
+    color: #f59e0b !important;
+    letter-spacing: 0.5px !important;
+    display: inline !important;
   }
 
   /* Bottom info container — compact so it leaves 70% of the box visible */
@@ -1646,9 +1685,44 @@ svg, img {
     margin: 0 !important;
   }
 
-  .product-title-header > div:first-child span {
+  /* Badges row on mobile — strictly 1 line without ugly wraps */
+  .product-badges-rating-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 6px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .product-badges-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .product-badge-stock,
+  .product-badge-swiss {
+    font-size: 10.5px !important;
+    padding: 3px 8px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .product-rating-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 3px !important;
     font-size: 11px !important;
-    padding: 3px 9px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .product-rating-group span:first-child {
+    font-size: 10px !important;
   }
 
   /* ORDER 2 — Gallery (photo/video bento) */
