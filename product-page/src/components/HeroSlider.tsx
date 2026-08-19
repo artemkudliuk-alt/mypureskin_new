@@ -68,13 +68,15 @@ export const HeroSlider: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'flex-end',
           textAlign: 'center',
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          height: '100%',
+          padding: 'calc(88px + 2rem) 2rem 3.5rem 2rem'
         }}
       >
         {/* Title directly above the button */}
-        <div className="hero-fade-layer is-active hero-title-wrapper" style={{ marginBottom: '1.75rem' }}>
+        <div className="hero-fade-layer is-active hero-title-wrapper" style={{ marginBottom: '1.25rem' }}>
           <h1
             className="font-serif hero-single-title"
             style={{
