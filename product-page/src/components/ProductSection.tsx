@@ -36,11 +36,21 @@ const GALLERY_ITEMS = [
 
 const ACCORDION_TABS = [
   {
+    id: 'actives',
+    title: 'Ключові активи та клітинний детокс (CoQ10 + Bioperine)',
+    items: [
+      'Клітинна енергія: терапевтична доза CoQ10 (100 мг) для захисту мітохондрій та активації клітинного дихання',
+      'Антиглікаційний захист: силімарин (розторопша) та екстракт розмарину захищають печінку та клітини від оксидативного стресу',
+      'Максимальна біодоступність: Bioperine (піперин) посилює засвоєння колагену та активів на 30–60%',
+      'Повноцінна пептидна база: 5000 мг морського колагену (<2 кДа) + 120 мг гіалуронової кислоти, вітаміни C, E та SOD'
+    ]
+  },
+  {
     id: 'nutrition',
     title: 'Харчова та енергетична цінність',
     items: [
       'Енергетична цінність — 25 ккал (на 1 стік 6,5 г)',
-      'Білки (гідролізований білок) — 5,42 г',
+      'Білки (гідролізований морський колаген) — 5,42 г',
       'Вуглеводи — 0,65 г (з них цукри — 0,07 г)',
       'Жири — 0,14 г (з них насичені — 0,02 г)',
       'Харчова клітковина — 0,03 г, Сіль — 0,02 г'
@@ -51,17 +61,17 @@ const ACCORDION_TABS = [
     title: 'Клінічні результати (28-90 днів)',
     items: [
       '82,5% — значне зволоження та зменшення глибини зморшок',
-      '86% — покращення пружності та сяйва шкіри',
+      '86% — покращення пружності, еластичності та сяйва шкіри',
       '75% — зміцнення волосся, зменшення ламкості нігтів',
       '87,5% — зниження оксидативного стресу та підтримка суглобів'
     ]
   },
   {
     id: 'standards',
-    title: 'Швейцарська сертифікація та якість',
+    title: 'Швейцарська сертифікація та якість (GMP Лозанна)',
     items: [
       '100% виготовлено в Швейцарії (GMP Лозанна, ISO 22000)',
-      'Без цукру, стевії, глютену, консервантів та ГМО',
+      'Без цукру, стевії, глютену, барвників, консервантів та ГМО',
       'Сертифікований халяльний та кошерний морський колаген'
     ]
   }
@@ -417,28 +427,32 @@ export const ProductSection: React.FC = () => {
           </div>
 
           {/* ── 2. SUBTITLE & KEY BENEFITS (ORDER 3 on Mobile) ── */}
-          <div className="product-desc-block" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+          <div className="product-desc-block" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <p
               style={{
                 fontSize: '13.5px',
                 lineHeight: 1.5,
-                color: '#52525b',
-                margin: 0
+                color: '#3f3f46',
+                margin: 0,
+                fontWeight: 500
               }}
             >
-              100% швейцарська натуральна формула потрійного відновлення: нейтралізує глікацію, підтримує мітохондріальну енергію та захищає колагенову матрицю.
+              Інтенсивний преміальний курс клітинної регенерації та захисту для вікової шкіри (40–60+) з вираженими ознаками фотостаріння, втоми та оксидативного стресу.
             </p>
 
             {/* Key Benefits Pills */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '2px' }}>
-              <span style={{ backgroundColor: '#f4f4f5', color: '#3f3f46', fontSize: '11px', fontWeight: 600, padding: '3px 9px', borderRadius: '12px' }}>
-                ✦ 5000 мг морських пептидів &lt;2 кДа
+              <span style={{ backgroundColor: 'rgba(253, 186, 116, 0.15)', color: '#c2410c', border: '1px solid rgba(253, 186, 116, 0.4)', fontSize: '11px', fontWeight: 700, padding: '3px 9px', borderRadius: '12px' }}>
+                ✦ 5000 мг морського колагену
               </span>
-              <span style={{ backgroundColor: '#f4f4f5', color: '#3f3f46', fontSize: '11px', fontWeight: 600, padding: '3px 9px', borderRadius: '12px' }}>
-                ✦ Екстракт розмарину & силімарин
+              <span style={{ backgroundColor: '#f4f4f5', color: '#18181b', fontSize: '11px', fontWeight: 600, padding: '3px 9px', borderRadius: '12px' }}>
+                ✦ CoQ10 (100 мг) — енергія клітин
               </span>
-              <span style={{ backgroundColor: '#f4f4f5', color: '#3f3f46', fontSize: '11px', fontWeight: 600, padding: '3px 9px', borderRadius: '12px' }}>
-                ✦ Коензим Q10 + SOD
+              <span style={{ backgroundColor: '#f4f4f5', color: '#18181b', fontSize: '11px', fontWeight: 600, padding: '3px 9px', borderRadius: '12px' }}>
+                ✦ Розторопша & розмарин — детокс
+              </span>
+              <span style={{ backgroundColor: '#f4f4f5', color: '#18181b', fontSize: '11px', fontWeight: 600, padding: '3px 9px', borderRadius: '12px' }}>
+                ✦ Bioperine — максимальне засвоєння
               </span>
             </div>
           </div>

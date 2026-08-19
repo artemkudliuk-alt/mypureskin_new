@@ -36,6 +36,8 @@ interface RichProduct {
   image: string; // Original Studio Box Photo (/1.jpg - /4.jpg) - 100% Crisp & High-Res
   activeImage: string; // Active K-Beauty Model Photo (/active_lift_kbeauty.jpg - /active_contour_kbeauty.jpg)
   bullets: string[];
+  hoverBenefit: string;
+  hoverDescription: string;
 }
 
 const PRODUCTS: RichProduct[] = [
@@ -44,7 +46,7 @@ const PRODUCTS: RichProduct[] = [
     number: '01',
     name: 'MyCollagenLift',
     shortName: 'LIFT',
-    boldHeadline: 'СЯЙВО ТА ЛІФТИНГ',
+    boldHeadline: 'СЯЙВО ТА ЛІФТИНГ (30+)',
     flavor: 'Смак стиглої малини',
     price: '7 900 ₴',
     rating: 5.0,
@@ -52,17 +54,19 @@ const PRODUCTS: RichProduct[] = [
     image: '/1.jpg',
     activeImage: '/active_lift_kbeauty.jpg',
     bullets: [
-      '5000 мг швейцарського колагену',
-      'Глибоке зволоження та ліфтинг',
-      'Клінічно доведений результат'
-    ]
+      'Базовий anti-age (30+) для щільності та ліфтингу',
+      '5000 мг морського колагену + гіалуронова к-та',
+      'Рослинні цераміди Ceramosides + Holimel (SOD)'
+    ],
+    hoverBenefit: '5000 мг колагену • Ceramosides • Holimel',
+    hoverDescription: 'Потужний курс для відновлення захисного бар’єру шкіри, ліфтингу та захисту від втрати пружності.'
   },
   {
     id: 'glow',
     number: '02',
     name: 'MyCollagenGlow',
     shortName: 'GLOW',
-    boldHeadline: 'ЖИВЛЕННЯ ТА БЛЕСК',
+    boldHeadline: 'ШКІРА, ВОЛОССЯ ТА НІГТІ',
     flavor: 'Ніжний персик та ваніль',
     price: '7 500 ₴',
     rating: 5.0,
@@ -70,17 +74,19 @@ const PRODUCTS: RichProduct[] = [
     image: '/2.jpg',
     activeImage: '/active_glow_kbeauty.jpg',
     bullets: [
-      'Антиоксидантний захист клітин',
-      'Зміцнення волосся та нігтів',
-      'Рівний тон та сяйво шкіри'
-    ]
+      'Комплекс «шкіра + волосся + нігті»',
+      'Пребіотики GOS — вісь «кишечник–шкіра»',
+      '2500 мг колагену + цинк, біотин та гіалуронова к-та'
+    ],
+    hoverBenefit: 'GOS-пребіотики • 2500 мг колагену • Біотин',
+    hoverDescription: 'Системне відновлення сяйва через мікробіом травлення. Ідеально для чутливого шлунку.'
   },
   {
     id: 'repair',
     number: '03',
     name: 'MyCollagenRepair',
     shortName: 'REPAIR',
-    boldHeadline: 'ПОТРІЙНЕ ВІДНОВЛЕННЯ',
+    boldHeadline: 'КЛІТИННА РЕГЕНЕРАЦІЯ (40–60+)',
     flavor: 'Соковитий цитрус та ягоди',
     price: '8 200 ₴',
     rating: 5.0,
@@ -88,17 +94,19 @@ const PRODUCTS: RichProduct[] = [
     image: '/3.jpg',
     activeImage: '/active_repair_kbeauty.jpg',
     bullets: [
-      'Захист від глікації та старіння',
-      'Детокс печінки та клітин',
-      'Відновлення м’язової матриці'
-    ]
+      'Інтенсивний курс для зрілої шкіри (40–60+)',
+      '5000 мг колагену + CoQ10 (100 мг) для мітохондрій',
+      'Розторопша (силімарин) + розмарин + Bioperine'
+    ],
+    hoverBenefit: 'CoQ10 (100 мг) • 5000 мг колагену • Bioperine',
+    hoverDescription: 'Захист від глікації та фотостаріння, клітинна енергія та максимальне засвоєння з піперином.'
   },
   {
     id: 'contour',
     number: '04',
     name: 'MyBodyContour',
     shortName: 'BODY',
-    boldHeadline: 'ДЕТОКС ТА ТОNUS',
+    boldHeadline: 'ДРЕНАЖ ТА ТОНУС ТІЛА',
     flavor: 'Освіжаючий зелений чай',
     price: '8 500 ₴',
     rating: 4.9,
@@ -106,10 +114,12 @@ const PRODUCTS: RichProduct[] = [
     image: '/4.jpg',
     activeImage: '/active_contour_kbeauty.jpg',
     bullets: [
-      'Прискорення спалювання жирів',
-      'Лімфодренажний ефект',
-      'Підтяжка та тонус контурів'
-    ]
+      'Спеціалізована формула для контурів тіла',
+      'Запатентований комплекс Dimpless (SOD) від целюліту',
+      'Ензим ліпаза + зелений чай, гуарана та готу кола'
+    ],
+    hoverBenefit: 'Dimpless (SOD) • Ензим ліпаза • Гуарана',
+    hoverDescription: 'Антицелюлітний дренажний ефект, стимуляція ліполізу та метаболічна підтримка фігури.'
   }
 ];
 
@@ -451,17 +461,39 @@ export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNa
                       {/* Bold headline */}
                       <p
                         style={{
-                          margin: '5px 0 8px 0',
+                          margin: '4px 0 4px 0',
                           fontSize: '11px',
                           fontWeight: 700,
                           color: '#18181b',
-                          lineHeight: 1.3,
+                          lineHeight: 1.25,
                           letterSpacing: '0.02em',
                           textTransform: 'uppercase'
                         }}
                       >
                         {prod.boldHeadline}
                       </p>
+
+                      {/* Key Benefit + Differentiator on Hover */}
+                      <div
+                        className="product-card-hover-desc"
+                        style={{
+                          backgroundColor: 'rgba(0, 0, 0, 0.03)',
+                          borderRadius: '10px',
+                          padding: '6px 8px',
+                          margin: '2px 0 6px 0',
+                          border: '1px solid rgba(0, 0, 0, 0.04)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '2px'
+                        }}
+                      >
+                        <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#090909', lineHeight: 1.2 }}>
+                          ✦ {prod.hoverBenefit}
+                        </span>
+                        <span style={{ fontSize: '9.5px', color: '#52525b', lineHeight: 1.3, fontWeight: 500 }}>
+                          {prod.hoverDescription}
+                        </span>
+                      </div>
 
                       {/* CTA Button */}
                       <button
@@ -476,7 +508,7 @@ export const ProductLineupSection: React.FC<ProductLineupSectionProps> = ({ onNa
                           backgroundColor: prod.accentColor,
                           color: '#ffffff',
                           borderRadius: '20px',
-                          padding: '9px 12px',
+                          padding: '8px 12px',
                           fontSize: '11px',
                           fontWeight: 700,
                           letterSpacing: '0.03em',
