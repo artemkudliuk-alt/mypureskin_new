@@ -97,8 +97,8 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateHome, currentRoute = '
         {/* Right Nav Links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '3.5rem' }} className="nav-desktop">
           <a
-            href="#needs-filter"
-            onClick={(e) => handleNav(e, 'needs-filter')}
+            href="#professionals"
+            onClick={(e) => handleNav(e, 'professionals')}
             style={{
               textDecoration: 'none',
               color: '#000000',
@@ -108,7 +108,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateHome, currentRoute = '
               transition: 'color 0.2s ease'
             }}
           >
-            Підбір формули
+            Професіоналам
           </a>
 
           <a
@@ -203,14 +203,14 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateHome, currentRoute = '
             Про MyPureSkin
           </a>
           <a
-            href="#needs-filter"
+            href="#professionals"
             onClick={(e) => {
               setIsMobileOpen(false);
-              handleNav(e, 'needs-filter');
+              handleNav(e, 'professionals');
             }}
             style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}
           >
-            Підбір формули
+            Професіоналам
           </a>
           <a href="tel:+380937205277" style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Phone size={22} /> Допомога
