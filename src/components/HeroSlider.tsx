@@ -126,7 +126,7 @@ export const HeroSlider: React.FC = () => {
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
             </div>
-            <div>
+            <div className="feature-text-block">
               <div className="feature-title">4.7/5 Оцінка</div>
               <div className="feature-desc">96% задоволених</div>
             </div>
@@ -140,7 +140,7 @@ export const HeroSlider: React.FC = () => {
                 <line x1="8" y1="12" x2="16" y2="12" />
               </svg>
             </div>
-            <div>
+            <div className="feature-text-block">
               <div className="feature-title">Swiss Made</div>
               <div className="feature-desc">100% Швейцарія</div>
             </div>
@@ -153,7 +153,7 @@ export const HeroSlider: React.FC = () => {
                 <polyline points="9 12 11 14 15 10" />
               </svg>
             </div>
-            <div>
+            <div className="feature-text-block">
               <div className="feature-title">Клінічно</div>
               <div className="feature-desc">Підтверджено</div>
             </div>
@@ -166,7 +166,7 @@ export const HeroSlider: React.FC = () => {
                 <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
               </svg>
             </div>
-            <div>
+            <div className="feature-text-block">
               <div className="feature-title">Науковий</div>
               <div className="feature-desc">Дерматопідхід</div>
             </div>
