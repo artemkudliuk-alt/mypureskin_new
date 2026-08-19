@@ -727,6 +727,7 @@ svg, img {
   padding: 2rem 2rem;
   box-sizing: border-box;
   z-index: 5;
+  transform: translateY(100px);
 }
 
 .hero-cta-btn:hover {
@@ -749,13 +750,13 @@ svg, img {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: rgba(22, 22, 28, 0.45);
+  background: rgba(30, 30, 38, 0.38);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   padding: 9px 18px;
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
   white-space: nowrap;
   flex-shrink: 0;
   box-sizing: border-box;
@@ -764,8 +765,8 @@ svg, img {
 }
 
 .feature-line-item:hover {
-  background: rgba(28, 28, 36, 0.65);
-  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(40, 40, 50, 0.55);
+  border-color: rgba(255, 255, 255, 0.75);
   transform: translateY(-2px);
 }
 
@@ -777,8 +778,8 @@ svg, img {
   height: 26px;
   min-width: 26px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   color: #ffffff;
   flex-shrink: 0;
@@ -872,6 +873,7 @@ svg, img {
     align-items: center !important;
     text-align: center !important;
     z-index: 10 !important;
+    transform: none !important;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 60%, transparent 100%) !important;
   }
 
@@ -916,12 +918,12 @@ svg, img {
   }
 
   .feature-line-item {
-    background: rgba(22, 22, 28, 0.45) !important;
+    background: rgba(30, 30, 38, 0.38) !important;
     backdrop-filter: blur(14px) !important;
     -webkit-backdrop-filter: blur(14px) !important;
     padding: 7px 10px !important;
     border-radius: 14px !important;
-    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border: 1px solid rgba(255, 255, 255, 0.52) !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24) !important;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
     gap: 7px !important;
@@ -936,7 +938,8 @@ svg, img {
     width: 20px !important;
     height: 20px !important;
     min-width: 20px !important;
-    background: rgba(255, 255, 255, 0.2) !important;
+    background: rgba(255, 255, 255, 0.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.55) !important;
     border-radius: 50% !important;
     display: flex !important;
     align-items: center !important;
