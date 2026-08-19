@@ -61,8 +61,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateHome, currentRoute = '
             Лінійка продуктів
           </a>
           <a
-            href="#about"
-            onClick={(e) => handleNav(e, 'about')}
+            href="https://mypureskin.in.ua/sciense"
             style={{
               textDecoration: 'none',
               color: '#000000',
@@ -97,8 +96,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateHome, currentRoute = '
         {/* Right Nav Links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '3.5rem' }} className="nav-desktop">
           <a
-            href="#professionals"
-            onClick={(e) => handleNav(e, 'professionals')}
+            href="https://mypureskin.in.ua/professionals"
             style={{
               textDecoration: 'none',
               color: '#000000',
@@ -193,21 +191,15 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateHome, currentRoute = '
             Лінійка продуктів
           </a>
           <a
-            href="#about"
-            onClick={(e) => {
-              setIsMobileOpen(false);
-              handleNav(e, 'about');
-            }}
+            href="https://mypureskin.in.ua/sciense"
+            onClick={() => setIsMobileOpen(false)}
             style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}
           >
             Про MyPureSkin
           </a>
           <a
-            href="#professionals"
-            onClick={(e) => {
-              setIsMobileOpen(false);
-              handleNav(e, 'professionals');
-            }}
+            href="https://mypureskin.in.ua/professionals"
+            onClick={() => setIsMobileOpen(false)}
             style={{ textDecoration: 'none', color: '#000000', fontSize: '1.25rem', fontWeight: 600 }}
           >
             Професіоналам
